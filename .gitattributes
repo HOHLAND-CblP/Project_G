@@ -1,5 +1,7 @@
 * text=auto
 
+# Lolita - perdolita
+
 # Unity files
 *.meta -text merge=unityyamlmerge diff
 *.unity -text merge=unityyamlmerge diff
