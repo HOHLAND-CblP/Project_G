@@ -1,0 +1,39 @@
+<dialogue>
+	<node>
+		<face>2</face>
+		<name>Дневальный</name>
+		<text>Семен!</text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>А, что?</text>
+		<nextNode>2</nextNode>
+	</node>
+	<node>
+		<face>2</face>
+		<name>Дневальный</name>
+		<text>Дверь видишь?</text>
+		<nextNode>3</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Ну.</text>
+		<nextNode>4</nextNode>
+	</node>
+	<node>
+		<face>2</face>
+		<name>Дневальный</name>
+		<text>Загну, давай туда, товарищ Генерал уже заждался, а и постучи там у входа, для приличия.</text>
+		<nextNode>5</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Как скажешь.</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

@@ -1,0 +1,57 @@
+<dialogue>
+	<node>
+		<face>14</face>
+		<name>Косой</name>
+		<text>Етить ты шустрый, ну ничего, мы догоним. Кх-кх-кх.</text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>15</face>
+		<name>Бандит</name>
+		<text>Косой!</text>
+		<nextNode>2</nextNode>
+	</node>
+	<node>
+		<face>14</face>
+		<name>Косой</name>
+		<text>Че?</text>
+		<nextNode>3</nextNode>
+	</node>
+	<node>
+		<face>15</face>
+		<name>Бандит</name>
+		<text>Это же эти, как их, лиан епт.</text>
+		<nextNode>4</nextNode>
+	</node>
+	<node>
+		<face>14</face>
+		<name>Косой</name>
+		<text>Мля, и правда. А что их так много?</text>
+		<nextNode>5</nextNode>
+	</node>
+	<node>
+		<face>15</face>
+		<name>Бандит</name>
+		<text>Косой, босс говорил держаться подальше от них, помнишь?</text>
+		<nextNode>6</nextNode>
+	</node>
+	<node>
+		<face>14</face>
+		<name>Косой</name>
+		<text>Да, затниксь. Э, столичный, а ну давай сюда.</text>
+		<nextNode>7</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Погоди-те. Вы чего, боитесь что ли этого плюща?</text>
+		<nextNode>8</nextNode>
+	</node>
+	<node>
+		<face>14</face>
+		<name>Косой</name>
+		<text>Идиот, иди сюда, поверь лучше мы тебе что-нибудь сломаем, чем эта хрень...</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

@@ -1,0 +1,9 @@
+<dialogue>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Ох, да что ж так болит. Сотрясение. Наверное, еще и переутомление. Надо домой, таблеток выпить, а то совсем кроет.</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

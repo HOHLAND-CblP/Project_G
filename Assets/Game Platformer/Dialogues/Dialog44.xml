@@ -1,0 +1,149 @@
+<dialogue>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Так, я приехал, где же скидки?</text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>4</face>
+		<name>Азиат</name>
+		<text>Погоди, Семен.</text>
+		<nextNode>2</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Что?</text>
+		<nextNode>3</nextNode>
+	</node>
+	<node>
+		<face>4</face>
+		<name>Азиат</name>
+		<text>Семен, ты же знаешь, как живется плохо продавцу в этом городе.</text>
+		<nextNode>4</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Ну, если честно, нет. Вам так и не скажешь, что плохо живется. А в чем дело, собственно?</text>
+		<nextNode>5</nextNode>
+	</node>
+	<node>
+		<face>4</face>
+		<name>Азиат</name>
+		<text>Эх, Сема, Сема. Генерал жмет меня по полной. Не знаю, чем я заслужил его немилость, может, потому что вижу его нутро гнилое и о делах его грязных знаю.</text>
+		<nextNode>6</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>И что же это за дела такие, мне прям интересно?</text>
+		<nextNode>7</nextNode>
+	</node>
+	<node>
+		<face>4</face>
+		<name>Азиат</name>
+		<text>Ох, Семен, многого тебе знать не надо, но знай главное. Генерал власти хочет непомерной. Замечал, как он на людей смотрит. То-то. Все они будто лишь подстилки для него. А самое страшное знаешь что?</text>
+		<nextNode>8</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Ну?</text>
+		<nextNode>9</nextNode>
+	</node>
+	<node>
+		<face>4</face>
+		<name>Азиат</name>
+		<text>Хочет, чтоб все ему подчинялись и я в том числе. И долю с меня жмет, да такую, что я ели перебиваюсь. А я ведь все для вас, для людей стараюсь. В общем недавно он машины мои продовольственные перекрывать начал, излишне досматривать. Душит, гад, понимаешь?</text>
+		<nextNode>10</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Так у нас же особый объект? Вот и делает так, наверное.</text>
+		<nextNode>11</nextNode>
+	</node>
+	<node>
+		<face>4</face>
+		<name>Азиат</name>
+		<text>Эх. А я тебе скажу прямо, Семен. Он хочет просто обанкротить меня, а затем купить за бесценок, все мое, честно нажитое. </text>
+		<nextNode>12</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Мда, дела.</text>
+		<nextNode>13</nextNode>
+	</node>
+	<node>
+		<face>4</face>
+		<name>Азиат</name>
+		<text>Поэтому, Семен, прошу у тебя помощи. Ты ведь работаешь диспетчером, поезда доставляешь. </text>
+		<nextNode>14</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Допустим.</text>
+		<nextNode>15</nextNode>
+	</node>
+	<node>
+		<face>4</face>
+		<name>Азиат</name>
+		<text>Помоги мне. Раз Генерал машины мои не пускает, подсоби поездами. Поезда никто, кроме тебя останавливать не вправе. Всего лишь один маленький поезд.</text>
+		<nextNode>16</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Гхм. Извините, господин Ли, но это все же объект стратегический. Я не вправе, это наказуемо.</text>
+		<nextNode>17</nextNode>
+	</node>
+	<node>
+		<face>4</face>
+		<name>Азиат</name>
+		<text>Уверен?</text>
+		<nextNode>18</nextNode>
+	</node>
+	<node>
+		<face></face>
+		<name></name>
+		<text></text>
+		<answers>
+			<answer tonode="19">
+			<text>Дайте время, я подумаю.</text>
+			</answer>
+			<answer tonode="20">
+			<text>Уверен, не могу я.</text>
+			</answer>
+		</answers>
+	</node>
+	<node>
+		<face>4</face>
+		<name>Азиат</name>
+		<text>Хорошо, а пока купи товар, что я для тебя приберег. </text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+	<node>
+		<face>4</face>
+		<name>Азиат</name>
+		<text>Очень жаль, очень. Я же к тебе со всей душой.</text>
+		<nextNode>21</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Так можно мне закупиться?</text>
+		<nextNode>22</nextNode>
+	</node>
+	<node>
+		<face>4</face>
+		<name>Азиат</name>
+		<text>Ах да, конечно, вот.</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

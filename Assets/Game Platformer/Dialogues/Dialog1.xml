@@ -1,0 +1,9 @@
+<dialogue>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Ууу-ааа. Эх. Конечно, не моя кровать, но вроде терпимо. По крайней мере выспался. Надо бы поесть, что там у меня в холодильнике?</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

@@ -1,0 +1,123 @@
+<dialogue>
+	<node>
+		<face>11</face>
+		<name>Солдат 1</name>
+		<text>Ну и что ты думаешь?</text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>12</face>
+		<name>Солдат 2</name>
+		<text>Да че думать, я тебе говорю, звери дикие.</text>
+		<nextNode>2</nextNode>
+	</node>
+	<node>
+		<face>11</face>
+		<name>Солдат 1</name>
+		<text>Дикие?</text>
+		<nextNode>3</nextNode>
+	</node>
+	<node>
+		<face>12</face>
+		<name>Солдат 2</name>
+		<text>Ну да, мне рассказывали, значится, ходили охотники в чащу нашу.</text>
+		<nextNode>4</nextNode>
+	</node>
+	<node>
+		<face>11</face>
+		<name>Солдат 1</name>
+		<text>Ну</text>
+		<nextNode>5</nextNode>
+	</node>
+	<node>
+		<face>12</face>
+		<name>Солдат 2</name>
+		<text>Ну и вот, говорят, видели кабана, значится. Ну издалека, но говорят видели четко.</text>
+		<nextNode>6</nextNode>
+	</node>
+	<node>
+		<face>11</face>
+		<name>Солдат 1</name>
+		<text>И кабан такие следы оставил. Верю.</text>
+		<nextNode>7</nextNode>
+	</node>
+	<node>
+		<face>12</face>
+		<name>Солдат 2</name>
+		<text>Да вот нет. Говорят, что хоть он и поодаль был, но в прицел все же рассмотрели охотнички на нем странные наросты, костяные будто бы.</text>
+		<nextNode>8</nextNode>
+	</node>
+	<node>
+		<face>11</face>
+		<name>Солдат 1</name>
+		<text>Костяные?</text>
+		<nextNode>9</nextNode>
+	</node>
+	<node>
+		<face>12</face>
+		<name>Солдат 2</name>
+		<text>Да. Значится, у него морда ими облеплена, как у носорога или у кого там. И он этими наростами какие-то растения кромсал, а потом…</text>
+		<nextNode>10</nextNode>
+	</node>
+	<node>
+		<face>11</face>
+		<name>Солдат 1</name>
+		<text>Ты вообще слышишь себя? Какие на хрен наросты? </text>
+		<nextNode>11</nextNode>
+	</node>
+	<node>
+		<face>12</face>
+		<name>Солдат 2</name>
+		<text>Да мне бабка рассказывала, а ей подружка ее. Ее мужик и ходил на охоту, да кабана того видел…</text>
+		<nextNode>12</nextNode>
+	</node>
+	<node>
+		<face>11</face>
+		<name>Солдат 1</name>
+		<text>С кем служить приходится. Ты бредни свои заглуши! Генерал точно дал указания, об инциденте не распространяться. Чушь не нести.</text>
+		<nextNode>13</nextNode>
+	</node>
+	<node>
+		<face>12</face>
+		<name>Солдат 2</name>
+		<text>Так я и не несу.</text>
+		<nextNode>14</nextNode>
+	</node>
+	<node>
+		<face>11</face>
+		<name>Солдат 1</name>
+		<text>Ты видимо совсем тупой. Поезд это был, сбил и все.</text>
+		<nextNode>15</nextNode>
+	</node>
+	<node>
+		<face>12</face>
+		<name>Солдат 2</name>
+		<text>Да? Значится, такие раны от поезда? И как она под него попала, под такую махину?</text>
+		<nextNode>16</nextNode>
+	</node>
+	<node>
+		<face>11</face>
+		<name>Солдат 1</name>
+		<text>Как-нибудь попала, в наушниках шла или вообще, под чем-нибудь. У нас сейчас это что-нибудь достать легко можно.</text>
+		<nextNode>17</nextNode>
+	</node>
+	<node>
+		<face>12</face>
+		<name>Солдат 2</name>
+		<text>А раны? Раны рваные, точечные же. Прямо как у нашего предыдущего дисп…</text>
+		<nextNode>18</nextNode>
+	</node>
+	<node>
+		<face>11</face>
+		<name>Солдат 1</name>
+		<text>Да заткнись ты уже, голова болит уже от твоей тупизны.</text>
+		<nextNode>19</nextNode>
+	</node>
+	<node>
+		<face>12</face>
+		<name>Солдат 2</name>
+		<text>Ну и пожалуйста.</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

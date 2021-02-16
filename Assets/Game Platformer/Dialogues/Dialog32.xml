@@ -1,0 +1,46 @@
+<dialogue>
+	<node>
+		<face>7</face>
+		<name>Генерал</name>
+		<text>Ну вот. Теперь она твоя, ёхана. Пункт о неразглашении информации был в договоре, но напоминаю: не болтай. Ясно?</text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Более чем. </text>
+		<nextNode>2</nextNode>
+	</node>
+	<node>
+		<face>7</face>
+		<name>Генерал</name>
+		<text>После каждого рабочего дня папку заносишь обратно и кладешь в сейф. В начале дня, соответственно, берешь. </text>
+		<nextNode>3</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>А если Вас не будет?</text>
+		<nextNode>4</nextNode>
+	</node>
+	<node>
+		<face>7</face>
+		<name>Генерал</name>
+		<text>Можешь заходить в любое время. Ты парень нормальный, ёхана, я тебе доверяю. Дневальному я сообщу, что тебе проход свободен.</text>
+		<nextNode>5</nextNode>
+	</node>
+	<node>
+		<face></face>
+		<name></name>
+		<text></text>
+		<answers>
+			<answer tonode="0">
+			<text>Осмотреть папку</text>
+			</answer>
+			<answer tonode="0">
+			<text>Уйти</text>
+			</answer>
+		</answers>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

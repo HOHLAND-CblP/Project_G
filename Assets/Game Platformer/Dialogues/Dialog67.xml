@@ -1,0 +1,9 @@
+<dialogue>	
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Вот это другое дело, сейчас полегчает. А что это я опять сам с собой разговариваю, аха-ха? Не, я в дурку не хочу. Надо спать идти. Спать, отдохнуть.</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

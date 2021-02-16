@@ -1,0 +1,37 @@
+<dialogue>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Да, очень интересно. Но я все же пойду.</text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>9</face>
+		<name>Журналист</name>
+		<text>Ну как хочешь, но, если что, держи. Это мой номер. Если что пиши, звони или как его. Ну, сконтачимся в общем.</text>
+		<answers>
+			<answer tonode="2">
+			<text>Взять номер.</text>
+			</answer>
+		</answers>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Обязательно.</text>
+		<nextNode>3</nextNode>
+	</node>
+	<node>
+		<face>9</face>
+		<name>Журналист</name>
+		<text>До встречи, друг.</text>
+		<nextNode>4</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Ага, и тебе не хворать.</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

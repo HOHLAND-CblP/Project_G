@@ -1,0 +1,9 @@
+<dialogue>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Ничего, ничего, нормалек, прорвемся. Деньги маме перешлем, сами подлечимся, где этот шкаф с таблетками? Надо бахнуть аспирину.</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

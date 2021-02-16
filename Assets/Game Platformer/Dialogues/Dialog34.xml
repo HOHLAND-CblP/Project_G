@@ -1,0 +1,51 @@
+<dialogue>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Вы кто такой?</text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>8</face>
+		<name>Неизвестный</name>
+		<text>Я то, я кто надо, а во ты кто такой, мля?</text>
+		<nextNode>2</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Я Семен, диспетчер. Что Вы здесь делаете, вход ведь только диспетчерам?</text>
+		<nextNode>3</nextNode>
+	</node>
+	<node>
+		<face>8</face>
+		<name>Неизвестный</name>
+		<text>Так, емана, я тоже диспетчер. Слышь, это ты тот Семен да? Новенький?</text>
+		<nextNode>4</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Ну, наверное. Вы диспетчер?</text>
+		<nextNode>5</nextNode>
+	</node>
+	<node>
+		<face>13</face>
+		<name>Коля</name>
+		<text>А-а-а. Здарова, здарова. Знакомимся, я Коля. Моя смена следующая так-то, балбес.</text>
+		<nextNode>6</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Ты диспетчер? Я тебя не видел раньше.</text>
+		<nextNode>7</nextNode>
+	</node>
+	<node>
+		<face>13</face>
+		<name>Коля</name>
+		<text>Ну да. Не видел, ну смотреть надо лучше.</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

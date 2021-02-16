@@ -1,0 +1,15 @@
+<dialogue>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Коля, что за херня?</text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>13</face>
+		<name>Коля</name>
+		<text>Не знаю. Не кипишуй, поехали давай. Сейчас возьму только пивка для постового.</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

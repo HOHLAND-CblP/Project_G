@@ -1,0 +1,22 @@
+<dialogue>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Коля, блин. </text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>2</face>
+		<name>Дневальный</name>
+		<text>Нормальный парень, чего ты?</text>
+		<nextNode>2</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Да-да. Не спорю. Ладно, надо занести папку в кабинет Генерала.</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>
+

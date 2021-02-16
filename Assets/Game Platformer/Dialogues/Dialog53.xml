@@ -1,0 +1,9 @@
+<dialogue>
+	<node>
+		<face>8</face>
+		<name>Неизвестный</name>
+		<text>Так, ладно. Сейчас. </text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

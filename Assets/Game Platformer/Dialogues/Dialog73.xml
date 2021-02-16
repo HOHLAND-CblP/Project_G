@@ -1,0 +1,21 @@
+<dialogue>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Отлично, что за хрень? Как это так, помочь не могут. Надо было слушать маму, идти в мед. А то наговорят своих диагнозов, а потом сиди и думай.</text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>20</face>
+		<name>Голос</name>
+		<text>Тебе нужно идти к человеку, о котором рассказывал журналист. </text>
+		<nextNode>2</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Допустим, стоп, что? А, голова. Так, к черту, пойду на работу. Может, уже не будет таких сильных бед с башкой. </text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

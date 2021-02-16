@@ -1,0 +1,69 @@
+<dialogue>
+	<node>
+		<face>3</face>
+		<name>Инспектор</name>
+		<text>Тем не менее, товарищ генерал, госинспекция уже в пути. Вам стоит подготовиться к…</text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>7</face>
+		<name>Генерал</name>
+		<text>Знаю я, помолчи. </text>
+		<nextNode>2</nextNode>
+	</node>
+	<node>
+		<face>3</face>
+		<name>Инспектор</name>
+		<text>Оу, Семен, что ты здесь делаешь? </text>
+		<nextNode>4</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Доброе утро. Как что? На работу пришел.</text>
+		<nextNode>5</nextNode>
+	</node>
+	<node>
+		<face>3</face>
+		<name>Инспектор</name>
+		<text>Ты выглядишь… довольно хорошо, ты не чувствуешь недомоганий?</text>
+		<nextNode>6</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Нет, мне уже гораздо лучше.</text>
+		<nextNode>7</nextNode>
+	</node>
+	<node>
+		<face>3</face>
+		<name>Инспектор</name>
+		<text>Ты уверен в этом?</text>
+		<nextNode>8</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Абсолютно.</text>
+		<nextNode>9</nextNode>
+	</node>
+	<node>
+		<face>7</face>
+		<name>Генерал</name>
+		<text>Так, может хватит расспрашивать Сему? Его работа ждет.</text>
+		<nextNode>10</nextNode>
+	</node>
+	<node>
+		<face>3</face>
+		<name>Инспектор</name>
+		<text>Конечно, товарищ Генерал, конечно. Чтож, Семен, молодец, ты только оклемался и уже на работе, пример для подражания. Позволь пожать тебе руку.</text>
+		<nextNode>11</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>О, спасибо, я польщен.</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

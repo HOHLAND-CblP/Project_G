@@ -1,0 +1,33 @@
+<dialogue>
+<node>
+		<face>1</face>
+		<name>Солдат</name>
+		<text>Товарищ Генерал, разрешите обратиться?</text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>7</face>
+		<name>Генерал</name>
+		<text>Какого хрена влез, что надо, говори?</text>
+		<nextNode>2</nextNode>
+	</node>
+	<node>
+		<face>1</face>
+		<name>Солдат</name>
+		<text>Опять собрание горожан на плацу, больше их, чем в прошлый раз. Вас просят.</text>
+		<nextNode>3</nextNode>
+	</node>
+	<node>
+		<face>7</face>
+		<name>Генерал</name>
+		<text>Фугас мне в глаз, какого им опять надо. Так, ты, Семен, быстро иди на поезда, работа не волк. Все вали, вали.</text>
+		<nextNode>4</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Есть.</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

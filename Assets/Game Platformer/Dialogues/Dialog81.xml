@@ -1,0 +1,27 @@
+<dialogue>
+	<node>
+		<face>3</face>
+		<name>Инспектор</name>
+		<text>А что это, Семен? Это от уколов?</text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Это, эм, это мне в больнице прокололи, витамины для стимуляции организма. Вот.</text>
+		<nextNode>2</nextNode>
+	</node>
+	<node>
+		<face>3</face>
+		<name>Инспектор</name>
+		<text>Интересной формы. Что ж, я не думаю, что ты меня обманываешь. Ты парень приличный, на наркомана не похож. Ступай, более не буду задерживать. Товарищ Генерал, так вот, по поводу госпроверки, не считаете, что объект охраняется слабо?</text>
+		<nextNode>3</nextNode>
+	</node>
+	<node>
+		<face>7</face>
+		<name>Генерал</name>
+		<text>На данный момент я и так усилил охрану, как мог…</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

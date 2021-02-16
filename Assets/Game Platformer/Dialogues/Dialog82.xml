@@ -1,0 +1,33 @@
+<dialogue>
+	<node>
+		<face>13</face>
+		<name>Коля</name>
+		<text>Ну все, теперь твой рабочий день официально закончен. И что ты будешь делать теперь? </text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Я, ну…</text>
+		<nextNode>2</nextNode>
+	</node>
+	<node>
+		<face>13</face>
+		<name>Коля</name>
+		<text>Да не ломайся ты, додик. Пойдем в бар, пивка попьем. Или ты предпочитаешь сидеть здесь как сыч? Между прочим, я, считай, тебе деньги из воздуха подарил, а то не можешь сходить со мной в бар, тьфу.</text>
+		<nextNode>3</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Ну, ладно, но ненадолго, а то у меня еще домашних дел полно. Ты мне скажи, точно ничего за это не будет?</text>
+		<nextNode>4</nextNode>
+	</node>
+	<node>
+		<face>13</face>
+		<name>Коля</name>
+		<text>Да не ссы ты, я так часто делаю. Погнали уже.</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

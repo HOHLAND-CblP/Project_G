@@ -1,0 +1,21 @@
+<dialogue>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Извините, здравствуйте. Мне нужен постоялец по имени… Док. Какой это номер?</text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>19</face>
+		<name>Горничная</name>
+		<text>Вам в седьмой, прямо по коридору, вторая дверь налево. </text>
+		<nextNode>2</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Спасибо.</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

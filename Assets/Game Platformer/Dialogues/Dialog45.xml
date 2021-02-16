@@ -1,0 +1,21 @@
+<dialogue>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Я пошел, до свидания.</text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>4</face>
+		<name>Азиат</name>
+		<text>Семен, я прошу тебя хорошо подумать над моим предложением. И выбрать правильную сторону.</text>
+		<nextNode>2</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Хорошо. </text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

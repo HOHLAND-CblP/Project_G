@@ -1,0 +1,33 @@
+<dialogue>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Извините, а почему тут не мое имя? Подписана на какого-то другого.</text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>7</face>
+		<name>Генерал</name>
+		<text>Да был раньше диспетчер у нас до тебя. Ты его место сейчас занял.</text>
+		<nextNode>2</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>А что с ним стало?</text>
+		<nextNode>3</nextNode>
+	</node>
+	<node>
+		<face>7</face>
+		<name>Генерал</name>
+		<text>Ох. Мы его… уволили. По состоянию здоровья, ёхана. Не выдержал нагрузки.</text>
+		<nextNode>4</nextNode>
+	</node>
+	<node>
+		<face>7</face>
+		<name>Генерал</name>
+		<text>Чтож, а теперь за работу. Вали давай.</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

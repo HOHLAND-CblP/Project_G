@@ -1,0 +1,63 @@
+<dialogue>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Да что сегодня, всемирный день звонков что ли… Ало, да?</text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>6</face>
+		<name>Иван</name>
+		<text>Семен, добрый день, это Иван.</text>
+		<nextNode>2</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>А, здравствуйте, товарищ капитан.</text>
+		<nextNode>3</nextNode>
+	</node>
+	<node>
+		<face>6</face>
+		<name>Иван</name>
+		<text>Да, да, запишете меня на 18:30… Ало, прости, отвлекся. Семен, я звоню тебе по поводу контракта. Товарищ Генерал давно как прибыл на вокзал, готов подписать. Так что можешь идти подписывать, господин Инспектор ходатайствовал на твой счет, так что все в полном порядке.</text>
+		<nextNode>4</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Хорошо, а куда, идти? Где мне найти товарища Генерала?</text>
+		<nextNode>5</nextNode>
+	</node>
+	<node>
+		<face>6</face>
+		<name>Иван</name>
+		<text>А, ну штаб товарища генерала рядом с твоим кабинетом находится, левее от дневального. Там еще табличка “Кабинет коменданта” сверху висит. Туда тебе.</text>
+		<nextNode>6</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Понял, спасибо.</text>
+		<nextNode>7</nextNode>
+	</node>
+	<node>
+		<face>6</face>
+		<name>Иван</name>
+		<text>А, еще кое-что, Семен, не суди по Генералу сразу. Постарайся, я не знаю, прочувствовать его чтоли.</text>
+		<nextNode>8</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Эм, ладно.</text>
+		<nextNode>9</nextNode>
+	</node>
+	<node>
+		<face>6</face>
+		<name>Иван</name>
+		<text>Ну все, Семка, давай, мне пора тут, хорошей работы, продуктивного дня и что там еще тебе пожелать… да вот на 18:30 пишете, все давай, Семен, пакеда.</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

@@ -1,0 +1,9 @@
+<dialogue>
+	<node>
+		<face>0</face>
+		<name>Семен</name>
+		<text>Фух, очередной день закончен. Зарплата есть. Завтра надо перевести деньги маме. А пока спать.</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>
