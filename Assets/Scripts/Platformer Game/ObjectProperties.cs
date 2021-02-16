@@ -32,7 +32,7 @@ public class ObjectProperties : MonoBehaviour
             }
             else
             {
-                GamePrefs.currentLevel = nextLevels[0];
+                cam.GetComponent<TheMainMainScript>().currentLevel = nextLevels[0];
                 cam.GetComponent<TrackingTheHero>().faded.SetActive(true);
                 GamePrefs.inout = type;
             }
