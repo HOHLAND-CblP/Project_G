@@ -14,9 +14,12 @@ public class TrackingTheHero : MonoBehaviour
 
     private void Start()
     {
-        player.transform.position = new Vector3(player.transform.position.x, GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().groundY);
-        leftV = GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().leftV;
-        rightV = GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().rightV;
+        if (GamePrefs.currentLevel == null)
+        {
+            player.transform.position = new Vector3(player.transform.position.x, GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().groundY);
+            leftV = GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().leftV;
+            rightV = GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().rightV;
+        }
         unfaded.SetActive(true);
     }
 
