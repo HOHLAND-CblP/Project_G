@@ -19978,6 +19978,7 @@ MonoBehaviour:
   left: {fileID: 1138130994}
   right: {fileID: 244998995}
   currentLevelTemp: {fileID: 0}
+  dialogWindow: {fileID: 1692781454}
   animMap: {fileID: 181023084}
   animFridge: {fileID: 1733185792}
   animHealthBag: {fileID: 1514970577}
@@ -32827,7 +32828,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 737be8229b7e8ab4c8f72ee1867b6f10, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7cd1520e072d3894da137db653f61708, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -36753,6 +36754,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d7e3b12884fb1414cbedd01a8871416c, type: 3}
   face: {fileID: 119951528}
   arrow: {fileID: 1488332929}
+  cam: {fileID: 0}
   partipicipants:
   - {fileID: 1259983837}
 --- !u!1 &1700426182
