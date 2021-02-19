@@ -20,9 +20,12 @@ public class PlatformerDialogs : MonoBehaviour
     public int currentNode = 0;
     public Sprite[] faces;
     public Image face;
+    public GameObject arrow, cam;
+    public GameObject[] partipicipants;
 
     private void Start()
     {
+        cam = GameObject.Find("Main Camera");
         answers[0].transform.GetChild(0).GetComponent<Button>().onClick.AddListener(But1);
         answers[1].transform.GetChild(0).GetComponent<Button>().onClick.AddListener(But2);
         answers[2].transform.GetChild(0).GetComponent<Button>().onClick.AddListener(But3);
@@ -35,6 +38,8 @@ public class PlatformerDialogs : MonoBehaviour
         {
             if (dialogue.nodes[currentNode].text == "" && answers.Length!=0)
             {
+                transform.position = DialogPosition(0);
+                arrow.transform.position = Camera.main.WorldToScreenPoint(new Vector3(partipicipants[0].transform.position.x, arrow.transform.position.y, arrow.transform.position.z));
                 waitngAnswer = true;
                 face.sprite = faces[0];
                 nameText.text = "Семен";
@@ -47,6 +52,8 @@ public class PlatformerDialogs : MonoBehaviour
             else
             {
                 line = dialogue.nodes[currentNode].face;
+                transform.position = DialogPosition(System.Convert.ToInt32(line));
+                arrow.transform.position = Camera.main.WorldToScreenPoint(new Vector3(partipicipants[System.Convert.ToInt32(line)].transform.position.x, arrow.transform.position.y));
                 face.sprite = faces[System.Convert.ToInt32(line)];
                 line = dialogue.nodes[currentNode].name;
                 nameText.text = line;
@@ -56,16 +63,23 @@ public class PlatformerDialogs : MonoBehaviour
         }
     }
 
+    Vector3 DialogPosition(int participant)
+    {
+        Vector3 worldPos = new Vector3(partipicipants[participant].transform.position.x, transform.position.y, transform.position.z);
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
+        return screenPos;
+    }
+
     string CutString(string line)
     {
         a = "";
         string[] b = line.Split(new char[] { ' ' }, System.StringSplitOptions.RemoveEmptyEntries);
         words = "";
         int j = 0;
-        if (line.Length > 410)
+        if (line.Length > 171)
         {
             overSpace = true;
-            while (a.Length + b[j].Length < 380)
+            while (a.Length + b[j].Length < 160)
             {
                 a += b[j]+" ";
                 j++;
@@ -137,7 +151,7 @@ public class PlatformerDialogs : MonoBehaviour
                 if (dialogueEnded)
                 {
                     dialogText.text = "";
-                    //GetComponent<TheMainMainScript>().CloseDialog();
+                    cam.GetComponent<TheMainMainScript>().CloseDialog();
                 }
             }
         }

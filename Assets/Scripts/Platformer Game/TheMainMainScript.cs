@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class TheMainMainScript : MonoBehaviour
 {
-    public GameObject fade, levelText, phoneButton, currentLevel, pausePanel, player, darkSide, left, right, currentLevelTemp;
+    public GameObject fade, levelText, phoneButton, currentLevel, pausePanel, player, darkSide, left, right, currentLevelTemp, dialogWindow;
 
     [Header("Animator")]
     public Animator animMap;
@@ -18,6 +18,8 @@ public class TheMainMainScript : MonoBehaviour
     [Header("Inventories")]
     public GameObject fridge;
     public GameObject healthBag;
+    public GameObject fridgeObject;
+    public GameObject healthBagObject;
 
     //public bool rejected = false;
     //public bool cameraTranslate=false;
@@ -41,9 +43,10 @@ public class TheMainMainScript : MonoBehaviour
         if (GamePrefs.currentLevel != null)
             currentLevel = GamePrefs.currentLevel;
         GamePrefs.inDialog = false;
+        StartDialog();
         if (GamePrefs.amountOfFood == 0)
         {
-            GameObject temp = Instantiate(currentLevel.GetComponent<SceneProperties>().fridge.GetComponent<ObjectProperties>().emptyFridgeMessage);
+            GameObject temp = Instantiate(fridgeObject.GetComponent<ObjectProperties>().emptyFridgeMessage);
             temp.transform.SetParent(fridge.transform);
             temp.transform.localScale = new Vector3(1, 1, 1);
         }
@@ -53,7 +56,7 @@ public class TheMainMainScript : MonoBehaviour
             {
                 for (int j = 0; j < GamePrefs.countsOfKindOfFood[i]; j++)
                 {
-                    GameObject temp = Instantiate(currentLevel.GetComponent<SceneProperties>().fridge.GetComponent<ObjectProperties>().itemFridgePref[i]);
+                    GameObject temp = Instantiate(fridgeObject.GetComponent<ObjectProperties>().itemFridgePref[i]);
                     temp.transform.SetParent(fridge.transform);
                     temp.transform.localScale = new Vector3(1, 1, 1);
                 }
@@ -61,7 +64,7 @@ public class TheMainMainScript : MonoBehaviour
         }
         if (GamePrefs.amountOfHealth == 0)
         {
-            GameObject temp = Instantiate(currentLevel.GetComponent<SceneProperties>().healthBag.GetComponent<ObjectProperties>().emptyHealthBagMessage);
+            GameObject temp = Instantiate(healthBagObject.GetComponent<ObjectProperties>().emptyHealthBagMessage);
             temp.transform.SetParent(healthBag.transform);
             temp.transform.localScale = new Vector3(1, 1, 1);
         }
@@ -71,7 +74,7 @@ public class TheMainMainScript : MonoBehaviour
             {
                 for (int j = 0; j < GamePrefs.countsOfKindOfHealth[i]; j++)
                 {
-                    GameObject temp = Instantiate(currentLevel.GetComponent<SceneProperties>().healthBag.GetComponent<ObjectProperties>().itemHealthPref[i]);
+                    GameObject temp = Instantiate(healthBagObject.GetComponent<ObjectProperties>().itemHealthPref[i]);
                     temp.transform.SetParent(healthBag.transform);
                     temp.transform.localScale = new Vector3(1, 1, 1);
                 }
@@ -83,13 +86,13 @@ public class TheMainMainScript : MonoBehaviour
     {
         if (GamePrefs.amountOfFood == 0 && fridge.transform.childCount == 0)
         {
-            GameObject temp = Instantiate(currentLevel.GetComponent<SceneProperties>().fridge.GetComponent<ObjectProperties>().emptyFridgeMessage);
+            GameObject temp = Instantiate(fridgeObject.GetComponent<ObjectProperties>().emptyFridgeMessage);
             temp.transform.SetParent(fridge.transform);
             temp.transform.localScale = new Vector3(1, 1, 1);
         }
         if (GamePrefs.amountOfHealth == 0 && healthBag.transform.childCount == 0)
         {
-            GameObject temp = Instantiate(currentLevel.GetComponent<SceneProperties>().healthBag.GetComponent<ObjectProperties>().emptyHealthBagMessage);
+            GameObject temp = Instantiate(healthBagObject.GetComponent<ObjectProperties>().emptyHealthBagMessage);
             temp.transform.SetParent(healthBag.transform);
             temp.transform.localScale = new Vector3(1, 1, 1);
         }
@@ -308,35 +311,20 @@ public class TheMainMainScript : MonoBehaviour
     //    }
     //}
 
-    //public void StartDialog()
-    //{
-    //    GamePrefs.inDialog = true;
-    //    player.GetComponent<HeroControler>().inDialog = true;
-    //    goInButton.SetActive(false);
-    //    goOutButton.SetActive(false);
-    //    left.SetActive(false);
-    //    right.SetActive(false);
-    //    pause.SetActive(false);
-    //    if (GetComponent<Station>()) compButton.SetActive(false);
-    //    if (GetComponent<Shop>()) shopButton.SetActive(false);
-    //    if (GetComponent<Hospital>()) hospitalButton.SetActive(false);
-    //    if (GetComponent<House>())
-    //    {
-    //        fridgeButton.SetActive(false);
-    //        bagButton.SetActive(false);
-    //        GetComponent<House>().chooseButton.SetActive(false);
-    //    }
-    //    phoneButton.SetActive(false);
-    //    phone.GetComponent<Animator>().SetBool("phone", false);
-    //    player.GetComponent<HeroControler>().Stop();
-    //    GetComponent<PlatformerDialogs>().currentNode = 0;
-    //    GetComponent<PlatformerDialogs>().dialogue = Dialogue.Load(currentLevel.GetComponent<SceneProperties>().dialogs[currentLevel.GetComponent<SceneProperties>().countOfDialogs]);
-    //    GetComponent<PlatformerDialogs>().dialogueEnded = false;
-    //    GetComponent<PlatformerDialogs>().OutputDialogs();
-    //    animPanel.SetBool("panelOpen", true);
-    //    if (currentLevel.GetComponent<SceneProperties>().npc)
-    //        animButtonDialogs.transform.gameObject.SetActive(false);
-    //}
+    public void StartDialog()
+    {
+        GamePrefs.inDialog = true;
+        left.SetActive(false);
+        right.SetActive(false);
+        phoneButton.SetActive(false);
+        phone.GetComponent<Animator>().SetBool("phone", false);
+        player.GetComponent<HeroControler>().Stop();
+        dialogWindow.GetComponent<PlatformerDialogs>().currentNode = 0;
+        dialogWindow.GetComponent<PlatformerDialogs>().dialogue = Dialogue.Load(currentLevel.GetComponent<SceneProperties>().dialogs[currentLevel.GetComponent<SceneProperties>().countOfDialogs]);
+        dialogWindow.GetComponent<PlatformerDialogs>().dialogueEnded = false;
+        dialogWindow.GetComponent<PlatformerDialogs>().nextDialogButton.gameObject.SetActive(true);
+        dialogWindow.GetComponent<PlatformerDialogs>().OutputDialogs();
+    }
 
     //public void StartSup(string noteName, string noteText, int numberOfNote)
     //{
@@ -360,29 +348,16 @@ public class TheMainMainScript : MonoBehaviour
     //    }
     //}
 
-    //public void CloseDialog()
-    //{
-    //    GamePrefs.inDialog = false;
-    //    player.GetComponent<HeroControler>().inDialog = false;
-    //    left.SetActive(true);
-    //    right.SetActive(true);
-    //    pause.SetActive(true);
-    //    goInButton.SetActive(true);
-    //    goOutButton.SetActive(true);
-    //    if (GetComponent<Station>()) compButton.SetActive(true);
-    //    if (GetComponent<Shop>()) shopButton.SetActive(true);
-    //    if (GetComponent<Hospital>()) hospitalButton.SetActive(true);
-    //    if (GetComponent<House>())
-    //    {
-    //        fridgeButton.SetActive(true);
-    //        bagButton.SetActive(true);
-    //        GetComponent<House>().chooseButton.SetActive(true);
-    //    }
-    //    phoneButton.SetActive(true);
-    //    phoneButton.GetComponent<Animator>().SetBool("phoneButton", true);
-    //    animPanel.SetBool("panelOpen", false);
-    //    GamePrefs.countOfDialog++;
-    //}
+    public void CloseDialog()
+    {
+        GamePrefs.inDialog = false;
+        left.SetActive(true);
+        right.SetActive(true);
+        phoneButton.SetActive(true);
+        phoneButton.GetComponent<Animator>().SetBool("phoneButton", true);
+        dialogWindow.GetComponent<PlatformerDialogs>().nextDialogButton.gameObject.SetActive(false);
+        GamePrefs.countOfDialog++;
+    }
 
     //IEnumerator Call()
     //{
