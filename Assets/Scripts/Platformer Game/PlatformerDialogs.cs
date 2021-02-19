@@ -38,7 +38,8 @@ public class PlatformerDialogs : MonoBehaviour
         {
             if (dialogue.nodes[currentNode].text == "" && answers.Length!=0)
             {
-                transform.position = DialogPosition(0);
+                Vector3 screenPos = DialogPosition(0);
+                transform.position = new Vector3(screenPos.x, transform.position.x, transform.position.z);
                 arrow.transform.position = Camera.main.WorldToScreenPoint(new Vector3(partipicipants[0].transform.position.x, arrow.transform.position.y, arrow.transform.position.z));
                 waitngAnswer = true;
                 face.sprite = faces[0];
@@ -52,7 +53,8 @@ public class PlatformerDialogs : MonoBehaviour
             else
             {
                 line = dialogue.nodes[currentNode].face;
-                transform.position = DialogPosition(System.Convert.ToInt32(line));
+                Vector3 screenPos = DialogPosition(System.Convert.ToInt32(line));
+                transform.position = new Vector3(screenPos.x, transform.position.y,transform.position.z);
                 arrow.transform.position = Camera.main.WorldToScreenPoint(new Vector3(partipicipants[System.Convert.ToInt32(line)].transform.position.x, arrow.transform.position.y));
                 face.sprite = faces[System.Convert.ToInt32(line)];
                 line = dialogue.nodes[currentNode].name;
