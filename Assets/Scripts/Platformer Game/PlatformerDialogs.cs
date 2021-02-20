@@ -39,7 +39,7 @@ public class PlatformerDialogs : MonoBehaviour
             if (dialogue.nodes[currentNode].text == "" && answers.Length!=0)
             {
                 Vector3 screenPos = DialogPosition(0);
-                transform.position = new Vector3(screenPos.x, transform.position.x, transform.position.z);
+                transform.position = new Vector3(screenPos.x, transform.position.y, transform.position.z);
                 arrow.transform.position = Camera.main.WorldToScreenPoint(new Vector3(partipicipants[0].transform.position.x, arrow.transform.position.y, arrow.transform.position.z));
                 waitngAnswer = true;
                 face.sprite = faces[0];
@@ -68,8 +68,7 @@ public class PlatformerDialogs : MonoBehaviour
     Vector3 DialogPosition(int participant)
     {
         Vector3 worldPos = new Vector3(partipicipants[participant].transform.position.x, transform.position.y, transform.position.z);
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
-        return screenPos;
+        return worldPos;
     }
 
     string CutString(string line)
