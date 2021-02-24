@@ -37,6 +37,9 @@ public class TrackingTheHero : MonoBehaviour
         if (unfaded.activeSelf && unfaded.GetComponent<Image>().color.a == 0)
         {
             unfaded.SetActive(false);
+
+            if (!GamePrefs.inDialog)
+                GetComponent<TheMainMainScript>().StartDialog();
         }
         if (faded.activeSelf && faded.GetComponent<Image>().color.a == 1)
         {

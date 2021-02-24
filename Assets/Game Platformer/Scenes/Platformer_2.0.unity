@@ -26235,7 +26235,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1259983837}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.43, y: -1.59, z: 0}
+  m_LocalPosition: {x: 12.26, y: -2.08, z: 0}
   m_LocalScale: {x: 3.8, y: 3.8, z: 1}
   m_Children:
   - {fileID: 256923368}
@@ -36663,7 +36663,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1692781455
 RectTransform:
   m_ObjectHideFlags: 0
@@ -36673,7 +36673,7 @@ RectTransform:
   m_GameObject: {fileID: 1692781454}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.000291, y: 1.000291, z: 1.000291}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2057425318}
   - {fileID: 1889100931}
@@ -36754,7 +36754,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d7e3b12884fb1414cbedd01a8871416c, type: 3}
   face: {fileID: 119951528}
   arrow: {fileID: 1488332929}
-  cam: {fileID: 0}
+  cam: {fileID: 981583417}
+  canvas: {fileID: 1150889113}
   partipicipants:
   - {fileID: 1259983837}
 --- !u!1 &1700426182
