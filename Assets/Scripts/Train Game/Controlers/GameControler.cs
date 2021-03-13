@@ -10,34 +10,30 @@ using UnityEngine.EventSystems;
 
 public class GameControler : MonoBehaviour
 {
-    bool respawnTrainMode;          // режим респавна поездов
-    public GameObject RespawnUI;    // UI объекты для режима респавна
+    // Режимы
+    bool respawnTrainMode;  // Режим респавна поездов
+    bool buildingMode;      // Режим строительства    
 
-    public LayerMask needLayerMask;
+    // UI элементы респавна
+    public GameObject RespawnUI;    // Кнопка респавна
 
+
+    // UI элементы строительства
     [Space(20)]
-
-    [SerializeField]
-    bool buildingMode;
-    public GameObject buildingUI;
-    public GameObject buildingModeButton;
-    public GameObject respawnModeButton;
+    public GameObject buildingUI;           // Кнопка запуска режима строительства
+    public GameObject buildingModeButton;   // Объект объединяющий кнопки для строительства
 
 
+    // Переключение скоростей поездов
     [Space(20)]
-    public GameObject speedPanel;
-    GameObject curTrain;
+    public GameObject speedPanel;   // Панель скоростей поездов (UI-элемент)
+    GameObject curTrain;            // Текущий выбранный поезд
 
-
-    [Space(20)]
-
-    public bool zooming;
-    public float zoomSpeed;
-
-
-    List<GameObject> buildings = new List<GameObject>();
-
-    
+    // Список зданий находяшихся в начале сцены
+    List<GameObject> buildings = new List<GameObject>();    // Был создан из-за незнания возможности настройки порядкового запуска скриптов
+                                                            // Каждый Building на сцене в Awake отправляет информаию в этот список, 
+                                                            // а затем добавляется в сетку (массив Grid)
+   
 
 
     private void Awake()
@@ -48,25 +44,27 @@ public class GameControler : MonoBehaviour
 
     void Start()
     {
-        GetComponent<BuildingsGrid>().enabled = false;
-        GetComponent<RespawnMode>().enabled = false;
-        GetComponent<RailwayControler>().enabled = false;
-        buildingUI.SetActive(false);
-        buildingMode = false;
+        GetComponent<BuildingsGrid>().enabled = false;      // Выключаем управляющий скрипт режимом строительства
+        GetComponent<RespawnMode>().enabled = false;        // Выключаем управляющий скрипт режимом респавна
+        GetComponent<RailwayControler>().enabled = false;   // Выключаем управляющий скрипт жд дорогой
+
+        buildingUI.SetActive(false);    // Ставим в инвиз UI-элементы строителства
+
+        buildingMode = false;           // Отключаем режимы 
         respawnTrainMode = false;
 
-        foreach(var b in buildings)
+        foreach(var b in buildings) // Добавляем объекты из списка building в сетку (массив Grid)
         {
             GetComponent<BuildingsGrid>().FillGrid(b.transform.position.x, b.transform.position.y, b);
         }
         buildings = null;
 
-        GetComponent<RailwayControler>().StartConect();
+        GetComponent<RailwayControler>().StartConect(); // Запускаем функцию соединения станций (визуально)
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))        // Обработка нажатия на клавишу
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -77,19 +75,19 @@ public class GameControler : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.B))        // Активация/деактивация режима строительства
             ActDeactBuildingMode();
 
-
-        if (Input.GetKeyDown(KeyCode.Escape))
+        
+        if (Input.GetKeyDown(KeyCode.Escape))   // Выход в меню
         {
             SceneManager.LoadScene(0);
         }
     }
 
 
-
-    public void DiactivateAllMods()     // Диактивация всех модов
+    // Диактивация всех модов
+    public void DiactivateAllMods()     
     {
         if (buildingMode)
             ActDeactBuildingMode();
@@ -98,7 +96,8 @@ public class GameControler : MonoBehaviour
             ActDeactRespawnTrainMode();
     }
 
-    public void ActDeactBuildingMode() //активация и деактивация режима строительства
+    // Активация и деактивация режима строительства
+    public void ActDeactBuildingMode() 
     {
         if (!buildingMode)
         {
@@ -107,7 +106,7 @@ public class GameControler : MonoBehaviour
             buildingMode = true;
             buildingUI.SetActive(true);
             buildingModeButton.SetActive(false);
-            respawnModeButton.SetActive(false);
+            RespawnUI.SetActive(false);
         }
         else
         {
@@ -115,24 +114,25 @@ public class GameControler : MonoBehaviour
             buildingMode = false;
             buildingUI.SetActive(false);
             buildingModeButton.SetActive(true);
-            respawnModeButton.SetActive(true);
+            RespawnUI.SetActive(true);
         }
     }
 
-    public void ActDeactRespawnTrainMode() //активация и деактивация режима респавна поездов
+    // Активация и деактивация режима респавна поездов
+    public void ActDeactRespawnTrainMode() 
     {
         if (!respawnTrainMode)
         {
             DiactivateAllMods();
             respawnTrainMode = true;
-            respawnModeButton.transform.GetChild(0).GetComponent<Text>().color = Color.red;
+            RespawnUI.transform.GetChild(0).GetComponent<Text>().color = Color.red;
             GetComponent<RespawnMode>().enabled = true;
             //buildingModeButton.SetActive(false);
         }
         else
         {
             respawnTrainMode = false;
-            respawnModeButton.transform.GetChild(0).GetComponent<Text>().color = Color.black;
+            RespawnUI.transform.GetChild(0).GetComponent<Text>().color = Color.black;
             GetComponent<RespawnMode>().DiactivateRespMode();
             GetComponent<RespawnMode>().enabled = false;
             //buildingModeButton.SetActive(true);
@@ -156,7 +156,7 @@ public class GameControler : MonoBehaviour
         speedPanel.GetComponent<Image>().color = curTrain.GetComponent<SpriteRenderer>().color;
     }
 
-    public void DeactSpeedPanel(GameObject train)
+    public void DeactSpeedPanel(GameObject train) // Нужна чтобы убирать панельку при исчезновении поезда со сцены (уничтожение/доехал до станции)
     {
         if (train == curTrain)
             speedPanel.SetActive(false);

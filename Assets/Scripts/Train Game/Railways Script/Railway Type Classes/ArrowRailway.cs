@@ -3,34 +3,31 @@
 public class ArrowRailway : MonoBehaviour
 {
     [SerializeField]
-    bool canGo;     //Может ли ехать поезд на стрелке в нужном ему направлении
+    bool canGo;     // Может ли ехать поезд на стрелке в нужном ему направлении
 
-    bool isTurnBlocked;     // блокировка кнопки поворота
+    bool isTurnBlocked;     // Блокировка кнопки поворота
+ 
+    bool turn;      // Стрелка стоит на поворот или на прямой участок
 
-    [SerializeField]    
-    bool turn;      //стрелка стоит на поворот или на прямой участок
-
-    public Sprite arrowTurn;
-    public Sprite arrowForward;
 
     [Space(20)]
-    public PointerButton pointer;
+    public GameObject pointer;
 
-    [Space(20)]
-    public GameObject turnColl;
-    public GameObject forwardColl;
 
-    Vector2 dirToArrow;                     // направлнение с которого приедит поезд на стрелку
-    Vector2 dirAgainstArrowFromForward;     // направление с котороо приедит поезд против стрелки при движении по прямой
-    Vector2 dirAgainstArrowFromTurn;        // направление с котороо приедит поезд против стрелки при движении с поворота
+    // Направления
+    Vector2 dirToArrow;                     // Направлнение с которого приедит поезд на стрелку
+    Vector2 dirAgainstArrowFromForward;     // Направление с котороо приедит поезд против стрелки при движении по прямой
+    Vector2 dirAgainstArrowFromTurn;        // Направление с котороо приедит поезд против стрелки при движении с поворота
 
-    Vector2[] pointsBeforeArrow = new Vector2[1];       // точки до стрелки при движении на стрелку
-    Vector2[] pointsAfterArrowTurn = new Vector2[5];    // точки после стрелки при повороте 
-    Vector2[] pointsAfterArrowForward = new Vector2[1]; // точки после стрелки при движении вперед
+    // Движение на стрелку
+    Vector2[] pointsBeforeArrow = new Vector2[1];       // Точки до стрелки при движении на стрелку
+    Vector2[] pointsAfterArrowTurn = new Vector2[5];    // Точки после стрелки при повороте 
+    Vector2[] pointsAfterArrowForward = new Vector2[1]; // Точки после стрелки при движении вперед
 
-    Vector2[] pointsTurn = new Vector2[5];              // точки при двежении провтив стрелки на повороте до стрелки
-    Vector2[] pointsForward_1 = new Vector2[1];         // точки при движении против стрелки по прямой до стрелки
-    Vector2[] pointsForward_2 = new Vector2[1];         // точки для движения против стрелки по прямой/на повороте после стрелки
+    // Движение против стрелки
+    Vector2[] pointsTurn = new Vector2[5];              // Точки при двежении против стрелки на повороте до стрелки
+    Vector2[] pointsForward_1 = new Vector2[1];         // Точки при движении против стрелки по прямой до стрелки
+    Vector2[] pointsForward_2 = new Vector2[1];         // Точки для движения против стрелки по прямой/на повороте после стрелки
 
 
     Vector2[] vectorError = { new Vector2(0.7654f, 0.321f) };
@@ -39,38 +36,28 @@ public class ArrowRailway : MonoBehaviour
 
     void Awake()
     {
-        pointer = transform.GetChild(0).GetComponent<PointerButton>();
+        pointer = transform.GetChild(0).gameObject;
 
 
         MakeNewPoints();
     }
 
 
-    [ContextMenu(itemName: "Change Of Direction")]
-    public void ChangeOfDirectionArrow()    // смена направления стрелки
+    // Смена направления стрелки
+    public void ChangeOfDirectionArrow()   
     {
         if (!isTurnBlocked)
         {
             turn = !turn;
             if (turn)
-            {
-                turnColl.SetActive(false);
-                forwardColl.SetActive(true);
                 pointer.transform.localRotation = Quaternion.Euler(0, 0, 45);
-                GetComponent<SpriteRenderer>().sprite = arrowTurn;
-            }
             else
-            {
-                turnColl.SetActive(true);
-                forwardColl.SetActive(false);
                 pointer.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                GetComponent<SpriteRenderer>().sprite = arrowForward;
-            } 
         }
     }
 
-
-    public Vector2[] GetPoints(Vector2 dir, int rangRailwayCarriage, Vector2[] points) // каждый состав имеет ранговую систему, движущий состав 1, среднии вагоны 0, конечный вагон -1 и наоборот, если поезд едит задним ходом
+    // Каждый состав имеет ранговую систему, движущий состав 1, среднии вагоны 0, конечный вагон -1 и наоборот, если поезд едит задним ходом
+    public Vector2[] GetPoints(Vector2 dir, int rangRailwayCarriage, Vector2[] points) 
     {
         if (dir == dirToArrow)
         {
@@ -111,7 +98,8 @@ public class ArrowRailway : MonoBehaviour
             return vectorError;
     }
 
-    public Vector2[] ChangeDirection(Vector2[] points, Vector2 trainPos)
+    // Отправляет точки при смене отпрваления движения поезда
+    public Vector2[] ChangeDirection(Vector2[] points, Vector2 trainPos) 
     {
         if (points == pointsBeforeArrow)
         {
@@ -132,7 +120,8 @@ public class ArrowRailway : MonoBehaviour
         else if (points == pointsForward_2)
             return pointsBeforeArrow;
         return vectorError;
-    }
+    }            
+
 
     public void MakeNewPoints()
     {
@@ -189,7 +178,6 @@ public class ArrowRailway : MonoBehaviour
         GetComponent<RailwayScript>().AddConect(dirAgainstArrowFromForward);
         GetComponent<RailwayScript>().AddConect(dirAgainstArrowFromTurn);
     }
-
     void PointsFor90Grad()
     {
         pointsBeforeArrow[0] = new Vector2(transform.position.x, transform.position.y - 0.1f);
@@ -220,7 +208,6 @@ public class ArrowRailway : MonoBehaviour
         GetComponent<RailwayScript>().AddConect(dirAgainstArrowFromForward);
         GetComponent<RailwayScript>().AddConect(dirAgainstArrowFromTurn);
     }
-
     void PointsFor180Grad()
     {
         pointsBeforeArrow[0] = new Vector2(transform.position.x + 0.1f, transform.position.y);
@@ -251,7 +238,6 @@ public class ArrowRailway : MonoBehaviour
         GetComponent<RailwayScript>().AddConect(dirAgainstArrowFromForward);
         GetComponent<RailwayScript>().AddConect(dirAgainstArrowFromTurn);
     }
-
     void PointsFor270Grad()
     {
         pointsBeforeArrow[0] = new Vector2(transform.position.x, transform.position.y + 0.1f);
@@ -284,7 +270,7 @@ public class ArrowRailway : MonoBehaviour
     }
 
 
- 
+    // Поворот клетки при строительстве
     public void Turn(int k)
     {
         if (k == 1)
@@ -306,4 +292,9 @@ public class ArrowRailway : MonoBehaviour
 
     }
 
+    // Снятие блокировки со стрелки при уничтожении поезда на стрелке
+    public void UnblockArrow()  
+    {
+        isTurnBlocked = false;
+    }
 }

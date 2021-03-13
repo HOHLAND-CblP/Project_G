@@ -7,17 +7,17 @@ using UnityEngine.UI;
 
 public class RespawnMode : MonoBehaviour
 {
-    public int maxTrain;
     [SerializeField]
+    int maxTrain;
     int curTrain;
 
     public List<Color> colorsTrain;
 
-    public GameObject dirStationButPref; //префаб стрелочек
-    public GameObject canvas; // канвас для задания родителя для стрелочек
-    GameObject dirStationBut_1;    //первая стрелочка
-    GameObject dirStationBut_2;    //вторая стрелочка
-    GameObject curRespawnStation;  //текущая выбраная станция 
+    public GameObject dirStationButPref;    // префаб стрелочек
+    public GameObject canvas;               // канвас для задания родителя для стрелочек
+    GameObject dirStationBut_1;             // первая стрелочка
+    GameObject dirStationBut_2;             // вторая стрелочка
+    GameObject curRespawnStation;           //текущая выбраная станция 
 
     [Space] [Space]
 
@@ -191,7 +191,6 @@ public class RespawnMode : MonoBehaviour
 
         GetComponent<GameControler>().ActDeactRespawnTrainMode();
     }
-
     void RightArrow()
     {
         Vector2[] points = new Vector2[1];
@@ -201,7 +200,6 @@ public class RespawnMode : MonoBehaviour
 
         GetComponent<GameControler>().ActDeactRespawnTrainMode();
     }
-
     void UpArrow()
     {
         Vector2[] points = new Vector2[1];
@@ -212,7 +210,6 @@ public class RespawnMode : MonoBehaviour
 
         GetComponent<GameControler>().ActDeactRespawnTrainMode();
     }
-
     void DownArrow()
     {
         Vector2[] points = new Vector2[1];
@@ -232,7 +229,6 @@ public class RespawnMode : MonoBehaviour
 
         GetComponent<GameControler>().ActDeactRespawnTrainMode();
     }
-       
     void DownLeftArrow()
     {
         Vector2[] points = new Vector2[1];
@@ -242,7 +238,6 @@ public class RespawnMode : MonoBehaviour
 
         GetComponent<GameControler>().ActDeactRespawnTrainMode();
     }
-
     void UpLeftArrow()
     {
         Vector2[] points = new Vector2[1];
@@ -252,7 +247,6 @@ public class RespawnMode : MonoBehaviour
 
         GetComponent<GameControler>().ActDeactRespawnTrainMode();
     }
-
     void DownRightArrow()
     {
         Vector2[] points = new Vector2[1];

@@ -1,35 +1,41 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TrainScript : MonoBehaviour
 {  
     [Header("Components")]
-    [SerializeField]
-    private float speed;
-    bool reverse;       // Задний ход
-    bool canGo;         // Можно ли ехать
-    bool destroing = false;
+    GameObject mainCam;     // Главная камера
 
-    GameObject mainCam;
+    // Параметры движения
+    public float speed;
+    bool reverse;           // Задний ход
 
-    [Space]
+    // Поезд находиться в процессе уничтожения
+    bool destroing = false; 
+    
+
+    [Header("Prefabs")]
     public GameObject railwayCarriagePref;  // Префаб вагонетки
     public GameObject crashInfoPref;        // Префаб уведомления о столкновении
 
-    // Текущее положение в сетке
-    Vector2Int curPos = Vector2Int.zero;    // Текущая позиция поезда по клеточкам
-    GameObject curCell;                     // Текущая клеточка, в которой находится поезд
 
-    // Станция прибытия
+    // Текущее положение в сетке
+    Vector2Int curPos = Vector2Int.zero;    // Текущая позиция поезда в сетке
+    GameObject curCell;                     // Текущая клетка, в которой находится поезд
+
+    // Информация о станциях
+    private GameObject departureStation;    // Станция отбытия
     private GameObject arrivalStation;      // Станция прибытия 
     private bool carriageOnStation;         // Вагон/головной состав попал на станцию прибытия
     private bool trainOnStaion;             // Один вагон из состава попал на станцию
 
     // Точки движения
-    [SerializeField]
     Vector2[] points;   // Точки, по которым движется поезд
+    int curNumPoint;    // Номер точки, к которой движется поезд в данный момент  
+
     [SerializeField]
-    int curNumPoint;    // Номер точки, к которой движется поезд в данный момент            
+    GameObject curArrow;
 
 
     List<RailwayCarriage> railwayCarriages = new List<RailwayCarriage>(); // вагоны, идещии позади поезда
@@ -45,25 +51,30 @@ public class TrainScript : MonoBehaviour
         this.points = points;
         this.arrivalStation = arrivalStation;
 
-        float point_x = points[0].x - transform.position.x;
-        float point_y = points[0].y - transform.position.y;
-        float rot_z = Mathf.Atan2(point_y, point_x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, rot_z);
 
-        for (int i = 0; i < countCarriages; i++)
+        LookAtPointOnStart(points[0]);
+
+        for (int i = 0; i < countCarriages; i++)   // Создаем вагоны
         {
             GameObject carriage = Instantiate(railwayCarriagePref, transform.position, Quaternion.identity);
             railwayCarriages.Add(carriage.GetComponent<RailwayCarriage>());
-            carriage.GetComponent<RailwayCarriage>().CreateRailwayCarriage(color, curCell, points, arrivalStation, this, i+1);
+            carriage.GetComponent<RailwayCarriage>().CreateRailwayCarriage(color, curCell, points, arrivalStation, this, i + 1);
             if (i == countCarriages - 1)
                 carriage.GetComponent<RailwayCarriage>().endRailwayCarriage = true;
+
+            if (i == 0)
+                carriage.GetComponent<RailwayCarriage>().AddNextCarriage(gameObject);
+            else
+            {
+                carriage.GetComponent<RailwayCarriage>().AddNextCarriage(railwayCarriages[i - 1].gameObject);
+                railwayCarriages[i - 1].AddBackCarriage(carriage);
+            }
         }
     }
 
 
     void Start()
     {
-        canGo = true;
         reverse = false;
         carriageOnStation = false;
 
@@ -82,12 +93,19 @@ public class TrainScript : MonoBehaviour
         }
 
 
-        if (canGo)
+        if (speed != 0)     // Движение
         {
             LookAtPoint(points[curNumPoint]);
-            transform.position = Vector2.MoveTowards(transform.position, points[curNumPoint], speed * Time.deltaTime); // движение
+
+            if (!reverse) 
+                transform.position = Vector2.MoveTowards(transform.position, points[curNumPoint], speed * Time.deltaTime);
+            else
+            {
+                float distance = Vector2.Distance(transform.position, railwayCarriages[0].transform.position) - 0.7f;
+                transform.position = Vector2.MoveTowards(transform.position, points[curNumPoint], distance);
+            }
         }
-            
+
 
         if (transform.position.x == points[curNumPoint].x && transform.position.y == points[curNumPoint].y)
             curNumPoint++;        
@@ -118,8 +136,15 @@ public class TrainScript : MonoBehaviour
         }
     }
 
+    void LookAtPointOnStart(Vector2 point)  // Поворот вагона при появлении в нужную сторону
+    {
+        point.x = point.x - transform.position.x;
+        point.y = point.y - transform.position.y;
 
-    
+        float rot_z = Mathf.Atan2(point.y, point.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, rot_z);
+    }
+
     void LookAtPoint(Vector2 point)
     {
         point.x = point.x - transform.position.x;
@@ -247,24 +272,12 @@ public class TrainScript : MonoBehaviour
         if (reverse)
         {
             if (leftDist < rightDist)
-            {
-                Debug.Log(1);
-                Debug.Log(transform.InverseTransformPoint(points[curNumPoint]));
-                Debug.Log(leftDist);
-                Debug.Log(rightDist);
                 curNumPoint++;
-            }
         }
         else
         {
             if (leftDist > rightDist)
-            {
-                Debug.Log(2);
-                Debug.Log(transform.InverseTransformPoint(points[curNumPoint]));
-                Debug.Log(leftDist);
-                Debug.Log(rightDist);
                 curNumPoint++;
-            }
         }
     }
 
@@ -292,42 +305,20 @@ public class TrainScript : MonoBehaviour
         {
             destroing = true;
 
+            UnblockArrow();
+
             Camera.main.GetComponent<GameControler>().DeactSpeedPanel(gameObject);
 
             Camera.main.GetComponent<RespawnMode>().ArrivedAtStation(arrivalStation, GetComponent<SpriteRenderer>().color);
             arrivalStation.GetComponent<Station>().SetColor(Color.white);
 
-            foreach (var r in railwayCarriages)
+            foreach (var r in railwayCarriages) // Уничтожаем вагоны
             {
+                r.gameObject.GetComponent<RailwayCarriage>().UnblockArrow();
                 Destroy(r.gameObject);
             }
 
-            Debug.Log(name);
-
-            Destroy(gameObject);
-        }
-    }
-
-
-    public void TrainCantGo()
-    {
-        canGo = false;
-
-        foreach(var rc in railwayCarriages)
-        {
-            rc.GetComponent<RailwayCarriage>().CarriageCantGo();
-        }
-
-        SpeedChange(1);
-    }
-
-    public void TrainCanGo()
-    {
-        canGo = true;
-
-        foreach (var rc in railwayCarriages)
-        {
-            rc.GetComponent<RailwayCarriage>().CarriageCanGo();
+            Destroy(gameObject);    // Уничтожаем поезд
         }
     }
 
@@ -344,17 +335,27 @@ public class TrainScript : MonoBehaviour
         }
         Debug.Log(false);
         return false;
-    }   
+    }
+
+
+    // Снятие блокировки со стрелки при уничтожении поезда на стрелке
+    public void UnblockArrow()   
+    {
+        if (curArrow)
+        {
+            curArrow.GetComponent<ArrowRailway>().UnblockArrow();
+        }
+    }
 
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.transform.tag == "Train")
+        if (col.transform.tag == "Train")   // Столкновение с ведущего состава с другим ведущим составом
         {
             DestroyTrain();
         }
 
-        /*if (col.transform.tag == "Carriage")
+        /*if (col.transform.tag == "Carriage")  // Столкновение ведущего состава с вагоном другого поезда
         {
             if (!IsThisMyCarriage(col.gameObject))
             {
@@ -366,27 +367,28 @@ public class TrainScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject == arrivalStation)
+        if (col.tag == "Station" && departureStation == null)
+        {
+            departureStation = col.gameObject;
+        }
+
+        if (col.gameObject == arrivalStation)   // Прибытие на станцию назначения 
         {
             CarriageOnStation();
             TrainOnStation();
         }
-    }
 
-    private void OnTriggerStay2D(Collider2D col)
-    {
         if (col.tag == "Arrow")
         {
-            TrainCantGo();
+            curArrow = col.gameObject;
         }
     }
 
-
     private void OnTriggerExit2D(Collider2D col)
     {
-        if (col.tag == "Arrow")
-        {
-            TrainCanGo();
+        if (col.tag == "Arrow" && col.gameObject == curArrow)
+        { 
+            curArrow = null;
         }
     }
 

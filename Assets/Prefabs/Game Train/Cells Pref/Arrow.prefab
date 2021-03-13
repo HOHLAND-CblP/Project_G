@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2672564950918957996}
   - component: {fileID: 3603589462448758347}
-  - component: {fileID: 8292276179071262385}
   m_Layer: 0
   m_Name: Pointer Button
   m_TagString: Arrow
@@ -82,78 +81,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8292276179071262385
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1514235057387582968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2367d4793e86f3b4583859b89d78e108, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &5704257772994851357
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9034764731389002746}
-  - component: {fileID: 4463227599947411642}
-  m_Layer: 0
-  m_Name: Collider Turn
-  m_TagString: Arrow
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9034764731389002746
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5704257772994851357}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 49328159786750522}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &4463227599947411642
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5704257772994851357}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.4008669, y: 0.43636286}
-      - {x: 0.2904849, y: 0.31795394}
-      - {x: 0.32037884, y: 0.2857086}
-      - {x: 0.43299767, y: 0.40414616}
 --- !u!1 &7297090567400796064
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,6 +94,7 @@ GameObject:
   - component: {fileID: 8149696888057293073}
   - component: {fileID: 2262186674004179090}
   - component: {fileID: -7435304781329923377}
+  - component: {fileID: 497725464615894454}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: Arrow
@@ -186,8 +114,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2672564950918957996}
-  - {fileID: 6406432624631368984}
-  - {fileID: 9034764731389002746}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -255,7 +181,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Size: {x: 1, y: 1}
   cellBackground: {fileID: 0}
-  canTurn: 0
 --- !u!114 &2262186674004179090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,66 +208,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canGo: 0
-  turn: 0
-  arrowTurn: {fileID: 21300000, guid: 783cad2a77524d94aa6012bd781d71f1, type: 3}
-  arrowForward: {fileID: 21300000, guid: 5aa61b79ed0620d4cade9deae1d70784, type: 3}
-  pointer: {fileID: 8292276179071262385}
-  turnColl: {fileID: 5704257772994851357}
-  forwardColl: {fileID: 9134596489703996003}
---- !u!1 &9134596489703996003
-GameObject:
+  pointer: {fileID: 0}
+--- !u!58 &497725464615894454
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6406432624631368984}
-  - component: {fileID: 8495855092413726844}
-  m_Layer: 0
-  m_Name: Collider Forward
-  m_TagString: Arrow
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &6406432624631368984
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9134596489703996003}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 49328159786750522}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &8495855092413726844
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9134596489703996003}
+  m_GameObject: {fileID: 7297090567400796064}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.458417, y: -0.0036250204}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 0.05471921, y: 0.051622868}
-  m_EdgeRadius: 0
+  m_Radius: 0.1

@@ -149,8 +149,9 @@ MonoBehaviour:
     type: 3}
   crashInfoPref: {fileID: 938292256652084197, guid: 30c84d5174245a5458925b1db6b1a164,
     type: 3}
-  arrivalStation: {fileID: 0}
-  points: []
+  onDepartureStation: 0
+  move: 0
+  onArrivalStation: 0
 --- !u!1 &7058626024576322839
 GameObject:
   m_ObjectHideFlags: 0
