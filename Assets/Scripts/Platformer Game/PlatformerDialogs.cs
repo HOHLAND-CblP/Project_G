@@ -40,7 +40,7 @@ public class PlatformerDialogs : MonoBehaviour
             {
                 Vector3 screenPos = DialogPosition(0);
                 transform.position = new Vector3(screenPos.x, transform.position.y, transform.position.z);
-                arrow.transform.position = Camera.main.WorldToScreenPoint(new Vector3(partipicipants[0].transform.position.x, arrow.transform.position.y, arrow.transform.position.z));
+                arrow.transform.position = new Vector3(partipicipants[0].transform.position.x, arrow.transform.position.y, arrow.transform.position.z);
                 waitngAnswer = true;
                 face.sprite = faces[0];
                 nameText.text = "Семен";
@@ -55,7 +55,7 @@ public class PlatformerDialogs : MonoBehaviour
                 line = dialogue.nodes[currentNode].face;
                 Vector3 screenPos = DialogPosition(System.Convert.ToInt32(line));
                 transform.position = new Vector3(screenPos.x, transform.position.y,transform.position.z);
-                arrow.transform.position = Camera.main.WorldToScreenPoint(new Vector3(partipicipants[System.Convert.ToInt32(line)].transform.position.x, arrow.transform.position.y));
+                arrow.transform.position = new Vector3(partipicipants[System.Convert.ToInt32(line)].transform.position.x, arrow.transform.position.y);
                 face.sprite = faces[System.Convert.ToInt32(line)];
                 line = dialogue.nodes[currentNode].name;
                 nameText.text = line;
