@@ -13,7 +13,7 @@ public class PlatformerDialogs : MonoBehaviour
     string a;
     [SerializeField]
     Text dialogText, nameText;
-    float outputDelay;
+    float outputDelay=0.1f;
     public Dialogue dialogue;
     public GameObject[] answers;
     public Button nextDialogButton;
@@ -66,13 +66,10 @@ public class PlatformerDialogs : MonoBehaviour
 
     void DialogPosition()
     {
-        Debug.Log(GetComponent<RectTransform>().localPosition.x + GetComponent<RectTransform>().rect.width / 2);
-        Debug.Log(GetComponent<RectTransform>().localPosition.x);
-        if (GetComponent<RectTransform>().localPosition.x + GetComponent<RectTransform>().rect.width/2 > canvas.GetComponent<RectTransform>().rect.width/2 - 20)
-        {
-            GetComponent<RectTransform>().localPosition = new Vector3(canvas.GetComponent<RectTransform>().rect.width / 2 - GetComponent<RectTransform>().rect.width / 2 - 20, 
+        if (GetComponent<RectTransform>().localPosition.x + GetComponent<RectTransform>().rect.width / 2 > canvas.GetComponent<RectTransform>().rect.width / 2 - 20)
+            GetComponent<RectTransform>().localPosition = new Vector3(canvas.GetComponent<RectTransform>().rect.width / 2 - GetComponent<RectTransform>().rect.width / 2 - 20,
                 GetComponent<RectTransform>().localPosition.y, GetComponent<RectTransform>().localPosition.z);
-        }
+
         else if (GetComponent<RectTransform>().localPosition.x - GetComponent<RectTransform>().rect.width / 2 < -canvas.GetComponent<RectTransform>().rect.width / 2 + 20)
             GetComponent<RectTransform>().localPosition = new Vector3(-canvas.GetComponent<RectTransform>().rect.width / 2 + GetComponent<RectTransform>().rect.width / 2 + 20,
                 GetComponent<RectTransform>().localPosition.y, GetComponent<RectTransform>().localPosition.z);

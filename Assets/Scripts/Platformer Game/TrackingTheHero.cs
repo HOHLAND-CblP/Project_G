@@ -11,16 +11,30 @@ public class TrackingTheHero : MonoBehaviour
     public float leftV, rightV;
     public Animator animButtonIn, animButtonOut, phoneButton, phone, animButtonTP;
     public GameObject endGame, pausePanel;
+    bool prologue = false;
 
     private void Start()
     {
-        if (GamePrefs.currentLevel == null)
+        if ((GamePrefs.currentLevel != null && 
+            GamePrefs.currentLevel.GetComponent<SceneProperties>().sceneId == 0) || 
+            GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().sceneId == 0)
+        {
+            transform.position = new Vector3(0, GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().groundY, transform.position.z);
+            GetComponent<TheMainMainScript>().phoneButton.SetActive(false);
+            GetComponent<TheMainMainScript>().left.SetActive(false);
+            GetComponent<TheMainMainScript>().right.SetActive(false);
+            GetComponent<TheMainMainScript>().pauseButton.SetActive(false);
+            prologue = true;
+            GetComponent<TrackingTheHero>().enabled = false;
+        }
+        else if (GamePrefs.currentLevel == null)
         {
             player.transform.position = new Vector3(player.transform.position.x, GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().groundY);
             leftV = GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().leftV;
             rightV = GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().rightV;
         }
-        unfaded.SetActive(true);
+        if(!prologue)
+            unfaded.SetActive(true);
     }
 
     void FixedUpdate()
@@ -37,9 +51,6 @@ public class TrackingTheHero : MonoBehaviour
         if (unfaded.activeSelf && unfaded.GetComponent<Image>().color.a == 0)
         {
             unfaded.SetActive(false);
-
-            if (!GamePrefs.inDialog)
-                GetComponent<TheMainMainScript>().StartDialog();
         }
         if (faded.activeSelf && faded.GetComponent<Image>().color.a == 1)
         {

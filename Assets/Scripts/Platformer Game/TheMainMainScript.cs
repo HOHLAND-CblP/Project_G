@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class TheMainMainScript : MonoBehaviour
 {
-    public GameObject fade, levelText, phoneButton, currentLevel, pausePanel, player, darkSide, left, right, currentLevelTemp, dialogWindow;
+    public GameObject fade, levelText, phoneButton, pauseButton, currentLevel, pausePanel, player, darkSide, left, right, currentLevelTemp, dialogWindow;
 
     [Header("Animator")]
     public Animator animMap;
@@ -316,6 +316,7 @@ public class TheMainMainScript : MonoBehaviour
         left.SetActive(false);
         right.SetActive(false);
         phoneButton.SetActive(false);
+        pauseButton.SetActive(false);
         phone.GetComponent<Animator>().SetBool("phone", false);
         player.GetComponent<HeroControler>().Stop();
         dialogWindow.SetActive(true);
@@ -356,9 +357,11 @@ public class TheMainMainScript : MonoBehaviour
         left.SetActive(true);
         right.SetActive(true);
         phoneButton.SetActive(true);
+        pauseButton.SetActive(true);
         phoneButton.GetComponent<Animator>().SetBool("phoneButton", true);
         dialogWindow.GetComponent<PlatformerDialogs>().nextDialogButton.gameObject.SetActive(false);
-        GamePrefs.countOfDialog++;
+        currentLevel.GetComponent<SceneProperties>().countOfDialogs++;
+        GetComponent<PlotTracking>().NextPlotMoment();
     }
 
     //IEnumerator Call()
