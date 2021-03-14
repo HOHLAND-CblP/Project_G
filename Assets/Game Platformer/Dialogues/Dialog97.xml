@@ -1,0 +1,15 @@
+<dialogue>
+	<node>
+		<face>24</face>
+		<name>Генерал</name>
+		<text>Новый диспетчер должен быть на месте к твоему возвращению.</text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>25</face>
+		<name>Иван</name>
+		<text>Вам не кажется неправильным нанимать нового сотрудника? Ситуация в городе более че-</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

@@ -12,6 +12,8 @@ public static class GamePrefs
     public static int day = 2;
     public static int chooseButton = -1;
     public static int runnerLevel;
+    public static int countOfPlotMoment = 0;
+    public static int countOfPlots = 1;
 
     public static GameObject currentLevel;
     public static GameObject currentRunnerLevel;
@@ -30,4 +32,7 @@ public static class GamePrefs
 
     public static string nameForAdd2Note = "";
     public static string textForAdd2Note = "";
+
+    public static bool prologCrutch1 = false;
+    public static bool prologCrutch2 = false;
 }

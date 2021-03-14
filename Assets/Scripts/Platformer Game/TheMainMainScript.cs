@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class TheMainMainScript : MonoBehaviour
 {
-    public GameObject fade, levelText, phoneButton, currentLevel, pausePanel, player, darkSide, left, right, currentLevelTemp, dialogWindow;
+    public GameObject fade, levelText, phoneButton, pauseButton, currentLevel, pausePanel, player, darkSide, left, right, currentLevelTemp, dialogWindow;
 
     [Header("Animator")]
     public Animator animMap;
@@ -43,7 +43,6 @@ public class TheMainMainScript : MonoBehaviour
         if (GamePrefs.currentLevel != null)
             currentLevel = GamePrefs.currentLevel;
         GamePrefs.inDialog = false;
-        StartDialog();
         if (GamePrefs.amountOfFood == 0)
         {
             GameObject temp = Instantiate(fridgeObject.GetComponent<ObjectProperties>().emptyFridgeMessage);
@@ -317,10 +316,13 @@ public class TheMainMainScript : MonoBehaviour
         left.SetActive(false);
         right.SetActive(false);
         phoneButton.SetActive(false);
+        pauseButton.SetActive(false);
         phone.GetComponent<Animator>().SetBool("phone", false);
         player.GetComponent<HeroControler>().Stop();
+        dialogWindow.SetActive(true);
         dialogWindow.GetComponent<PlatformerDialogs>().currentNode = 0;
-        dialogWindow.GetComponent<PlatformerDialogs>().dialogue = Dialogue.Load(currentLevel.GetComponent<SceneProperties>().dialogs[currentLevel.GetComponent<SceneProperties>().countOfDialogs]);
+        dialogWindow.GetComponent<PlatformerDialogs>().dialogue = 
+            Dialogue.Load(currentLevel.GetComponent<SceneProperties>().dialogs[currentLevel.GetComponent<SceneProperties>().countOfDialogs]);
         dialogWindow.GetComponent<PlatformerDialogs>().dialogueEnded = false;
         dialogWindow.GetComponent<PlatformerDialogs>().nextDialogButton.gameObject.SetActive(true);
         dialogWindow.GetComponent<PlatformerDialogs>().OutputDialogs();
@@ -351,12 +353,15 @@ public class TheMainMainScript : MonoBehaviour
     public void CloseDialog()
     {
         GamePrefs.inDialog = false;
+        dialogWindow.SetActive(false);
         left.SetActive(true);
         right.SetActive(true);
         phoneButton.SetActive(true);
+        pauseButton.SetActive(true);
         phoneButton.GetComponent<Animator>().SetBool("phoneButton", true);
         dialogWindow.GetComponent<PlatformerDialogs>().nextDialogButton.gameObject.SetActive(false);
-        GamePrefs.countOfDialog++;
+        currentLevel.GetComponent<SceneProperties>().countOfDialogs++;
+        GetComponent<PlotTracking>().NextPlotMoment();
     }
 
     //IEnumerator Call()
