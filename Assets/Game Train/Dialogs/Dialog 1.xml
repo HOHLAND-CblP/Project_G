@@ -1,0 +1,38 @@
+<dialog>
+ <say>
+  <id>1</id>
+  <text>Ну что, молодой человек, финишная прямая?</text>
+  <nextSay>1</nextSay>	
+ </say>
+  <say>
+    <id>0</id>
+    <text>Судя по всему.</text>
+    <nextSay>2</nextSay>
+  </say>
+  <say>
+    <id>1</id>
+    <text>Главное не волнуйся.</text>
+    <nextSay>3</nextSay>
+  </say>
+  <say>
+    <id>1</id>
+    <text>Так, Вы у нас Семен Фоминов… угу, отличник! Это хорошо. По всем предметам сплошные пятерки, посещаемость на высоте. Не вижу смысла тебя сильно долго мучать, давай по-простому, расскажи мне, как работает стрелка.</text>
+    <nextSay>4</nextSay>
+  </say>
+  <say>
+    <id>0</id>
+    <text>Вы имеете ввиду стрелочный перевод?</text>
+    <nextSay>5</nextSay>
+  </say>
+  <say>
+    <id>1</id>
+    <text>Ну да.</text>
+    <nextSay>6</nextSay>
+  </say>
+  <say>
+    <id>0</id>
+    <text>Хорошо.</text>
+    <nextSay>0</nextSay>
+    <dialEnd>true</dialEnd>
+  </say>
+</dialog>

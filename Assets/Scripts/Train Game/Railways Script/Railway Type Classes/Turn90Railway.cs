@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class Turn90Railway : MonoBehaviour
 {
-    private Vector2[] points_1 = new Vector2[7];
-    private Vector2[] points_2 = new Vector2[7];
+    // Массивы точек для движения по данному пути в разных направлениях
+    private Vector2[] points_1 = new Vector2[7];    // В первом направлении 
+    private Vector2[] points_2 = new Vector2[7];    // Во втором направлении
 
     public GameObject deadEnd_1;
     public GameObject deadEnd_2;
 
+    // Секторы (направления), с которых может приехать поезд
     Vector2 dir_1;
     Vector2 dir_2;
 
-    Vector2[] vectorError = { new Vector2(0.7654f, 0.321f) };
+    // Вектор ошибки
+    Vector2[] vectorError = { new Vector2(0.7654f, 0.321f) }; // Возвращается в случае непредвиденных обстоятельств, например, попал не в тот сектор жд дороги
 
 
     void Awake()
@@ -49,9 +52,11 @@ public class Turn90Railway : MonoBehaviour
 
     public void MakeNewPoints()
     {
-        GetComponent<RailwayScript>().DeleteConects();
+        // Удаление существующих конектов
+        GetComponent<RailwayScript>().DeleteConects();  // Нужно в случае модификации дороги
 
 
+        // Созадание точек в соответствии с положением в пространстве (градусом по оси Z)
         switch (transform.rotation.eulerAngles.z)
         {
             case 0:
@@ -221,7 +226,7 @@ public class Turn90Railway : MonoBehaviour
     }
 
 
-
+    // Поворот объекта по оси Z (доступно при строительстве/модификации)
     public void Turn(int k)
     {
         transform.Rotate(0, 0, 90 * k);

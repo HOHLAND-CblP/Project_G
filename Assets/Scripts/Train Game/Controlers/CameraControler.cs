@@ -111,7 +111,8 @@ public class CameraControler : MonoBehaviour
     {
         float ortSize = cam.orthographicSize;
 
-        if (Input.GetAxis("Mouse ScrollWheel") < 0 && ortSize < maxZoom)            // Отдаляем камеру 
+        // Отдаляем камеру 
+        if (Input.GetAxis("Mouse ScrollWheel") < 0 && ortSize < maxZoom)            
         {
             cam.orthographicSize = ortSize + editorZoomSpeed;                       // Меняем размер камеры
             Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);         // Получаем координаты мышки и двигаем камеру в сторону курсора
@@ -121,7 +122,8 @@ public class CameraControler : MonoBehaviour
             transform.position = new Vector3(Mathf.Clamp(transform.position.x, minXpos, maxXpos), Mathf.Clamp(transform.position.y, minYpos, maxYpos), transform.position.z);   // Корректировка положения камеры по границам
         }
 
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && ortSize > minZoom)            // Приближаем камеру
+        // Приближаем камеру
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && ortSize > minZoom)           
         {
             Vector2 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);         // Получаем координаты мышки и двигаем камеру в сторону курсора 
             cam.orthographicSize = ortSize - editorZoomSpeed;                       // Меняем размер камеры
@@ -176,8 +178,6 @@ public class CameraControler : MonoBehaviour
 
     void MobileCameraZoom()
     {
-        
-
         if (Input.touchCount == 2)
         {
             float ortSize = cam.orthographicSize;   // Записываем размер камеры перед его изменением
