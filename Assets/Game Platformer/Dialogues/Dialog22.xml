@@ -1,9 +1,0 @@
-<dialogue>
-	<node>
-		<face>0</face>
-		<name>Семен</name>
-		<text>Блин, я кажись видел уже где-то эту фигуру. Бежит в сторону остановки. Может догнать?</text>
-		<nextNode>0</nextNode>
-		<dialend>true</dialend>
-	</node>
-</dialogue>

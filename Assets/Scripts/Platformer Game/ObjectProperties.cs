@@ -10,6 +10,7 @@ public class ObjectProperties : MonoBehaviour
     public GameObject darkSide;
     GameObject cam;
     public bool isNeedButton;
+    public bool isNeedAnimation;
     [Header("itemsPref")]
     public GameObject[] itemFridgePref, itemHealthPref; 
     public GameObject emptyFridgeMessage, emptyHealthBagMessage;
@@ -30,7 +31,11 @@ public class ObjectProperties : MonoBehaviour
             {
                 button.SetActive(true);
             }
-            else
+            if (isNeedAnimation)
+            {
+
+            }
+            else if (type==3)
             {
                 cam.GetComponent<TheMainMainScript>().currentLevel = nextLevels[0];
                 cam.GetComponent<TrackingTheHero>().faded.SetActive(true);

@@ -14,6 +14,8 @@ public class TheMainMainScript : MonoBehaviour
     public Animator phone;
     public Animator animShop; 
     public Animator animApteka;
+    public Animator diploma;
+    public Animator hintPanel;
 
     [Header("Inventories")]
     public GameObject fridge;
@@ -310,6 +312,14 @@ public class TheMainMainScript : MonoBehaviour
     //    }
     //}
 
+    public void OpenHint(string text, float angle)
+    {
+        hintPanel.gameObject.transform.GetChild(0).gameObject.transform.Rotate(new Vector3(0,0,angle));
+        hintPanel.gameObject.transform.GetChild(1).transform.GetComponent<Text>().text = text;
+        hintPanel.SetBool("hint", true);
+        StartCoroutine(Hint());
+    }
+
     public void StartDialog()
     {
         GamePrefs.inDialog = true;
@@ -552,9 +562,36 @@ public class TheMainMainScript : MonoBehaviour
 
     public void GoBed()
     {
-        GamePrefs.currentLevel = currentLevel;
-        GamePrefs.runnerLevel = Random.Range(1, 2);
-        SceneManager.LoadScene(2);
+        //GamePrefs.currentLevel = currentLevel;
+        //GamePrefs.runnerLevel = Random.Range(1, 2);
+        //SceneManager.LoadScene(2);
+    }
+
+    public void See()
+    {
+        GamePrefs.inDialog = true;
+        pauseButton.SetActive(false);
+        seeButton.SetActive(false);
+        left.SetActive(false);
+        right.SetActive(false);
+        phoneButton.SetActive(false);
+        phone.GetComponent<Animator>().SetBool("phone", false);
+        if (currentLevel.GetComponent<SceneProperties>().sceneId == 12)
+        {
+            diploma.SetBool("open", true);
+        }
+    }
+
+    public void CloseDiploma()
+    {
+        GamePrefs.inDialog = false;
+        seeButton.SetActive(true);
+        pauseButton.SetActive(true);
+        left.SetActive(true);
+        right.SetActive(true);
+        phoneButton.SetActive(true);
+        phoneButton.GetComponent<Animator>().SetBool("phoneButton", true);
+        diploma.SetBool("open", false);
     }
 
     public void OpenComputer()
@@ -565,6 +602,13 @@ public class TheMainMainScript : MonoBehaviour
         GamePrefs.currentLevel = currentLevel;
         GamePrefs.inout = 5;
         SceneManager.LoadScene(3);
+    }
+
+    IEnumerator Hint()
+    {
+        yield return new WaitForSeconds(7);
+        hintPanel.SetBool("hint", false);
+        StopCoroutine(Hint());
     }
 
     //IEnumerator SignWaiter()

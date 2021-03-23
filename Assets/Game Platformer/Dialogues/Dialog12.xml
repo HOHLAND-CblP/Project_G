@@ -1,9 +1,0 @@
-<dialogue>
-	<node>
-		<face>0</face>
-		<name>Семен</name>
-		<text>А теперь домой.</text>
-		<nextNode>0</nextNode>
-		<dialend>true</dialend>
-	</node>
-</dialogue>

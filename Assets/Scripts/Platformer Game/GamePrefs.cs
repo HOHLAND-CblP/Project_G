@@ -35,4 +35,6 @@ public static class GamePrefs
 
     public static bool prologCrutch1 = false;
     public static bool prologCrutch2 = false;
+    public static bool prologCrutch3 = false;
+    public static bool prologCrutch4 = false;
 }

@@ -1,9 +1,0 @@
-<dialogue>	
-	<node>
-		<face>23</face>
-		<name>Неизвестный 2</name>
-		<text>Голова из дерьма. Бесполезный навозный жук. Никакого толка. И что теперь?</text>
-		<nextNode>0</nextNode>
-		<dialend>true</dialend>
-	</node>
-</dialogue>

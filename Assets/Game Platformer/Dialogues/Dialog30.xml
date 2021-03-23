@@ -1,9 +1,0 @@
-<dialogue>
-	<node>
-		<face>7</face>
-		<name>Генерал</name>
-		<text>Ты, Семен, ко мне, на пару слов.</text>
-		<nextNode>0</nextNode>
-		<dialend>true</dialend>
-	</node>
-</dialogue>

@@ -1,8 +1,20 @@
 <dialogue>
 	<node>
-		<face>0</face>
-		<name>Семен</name>
-		<text>Бинго! Ждем автобус.</text>
+		<face>22</face>
+		<name>Неизвестный 1</name>
+		<text>Устранить.</text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>23</face>
+		<name>Неизвестный 2</name>
+		<text>Хорошо, как раз время ужина.</text>
+		<nextNode>2</nextNode>
+	</node>
+	<node>
+		<face>21</face>
+		<name>Человек</name>
+		<text>Ч-что? Нет! Не надо!</text>
 		<nextNode>0</nextNode>
 		<dialend>true</dialend>
 	</node>

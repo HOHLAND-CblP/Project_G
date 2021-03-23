@@ -38,6 +38,7 @@ public class HeroControler : MonoBehaviour
 
     private void FixedUpdate()
     {
+
         if (satiety <= 0)
         {
             hungry = false;

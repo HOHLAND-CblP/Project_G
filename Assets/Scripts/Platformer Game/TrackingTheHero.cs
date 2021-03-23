@@ -9,25 +9,28 @@ public class TrackingTheHero : MonoBehaviour
 {
     public GameObject player, faded, unfaded, shining;
     public float leftV, rightV;
-    public Animator animButtonIn, animButtonOut, phoneButton, phone, animButtonTP;
+    public Animator phoneButton, phone;
     public GameObject endGame, pausePanel;
     bool prologue = false;
 
     private void Start()
     {
-        if ((GamePrefs.currentLevel != null && 
-            GamePrefs.currentLevel.GetComponent<SceneProperties>().sceneId == 0) || 
-            GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().sceneId == 0)
-        {
-            transform.position = new Vector3(0, GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().groundY, transform.position.z);
-            GetComponent<TheMainMainScript>().phoneButton.SetActive(false);
-            GetComponent<TheMainMainScript>().left.SetActive(false);
-            GetComponent<TheMainMainScript>().right.SetActive(false);
-            GetComponent<TheMainMainScript>().pauseButton.SetActive(false);
-            prologue = true;
-            GetComponent<TrackingTheHero>().enabled = false;
-        }
-        else if (GamePrefs.currentLevel == null)
+        //if ((GamePrefs.currentLevel != null && 
+        //    GamePrefs.currentLevel.GetComponent<SceneProperties>().sceneId == 0) || 
+        //    GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().sceneId == 0)
+        //{
+        //    transform.position = new Vector3(0, GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().groundY, transform.position.z);
+        //    GetComponent<TheMainMainScript>().phoneButton.SetActive(false);
+        //    GetComponent<TheMainMainScript>().left.SetActive(false);
+        //    GetComponent<TheMainMainScript>().right.SetActive(false);
+        //    GetComponent<TheMainMainScript>().pauseButton.SetActive(false);
+        //    prologue = true;
+        //    GetComponent<TrackingTheHero>().enabled = false;
+        //    GetComponent<PlotTracking>().objects[4].GetComponent<Animator>().enabled=true;
+        //    GetComponent<PlotTracking>().objects[5].GetComponent<Animator>().enabled=true;
+        //}
+        //else
+        if (GamePrefs.currentLevel == null)
         {
             player.transform.position = new Vector3(player.transform.position.x, GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().groundY);
             leftV = GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().leftV;
@@ -54,6 +57,10 @@ public class TrackingTheHero : MonoBehaviour
         }
         if (faded.activeSelf && faded.GetComponent<Image>().color.a == 1)
         {
+            if (GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().sceneId==10)
+            {
+                GetComponent<TheMainMainScript>().currentLevel.GetComponent<BackGroundCarController>().Travel();
+            }
             if (GamePrefs.inout == 1)
             {
                 leftV = GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().leftV;
