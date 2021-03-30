@@ -1,18 +1,21 @@
 <dialogue>
 	<node>
 		<face>22</face>
+		<participant>22</participant>
 		<name>Неизвестный 1</name>
 		<text>Устранить.</text>
 		<nextNode>1</nextNode>
 	</node>
 	<node>
 		<face>23</face>
+		<participant>23</participant>
 		<name>Неизвестный 2</name>
 		<text>Хорошо, как раз время ужина.</text>
 		<nextNode>2</nextNode>
 	</node>
 	<node>
 		<face>21</face>
+		<participant>21</participant>
 		<name>Человек</name>
 		<text>Ч-что? Нет! Не надо!</text>
 		<nextNode>0</nextNode>

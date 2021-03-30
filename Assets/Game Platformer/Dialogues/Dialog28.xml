@@ -1,0 +1,31 @@
+<dialogue>
+	<node>
+		<face>26</face>
+		<participant>29</participant>
+		<name>Солдат</name>
+		<text>Готовы?</text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Всегда готов! А Иван Сергеевич не едет?</text>
+		<nextNode>2</nextNode>
+	</node>
+	<node>
+		<face>26</face>
+		<participant>9</participant>
+		<name>Солдат</name>
+		<text>У него дела в столице. </text>
+		<nextNode>3</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Понял. Тогда поехали. </text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

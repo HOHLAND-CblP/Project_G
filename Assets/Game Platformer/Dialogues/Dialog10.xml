@@ -1,12 +1,14 @@
 <dialogue>
 	<node>
-		<face>25</face>
+		<face>6</face>
+		<participant>24</participant>
 		<name>Иван</name>
 		<text>Есть.</text>
 		<nextNode>1</nextNode>
 	</node>
 	<node>
-		<face>24</face>
+		<face>7</face>
+		<participant>25</participant>
 		<name>Генерал</name>
 		<text>И да. Брось эти свои бредни. Не надо нам тут комиссии.</text>
 		<nextNode>0</nextNode>

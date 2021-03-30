@@ -1,6 +1,7 @@
 <dialogue>
 	<node>
-		<face>24</face>
+		<face>7</face>
+		<participant>25</participant>
 		<name>Генерал</name>
 		<text>В городе всё в пределах нормы. Без всяких «кажется». Выполняй свою работу.</text>
 		<nextNode>0</nextNode>

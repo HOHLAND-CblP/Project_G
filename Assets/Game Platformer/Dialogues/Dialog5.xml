@@ -1,6 +1,7 @@
 <dialogue>
 	<node>
 		<face>21</face>
+		<participant>21</participant>
 		<name>Человек</name>
 		<text>Черт, куда они делись!?</text>
 		<nextNode>0</nextNode>

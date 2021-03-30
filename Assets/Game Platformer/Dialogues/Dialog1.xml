@@ -1,6 +1,7 @@
 <dialogue>
 	<node>
 		<face>21</face>
+		<participant>21</participant>
 		<name>Человек</name>
 		<text>Пожалуйста, я рассказал вам все, что знаю! Графики, движение, содержимое! Прошу, ради всего святого, отпустите…</text>
 		<nextNode>0</nextNode>

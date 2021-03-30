@@ -1,0 +1,17 @@
+<dialogue>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Мне пора. Я тебе чуть позже позвоню. </text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>5</face>
+		<participant>6</participant>
+		<name>Мама</name>
+		<text>Хорошо, удачи. И возьми теплых вещей!</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

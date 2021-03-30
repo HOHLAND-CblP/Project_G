@@ -1,6 +1,7 @@
 <dialogue>
 	<node>
 		<face>22</face>
+		<participant>22</participant>
 		<name>Неизвестный 1</name>
 		<text>Он ничего не знает.</text>
 		<nextNode>0</nextNode>

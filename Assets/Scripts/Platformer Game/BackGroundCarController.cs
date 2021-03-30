@@ -18,10 +18,15 @@ public class BackGroundCarController : MonoBehaviour
         GameObject temp = Instantiate(cars[carsId]);
         temp.transform.position = spawn[spawnerId].transform.position;
         temp.transform.localScale = spawn[spawnerId].transform.localScale;
-        temp.GetComponent<SpriteRenderer>().sortingOrder = spawnerId + 2;
+        temp.GetComponent<SpriteRenderer>().sortingOrder = spawnerId + 1;
         temp.GetComponent<GoTo>().destination = destination[spawnerId];
         temp.GetComponent<GoTo>().speed = speed;
         StartCoroutine(SpawnCars(spawnTime));
+    }
+
+    public void StopTravel()
+    {
+        StopCoroutine(SpawnCars(0));
     }
 
     IEnumerator SpawnCars(float spawnTime)

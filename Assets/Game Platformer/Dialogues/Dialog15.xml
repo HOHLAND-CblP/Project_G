@@ -1,0 +1,10 @@
+<dialogue>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Да уж, наверное, стоит позавтракать где-то в другом месте. Мама говорила, что она не успевает из-за работы, а готовить настроения нет совсем. Помню, рядом кафе было, заодно прогуляюсь.</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

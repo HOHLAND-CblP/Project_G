@@ -31,7 +31,6 @@ public class HeroControler : MonoBehaviour
     private void Start()
     {
         cam = GameObject.Find("Main Camera");
-        facingRight = true;
         rb = GetComponent<Rigidbody2D>();
         StartCoroutine(Hungried());
     }
@@ -118,7 +117,7 @@ public class HeroControler : MonoBehaviour
         }
 
         if (!GamePrefs.inDialog && Input.GetKeyDown(KeyCode.T))
-            cam.GetComponent<TrackingTheHero>().phone.gameObject.GetComponent<Phone>().OpenPhone();
+            cam.GetComponent<TheMainMainScript>().phone.GetComponent<Phone>().OpenPhone();
 
     }
 
@@ -147,6 +146,7 @@ public class HeroControler : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        cam.GetComponent<TheMainMainScript>().colliderObject = collision.gameObject;
         collision.gameObject.GetComponent<ObjectProperties>().Activation();
     }
 

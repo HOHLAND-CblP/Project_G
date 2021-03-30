@@ -1,0 +1,10 @@
+<dialogue>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Мда, кажется, чудес в мире таки не бывает. Надо что-то делать… Но что? Как бывшие одногруппники заниматься не пойми чем? Ну да, я же для этого пять лет в универе горбатился. Всю жизнь мечтал.</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

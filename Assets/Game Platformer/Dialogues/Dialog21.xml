@@ -1,0 +1,10 @@
+<dialogue>
+	<node>
+		<face>25</face>
+		<participant>28</participant>
+		<name>Кассир</name>
+		<text>Эй, Марина, одну порцию борща.</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>

@@ -1,6 +1,7 @@
 <dialogue>
 	<node>
 		<face>21</face>
+		<participant>21</participant>
 		<name>Человек</name>
 		<text>Это что еще за хрень? Боже, нет! А-а-а!!!</text>
 		<nextNode>0</nextNode>

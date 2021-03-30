@@ -26,21 +26,29 @@ public class ObjectProperties : MonoBehaviour
         if (!GamePrefs.inDialog)
         {
             cam.GetComponent<TheMainMainScript>().darkSide = darkSide;
-            if (type==6) cam.GetComponent<TheMainMainScript>().currentLevelTemp = nextLevels[0];
+            if (type == 6) cam.GetComponent<TheMainMainScript>().currentLevelTemp = nextLevels[0];
             if (isNeedButton)
             {
                 button.SetActive(true);
+                if (GamePrefs.countOfPlots == 1 && GamePrefs.countOfPlotMoment == 18 && GamePrefs.countOfHint == 1)
+                {
+                    cam.GetComponent<TheMainMainScript>().OpenHint("Нажмите на кнопку, чтобы посмотреть предмет", 180);
+                }
             }
-            if (isNeedAnimation)
-            {
-
-            }
-            else if (type==3)
+            else if (type == 3 || type == 4)
             {
                 cam.GetComponent<TheMainMainScript>().currentLevel = nextLevels[0];
                 cam.GetComponent<TrackingTheHero>().faded.SetActive(true);
                 GamePrefs.inout = type;
             }
+            if (GamePrefs.countOfPlots == 1 && GamePrefs.countOfPlotMoment == 22 && GamePrefs.countOfHint == 7)
+            {
+                cam.GetComponent<TheMainMainScript>().StartDialog();
+            }
+        }
+        if (isNeedAnimation)
+        {
+            GetComponent<Animator>().SetBool("Open", true);
         }
     }
 
@@ -49,6 +57,10 @@ public class ObjectProperties : MonoBehaviour
         if (isNeedButton)
         {
             button.SetActive(false);
+        }
+        if (isNeedAnimation)
+        {
+            GetComponent<Animator>().SetBool("Open", false);
         }
     }
 

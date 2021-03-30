@@ -9,27 +9,26 @@ public class TrackingTheHero : MonoBehaviour
 {
     public GameObject player, faded, unfaded, shining;
     public float leftV, rightV;
-    public Animator phoneButton, phone;
     public GameObject endGame, pausePanel;
     bool prologue = false;
 
     private void Start()
     {
-        //if ((GamePrefs.currentLevel != null && 
-        //    GamePrefs.currentLevel.GetComponent<SceneProperties>().sceneId == 0) || 
-        //    GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().sceneId == 0)
-        //{
-        //    transform.position = new Vector3(0, GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().groundY, transform.position.z);
-        //    GetComponent<TheMainMainScript>().phoneButton.SetActive(false);
-        //    GetComponent<TheMainMainScript>().left.SetActive(false);
-        //    GetComponent<TheMainMainScript>().right.SetActive(false);
-        //    GetComponent<TheMainMainScript>().pauseButton.SetActive(false);
-        //    prologue = true;
-        //    GetComponent<TrackingTheHero>().enabled = false;
-        //    GetComponent<PlotTracking>().objects[4].GetComponent<Animator>().enabled=true;
-        //    GetComponent<PlotTracking>().objects[5].GetComponent<Animator>().enabled=true;
-        //}
-        //else
+        if ((GamePrefs.currentLevel != null &&
+            GamePrefs.currentLevel.GetComponent<SceneProperties>().sceneId == 0) ||
+            GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().sceneId == 0)
+        {
+            transform.position = new Vector3(0, GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().groundY, transform.position.z);
+            GetComponent<TheMainMainScript>().phoneButton.SetActive(false);
+            GetComponent<TheMainMainScript>().left.SetActive(false);
+            GetComponent<TheMainMainScript>().right.SetActive(false);
+            GetComponent<TheMainMainScript>().pauseButton.SetActive(false);
+            prologue = true;
+            GetComponent<TrackingTheHero>().enabled = false;
+            GetComponent<PlotTracking>().objects[4].GetComponent<Animator>().enabled = true;
+            GetComponent<PlotTracking>().objects[5].GetComponent<Animator>().enabled = true;
+        }
+        else
         if (GamePrefs.currentLevel == null)
         {
             player.transform.position = new Vector3(player.transform.position.x, GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().groundY);
@@ -57,16 +56,16 @@ public class TrackingTheHero : MonoBehaviour
         }
         if (faded.activeSelf && faded.GetComponent<Image>().color.a == 1)
         {
-            if (GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().sceneId==10)
-            {
-                GetComponent<TheMainMainScript>().currentLevel.GetComponent<BackGroundCarController>().Travel();
-            }
             if (GamePrefs.inout == 1)
             {
                 leftV = GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().leftV;
                 rightV = GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().rightV;
                 player.transform.position = GetComponent<TheMainMainScript>().darkSide.transform.position;
                 player.transform.position = new Vector3(player.transform.position.x, GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().groundY);
+                if (GamePrefs.countOfHint == 5 && GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().sceneId == 10)
+                {
+                    GetComponent<TheMainMainScript>().OpenHint("Идите налево, к остановке.", 180);
+                }
             }
             else if (GamePrefs.inout == 2)
             {
@@ -102,6 +101,11 @@ public class TrackingTheHero : MonoBehaviour
             GetComponent<TheMainMainScript>().animMap.SetBool("map", false);
             unfaded.SetActive(true);
             faded.SetActive(false);
+            if (GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().sceneId == 10
+                || GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().sceneId == 20)
+            {
+                GetComponent<TheMainMainScript>().currentLevel.GetComponent<BackGroundCarController>().Travel();
+            }
         }
     }  
 }

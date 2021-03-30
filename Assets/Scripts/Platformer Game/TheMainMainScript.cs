@@ -5,14 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class TheMainMainScript : MonoBehaviour
 {
-    public GameObject fade, levelText, phoneButton, pauseButton, currentLevel, pausePanel, player, darkSide, left, right, currentLevelTemp, dialogWindow;
+    public GameObject fade, levelText, phoneButton, pauseButton, currentLevel, pausePanel, player, darkSide, left, 
+        right, currentLevelTemp, dialogWindow, colliderObject, canvas, table;
 
     [Header("Animator")]
     public Animator animMap;
     public Animator animFridge;
     public Animator animHealthBag;
     public Animator phone;
-    public Animator animShop; 
+    public Animator animShop;
     public Animator animApteka;
     public Animator diploma;
     public Animator hintPanel;
@@ -23,7 +24,7 @@ public class TheMainMainScript : MonoBehaviour
     public GameObject fridgeObject;
     public GameObject healthBagObject;
 
-    //public bool rejected = false;
+    public bool rejected = false;
     //public bool cameraTranslate=false;
     //public int modeTranslate = 0;
     //public bool playerGoRight = false;
@@ -39,6 +40,9 @@ public class TheMainMainScript : MonoBehaviour
     public GameObject safeButton;
     public GameObject compButton;
     public GameObject seeButton;
+    public GameObject nextDialogButton;
+    public GameObject tableButton;
+    public GameObject backpackButton;
 
     void Start()
     {
@@ -114,11 +118,7 @@ public class TheMainMainScript : MonoBehaviour
     //            safeButton.gameObject.transform.GetChild(0).gameObject.SetActive(false);
     //        }
     //    }
-    //    if (rejected)
-    //    {
-    //        rejected = false;
-    //        StartCoroutine(Call());
-    //    }
+    //    
     //    if (fade.activeSelf && fade.GetComponent<Image>().color.a == 0)
     //    {
     //        fade.SetActive(false);
@@ -314,24 +314,60 @@ public class TheMainMainScript : MonoBehaviour
 
     public void OpenHint(string text, float angle)
     {
-        hintPanel.gameObject.transform.GetChild(0).gameObject.transform.Rotate(new Vector3(0,0,angle));
+        hintPanel.gameObject.transform.GetChild(0).gameObject.transform.Rotate(new Vector3(0, 0, angle));
         hintPanel.gameObject.transform.GetChild(1).transform.GetComponent<Text>().text = text;
         hintPanel.SetBool("hint", true);
         StartCoroutine(Hint());
+        GamePrefs.countOfHint++;
+    }
+
+    public void PutOnBackpack()
+    {
+        player.GetComponent<Animator>().SetBool("Backpack", true);
+        GetComponent<PlotTracking>().objects[24].transform.localScale = new Vector3(-4, 4, 0);
+        GetComponent<PlotTracking>().objects[27].SetActive(false);
+        player.transform.localScale = new Vector3(4, 4, 0);
+        player.GetComponent<HeroControler>().facingRight = false;
+        backpackButton.SetActive(false);
+        StartDialog();
     }
 
     public void StartDialog()
     {
         GamePrefs.inDialog = true;
+        fridgeButton.SetActive(false);
+        bedButton.SetActive(false);
+        healthButton.SetActive(false);
+        goInOutButton.SetActive(false);
+        talkButton.SetActive(false);
+        TPButton.SetActive(false);
+        shopButton.SetActive(false);
+        safeButton.SetActive(false);
+        compButton.SetActive(false);
+        seeButton.SetActive(false);
         left.SetActive(false);
         right.SetActive(false);
         phoneButton.SetActive(false);
         pauseButton.SetActive(false);
-        phone.GetComponent<Animator>().SetBool("phone", false);
+        if (!GamePrefs.isCallDialog)
+        {
+            phone.GetComponent<Animator>().SetBool("phone", false);
+            nextDialogButton.gameObject.GetComponent<RectTransform>().localPosition = new
+                Vector3(canvas.GetComponent<RectTransform>().rect.width / 2 - nextDialogButton.GetComponent<RectTransform>().rect.width / 2 - 14,
+                nextDialogButton.gameObject.GetComponent<RectTransform>().localPosition.y);
+
+        }
+        else
+        {
+            GamePrefs.isCallDialog = false;
+            nextDialogButton.GetComponent<RectTransform>().localPosition = new
+                Vector3(phone.gameObject.GetComponent<RectTransform>().localPosition.x - phone.gameObject.GetComponent<RectTransform>().rect.width / 2
+                - nextDialogButton.GetComponent<RectTransform>().rect.width / 2 - 10, nextDialogButton.gameObject.GetComponent<RectTransform>().localPosition.y);
+        }
         player.GetComponent<HeroControler>().Stop();
         dialogWindow.SetActive(true);
         dialogWindow.GetComponent<PlatformerDialogs>().currentNode = 0;
-        dialogWindow.GetComponent<PlatformerDialogs>().dialogue = 
+        dialogWindow.GetComponent<PlatformerDialogs>().dialogue =
             Dialogue.Load(currentLevel.GetComponent<SceneProperties>().dialogs[currentLevel.GetComponent<SceneProperties>().countOfDialogs]);
         dialogWindow.GetComponent<PlatformerDialogs>().dialogueEnded = false;
         dialogWindow.GetComponent<PlatformerDialogs>().nextDialogButton.gameObject.SetActive(true);
@@ -366,6 +402,7 @@ public class TheMainMainScript : MonoBehaviour
         dialogWindow.SetActive(false);
         left.SetActive(true);
         right.SetActive(true);
+        phone.GetComponent<Animator>().SetBool("phone", false);
         phoneButton.SetActive(true);
         pauseButton.SetActive(true);
         phoneButton.GetComponent<Animator>().SetBool("phoneButton", true);
@@ -374,17 +411,17 @@ public class TheMainMainScript : MonoBehaviour
         GetComponent<PlotTracking>().NextPlotMoment();
     }
 
-    //IEnumerator Call()
-    //{
-    //    bool r = true;
-    //    while (r)
-    //    {
-    //        yield return new WaitForSeconds(5);
-    //        phoneButton.GetComponent<Animator>().SetBool("call", true);
-    //        r = false;
-    //        StopCoroutine(Call());
-    //    }
-    //}
+    public IEnumerator Call()
+    {
+        bool r = true;
+        while (r)
+        {
+            yield return new WaitForSeconds(5);
+            phoneButton.GetComponent<Animator>().SetBool("call", true);
+            r = false;
+            StopCoroutine(Call());
+        }
+    }
 
     //public void NextPage()
     //{
@@ -467,6 +504,19 @@ public class TheMainMainScript : MonoBehaviour
         TPButton.SetActive(true);
         GamePrefs.inDialog = false;
         animMap.SetBool("map", false);
+    }
+
+    public void SitTable()
+    {
+        StartCoroutine(GetComponent<PlotTracking>().Wait(10));
+        tableButton.SetActive(false);
+        left.SetActive(false);
+        right.SetActive(false);
+        player.transform.localScale = new Vector3(-4, 4, 0);
+        player.transform.localPosition = new Vector3(-9.41f, -45.91067f, 0);
+        player.GetComponent<BoxCollider2D>().size = new Vector2(player.GetComponent<BoxCollider2D>().size.x, 0.77f);
+        player.GetComponent<Animator>().SetBool("Table", true);
+        table.SetActive(false);
     }
 
     public void Pause()
@@ -574,11 +624,20 @@ public class TheMainMainScript : MonoBehaviour
         seeButton.SetActive(false);
         left.SetActive(false);
         right.SetActive(false);
-        phoneButton.SetActive(false);
+        phoneButton.SetActive(false); 
         phone.GetComponent<Animator>().SetBool("phone", false);
-        if (currentLevel.GetComponent<SceneProperties>().sceneId == 12)
+        if (colliderObject.GetComponent<ObjectProperties>().type == 15)
         {
             diploma.SetBool("open", true);
+            hintPanel.SetBool("hint", false);
+            StopCoroutine(Hint());
+        }
+        else if (colliderObject.GetComponent<ObjectProperties>().type == 16)
+        {
+            if (GamePrefs.countOfPlots == 1 && GamePrefs.countOfPlotMoment == 19)
+            {
+                StartDialog();
+            }
         }
     }
 
@@ -592,6 +651,11 @@ public class TheMainMainScript : MonoBehaviour
         phoneButton.SetActive(true);
         phoneButton.GetComponent<Animator>().SetBool("phoneButton", true);
         diploma.SetBool("open", false);
+        if (GamePrefs.diplomaDialog)
+        {
+            GamePrefs.diplomaDialog = false;
+            StartDialog();
+        }
     }
 
     public void OpenComputer()

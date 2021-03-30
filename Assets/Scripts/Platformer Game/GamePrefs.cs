@@ -14,6 +14,7 @@ public static class GamePrefs
     public static int runnerLevel;
     public static int countOfPlotMoment = 0;
     public static int countOfPlots = 1;
+    public static int countOfHint = 0;
 
     public static GameObject currentLevel;
     public static GameObject currentRunnerLevel;
@@ -33,8 +34,14 @@ public static class GamePrefs
     public static string nameForAdd2Note = "";
     public static string textForAdd2Note = "";
 
+    public static bool isCallDialog = false;
+    public static bool diplomaDialog = false;
     public static bool prologCrutch1 = false;
     public static bool prologCrutch2 = false;
     public static bool prologCrutch3 = false;
     public static bool prologCrutch4 = false;
+    public static bool prologCrutch5 = false;
+    public static bool prologCrutch6 = false;
+    public static bool prologCrutch7 = false;
+    public static bool prologCrutch8 = false;
 }

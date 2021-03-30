@@ -51,11 +51,10 @@ public class PlatformerDialogs : MonoBehaviour
             }
             else
             {
-                line = dialogue.nodes[currentNode].face;
-                transform.position = new Vector3(partipicipants[System.Convert.ToInt32(line)].transform.position.x, transform.position.y, transform.position.z);
+                transform.position = new Vector3(partipicipants[dialogue.nodes[currentNode].participant].transform.position.x, transform.position.y, transform.position.z);
                 DialogPosition();
-                arrow.transform.position = new Vector3(partipicipants[System.Convert.ToInt32(line)].transform.position.x, arrow.transform.position.y);
-                face.sprite = faces[System.Convert.ToInt32(line)];
+                arrow.transform.position = new Vector3(partipicipants[dialogue.nodes[currentNode].participant].transform.position.x, arrow.transform.position.y);
+                face.sprite = faces[dialogue.nodes[currentNode].face];
                 line = dialogue.nodes[currentNode].name;
                 nameText.text = line;
                 line = dialogue.nodes[currentNode].text;
@@ -66,12 +65,12 @@ public class PlatformerDialogs : MonoBehaviour
 
     void DialogPosition()
     {
-        if (GetComponent<RectTransform>().localPosition.x + GetComponent<RectTransform>().rect.width / 2 > canvas.GetComponent<RectTransform>().rect.width / 2 - 20)
-            GetComponent<RectTransform>().localPosition = new Vector3(canvas.GetComponent<RectTransform>().rect.width / 2 - GetComponent<RectTransform>().rect.width / 2 - 20,
+        if (GetComponent<RectTransform>().localPosition.x + GetComponent<RectTransform>().rect.width / 2 > canvas.GetComponent<RectTransform>().rect.width / 2 - 10)
+            GetComponent<RectTransform>().localPosition = new Vector3(canvas.GetComponent<RectTransform>().rect.width / 2 - GetComponent<RectTransform>().rect.width / 2 - 10,
                 GetComponent<RectTransform>().localPosition.y, GetComponent<RectTransform>().localPosition.z);
 
-        else if (GetComponent<RectTransform>().localPosition.x - GetComponent<RectTransform>().rect.width / 2 < -canvas.GetComponent<RectTransform>().rect.width / 2 + 20)
-            GetComponent<RectTransform>().localPosition = new Vector3(-canvas.GetComponent<RectTransform>().rect.width / 2 + GetComponent<RectTransform>().rect.width / 2 + 20,
+        else if (GetComponent<RectTransform>().localPosition.x - GetComponent<RectTransform>().rect.width / 2 < -canvas.GetComponent<RectTransform>().rect.width / 2 + 10)
+            GetComponent<RectTransform>().localPosition = new Vector3(-canvas.GetComponent<RectTransform>().rect.width / 2 + GetComponent<RectTransform>().rect.width / 2 + 10,
                 GetComponent<RectTransform>().localPosition.y, GetComponent<RectTransform>().localPosition.z);
 
     }
@@ -171,7 +170,7 @@ public class PlatformerDialogs : MonoBehaviour
         {
             for (int i = 0; i < dialogue.nodes[currentNode].answers.Length; i++)
                 answers[i].SetActive(false);
-            //GetComponent<TheMainMainScript>().CloseDialog(); 
+            cam.GetComponent<TheMainMainScript>().CloseDialog(); 
             return; 
         }
         dialogText.text = "";

@@ -1,0 +1,143 @@
+<dialogue>
+	<node>
+		<face>24</face>
+		<participant>27</participant>
+		<name>Аптекарь</name>
+		<text>Добрый день.</text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Был бы он добрый, я бы к вам не зашёл. Мне что-то от головной боли и парочку успокоительных.</text>
+		<nextNode>2</nextNode>
+	</node>
+	<node>
+		<face>24</face>
+		<participant>27</participant>
+		<name>Аптекарь</name>
+		<text>Да, последнее вам не помешает.</text>
+		<nextNode>3</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Что?</text>
+		<nextNode>4</nextNode>
+	</node>
+	<node>
+		<face>24</face>
+		<participant>27</participant>
+		<name>Аптекарь</name>
+		<text>Хотите гематогену?</text>
+		<nextNode>5</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Нет. Дайте мне то, что я попросил.</text>
+		<nextNode>6</nextNode>
+	</node>
+	<node>
+		<face>24</face>
+		<participant>27</participant>
+		<name>Аптекарь</name>
+		<text>Что вы попросили?</text>
+		<nextNode>7</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Что я попросил? </text>
+		<nextNode>8</nextNode>
+	</node>
+	<node>
+		<face>24</face>
+		<participant>27</participant>
+		<name>Аптекарь</name>
+		<text>Что вы попросили.</text>
+		<nextNode>9</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Вы издеваетесь?!</text>
+		<nextNode>10</nextNode>
+	</node>
+	<node>
+		<face>24</face>
+		<participant>27</participant>
+		<name>Аптекарь</name>
+		<text>Нет, что вы. Так что по поводу гематогенки?</text>
+		<nextNode>11</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Не нужен мне ваш гематоген!</text>
+		<nextNode>12</nextNode>
+	</node>
+	<node>
+		<face>24</face>
+		<participant>27</participant>
+		<name>Аптекарь</name>
+		<text>Уверены?</text>
+		<nextNode>13</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>ДА!</text>
+		<nextNode>14</nextNode>
+	</node>
+	<node>
+		<face>24</face>
+		<participant>27</participant>
+		<name>Аптекарь</name>
+		<text>Кажется, у вас участился пульс.</text>
+		<nextNode>15</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Да вы что?!</text>
+		<nextNode>16</nextNode>
+	</node>
+	<node>
+		<face>24</face>
+		<participant>27</participant>
+		<name>Аптекарь</name>
+		<text>Проверьте ваше состояние по ОХ.</text>
+		<nextNode>17</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Что ещё за «ОХ»?! Так, где ваша жалобная книга?</text>
+		<nextNode>18</nextNode>
+	</node>
+	<node>
+		<face>24</face>
+		<participant>27</participant>
+		<name>Аптекарь</name>
+		<text>ОХ – приложения, показывающее ваше физическое состояние. Очень полезно. Подберём вам нужное лекарство. А от головной боли вот, простого обезболивающего будет достаточно.</text>
+		<nextNode>19</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>…</text>
+		<nextNode>0</nextNode>
+		<dialend>true</dialend>
+	</node>
+</dialogue>
