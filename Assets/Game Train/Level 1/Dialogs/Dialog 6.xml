@@ -1,0 +1,13 @@
+<dialog>
+ <say>
+  <id>1</id>
+  <text>Неплохо, неплохо.</text>
+  <nextSay>1</nextSay>	
+ </say>
+  <say>
+    <id>1</id>
+    <text>Хорошо, такой вопрос, а может ли поезд повернуть вот под таким углом?</text>
+    <nextSay>0</nextSay>
+    <dialEnd>true</dialEnd>
+  </say>
+</dialog>

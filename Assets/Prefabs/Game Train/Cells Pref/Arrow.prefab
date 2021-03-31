@@ -156,7 +156,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 5aa61b79ed0620d4cade9deae1d70784, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f4776a2bb55a680458d01fb03f6d142b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -207,8 +207,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 510c4ca0df00fcf4fa242b616c8394d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canGo: 0
-  pointer: {fileID: 0}
+  arrowForward: {fileID: 21300000, guid: f4776a2bb55a680458d01fb03f6d142b, type: 3}
+  arrowTurn: {fileID: 21300000, guid: f98c284ff109741459f4ee643d46d1fc, type: 3}
 --- !u!58 &497725464615894454
 CircleCollider2D:
   m_ObjectHideFlags: 0

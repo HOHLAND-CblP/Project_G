@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Game Platformer/Scenes/Runner.unity
     guid: 7512fb7b352eac7449281a5784b5d557
   - enabled: 1
-    path: Assets/Game Train/Scenes/Testing2.unity
+    path: Assets/Game Train/Level 1/Train Level 1.unity
     guid: f13ff8eda86dd714db147a0486c27d64
   - enabled: 1
     path: Assets/Game Train/Scenes/Testing2_Clear.unity

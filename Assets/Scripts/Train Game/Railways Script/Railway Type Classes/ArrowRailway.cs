@@ -2,7 +2,6 @@
 
 public class ArrowRailway : MonoBehaviour
 {
-    [SerializeField]
     bool canGo;     // Может ли ехать поезд на стрелке в нужном ему направлении
 
     bool isTurnBlocked;     // Блокировка кнопки поворота
@@ -10,8 +9,12 @@ public class ArrowRailway : MonoBehaviour
     bool turn;      // Стрелка стоит на поворот или на прямой участок
 
 
-    [Space(20)]
-    public GameObject pointer;
+    // Картинки для стрелки
+    public Sprite arrowForward;
+    public Sprite arrowTurn;
+
+    
+    GameObject pointer;
 
 
     // Направления
@@ -50,9 +53,15 @@ public class ArrowRailway : MonoBehaviour
         {
             turn = !turn;
             if (turn)
+            {
                 pointer.transform.localRotation = Quaternion.Euler(0, 0, 45);
+                GetComponent<SpriteRenderer>().sprite = arrowTurn;
+            }
             else
+            {
                 pointer.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                GetComponent<SpriteRenderer>().sprite = arrowForward;
+            }
         }
     }
 

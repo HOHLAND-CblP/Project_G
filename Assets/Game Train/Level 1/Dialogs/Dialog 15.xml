@@ -1,0 +1,28 @@
+<dialog>
+ <say>
+  <id>1</id>
+  <text>У тебя сложности?</text>
+  <nextSay>1</nextSay>	
+ </say>
+  <say>
+    <id>0</id>
+    <text>Т-тут какой-то сбой. Я не успеваю!</text>
+    <nextSay>2</nextSay>
+  </say>
+  <say>
+    <id>1</id>
+    <text>Не успеваешь? Тогда о кАком красноМ дипломе мОжет ИдтИ речь, еСли ТЫ не мОжЕшь спрАВитьСя с тАКим пРоСтЫМ заДаНИем?</text>
+    <nextSay>3</nextSay>
+  </say>
+  <say>
+    <id>0</id>
+    <text>Но я…</text>
+    <nextSay>5</nextSay>
+  </say>
+  <say>
+    <id>1</id>
+    <text>Ты НиКоГдА Не НаЙдЁшЬ РаБоТу, КаКИм Бы ЛуЧшим Ты Ни Был. НИКОГДА!!!</text>
+    <nextSay>6</nextSay>
+    <dialEnd>true</dialEnd>
+  </say>
+</dialog>

@@ -444,7 +444,12 @@ public class Station : MonoBehaviour
 
     public void SetColor(Color color)
     {
-        transform.GetChild(1).gameObject.SetActive(!transform.GetChild(1).gameObject.activeSelf);
+        transform.GetChild(1).gameObject.SetActive(true);
         transform.GetChild(1).GetComponent<SpriteRenderer>().color = color;
+    }
+
+    public void RemoveColor()
+    {
+        transform.GetChild(1).gameObject.SetActive(false);
     }
 }

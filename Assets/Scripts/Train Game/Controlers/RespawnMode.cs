@@ -9,6 +9,7 @@ public class RespawnMode : MonoBehaviour
 {
     [SerializeField]
     int maxTrain;
+    [SerializeField]
     int curTrain;
 
     public List<Color> colorsTrain;
@@ -80,12 +81,11 @@ public class RespawnMode : MonoBehaviour
 
             Quaternion ang = Quaternion.Euler(curRespawnStation.GetComponent<Station>().GetAngles());   //получаем угол ж/д на которой находиться станция
 
-            int rand;
+            int rand = Random.Range(0, 2);
+
 
             if (ang == Quaternion.Euler(0, 0, 0)) //выставляем стрелочкам выполненение нужных функций
             {
-                rand = Random.Range(0, 1);
-
                 switch (rand)
                 {
                     case 0:
@@ -99,8 +99,6 @@ public class RespawnMode : MonoBehaviour
             }
             else if (ang == Quaternion.Euler(0, 0, 45))
             {
-                rand = Random.Range(0, 1);
-
                 switch (rand)
                 {
                     case 0:
@@ -114,8 +112,6 @@ public class RespawnMode : MonoBehaviour
             }
             else if (ang == Quaternion.Euler(0, 0, 90))
             {
-                rand = Random.Range(0, 1);
-
                 switch (rand)
                 {
                     case 0:
@@ -129,8 +125,6 @@ public class RespawnMode : MonoBehaviour
             }
             else if (ang == Quaternion.Euler(0, 0, 135))
             {
-                rand = Random.Range(0, 1);
-
                 switch (rand)
                 {
                     case 0:
@@ -284,12 +278,26 @@ public class RespawnMode : MonoBehaviour
 
         stations[rand].GetComponent<Station>().SetColor(colorsTrain[rand_color]);
 
-        train.GetComponent<TrainScript>().CreateTrain(colorsTrain[rand_color], gameObject, points, stations[rand], 3);
+        train.GetComponent<TrainScript>().CreateTrain(colorsTrain[rand_color], gameObject, points, stations[rand], 0);
 
         stations.RemoveAt(rand);
         colorsTrain.RemoveAt(rand_color);
 
         train.SetActive(true);
+    }
+
+
+    public void RespawnTrain_Modif(GameObject respStation, Vector2[] points, GameObject arrivalStation, Color32 color, int countCarriage, out GameObject trainOut)
+    {
+        curTrain++;
+
+        GameObject train = Instantiate(TrainPref, respStation.transform.position, Quaternion.identity);
+
+        arrivalStation.GetComponent<Station>().SetColor(color);
+
+        train.GetComponent<TrainScript>().CreateTrain(color, gameObject, points, arrivalStation, countCarriage);
+
+        trainOut = train;
     }
 
 

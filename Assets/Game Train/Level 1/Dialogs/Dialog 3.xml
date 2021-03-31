@@ -1,0 +1,8 @@
+<dialog>
+  <say>
+    <id>0</id>
+    <text>Вот это главный путь.</text>
+    <nextSay>0</nextSay>
+    <dialEnd>true</dialEnd>
+  </say>
+</dialog>

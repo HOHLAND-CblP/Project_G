@@ -374,7 +374,7 @@ public class RailwayCarriage : MonoBehaviour
 
     IEnumerator WaitMainTrain(int count) 
     {
-        yield return new WaitForSeconds(0.35f * count);
+        yield return new WaitForSeconds(0.35f * count );
         enabled = true;
     }
 }

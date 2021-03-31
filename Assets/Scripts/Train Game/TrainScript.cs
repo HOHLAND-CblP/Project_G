@@ -97,12 +97,17 @@ public class TrainScript : MonoBehaviour
         {
             LookAtPoint(points[curNumPoint]);
 
-            if (!reverse) 
+            if (!reverse)
                 transform.position = Vector2.MoveTowards(transform.position, points[curNumPoint], speed * Time.deltaTime);
             else
             {
-                float distance = Vector2.Distance(transform.position, railwayCarriages[0].transform.position) - 0.7f;
-                transform.position = Vector2.MoveTowards(transform.position, points[curNumPoint], distance);
+                if (railwayCarriages.Count > 0)
+                {
+                    float distance = Vector2.Distance(transform.position, railwayCarriages[0].transform.position) - 0.7f;
+                    transform.position = Vector2.MoveTowards(transform.position, points[curNumPoint], distance);
+                }
+                else
+                    transform.position = Vector2.MoveTowards(transform.position, points[curNumPoint], speed * Time.deltaTime);
             }
         }
 
@@ -126,7 +131,7 @@ public class TrainScript : MonoBehaviour
             if (carriageOnStation)
             {
                 enabled = false;
-                if (reverse)
+                if (reverse || railwayCarriages.Count == 0)
                 {
                     DestroyTrain();
                 }
@@ -310,7 +315,7 @@ public class TrainScript : MonoBehaviour
             Camera.main.GetComponent<GameControler>().DeactSpeedPanel(gameObject);
 
             Camera.main.GetComponent<RespawnMode>().ArrivedAtStation(arrivalStation, GetComponent<SpriteRenderer>().color);
-            arrivalStation.GetComponent<Station>().SetColor(Color.white);
+            arrivalStation.GetComponent<Station>().RemoveColor();
 
             foreach (var r in railwayCarriages) // Уничтожаем вагоны
             {

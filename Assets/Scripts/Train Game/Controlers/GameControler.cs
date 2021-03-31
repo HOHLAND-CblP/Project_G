@@ -29,6 +29,13 @@ public class GameControler : MonoBehaviour
     public GameObject speedPanel;   // Панель скоростей поездов (UI-элемент)
     GameObject curTrain;            // Текущий выбранный поезд
 
+    // Сообщение об конце анимации
+    [HideInInspector]
+    public AnimationEnded animEnd;
+
+    // Блокировка панели скоростей из вне
+    public bool blockSpeedPanel;
+
     // Список зданий находяшихся в начале сцены
     List<GameObject> buildings = new List<GameObject>();    // Был создан из-за незнания возможности настройки порядкового запуска скриптов
                                                             // Каждый Building на сцене в Awake отправляет информаию в этот список, 
@@ -38,7 +45,7 @@ public class GameControler : MonoBehaviour
 
     private void Awake()
     {
-        //Application.targetFrameRate = 30;
+        Application.targetFrameRate = 300;
     }
 
 
@@ -64,7 +71,7 @@ public class GameControler : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))        // Обработка нажатия на клавишу
+        if (Input.GetMouseButtonDown(0))        // Обработка нажатия на мышку
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -151,9 +158,12 @@ public class GameControler : MonoBehaviour
 
     public void ActivateSpeedPanel(GameObject train)
     {
-        speedPanel.SetActive(true);
-        curTrain = train;
-        speedPanel.GetComponent<Image>().color = curTrain.GetComponent<SpriteRenderer>().color;
+        if (!blockSpeedPanel)
+        {
+            speedPanel.SetActive(true);
+            curTrain = train;
+            speedPanel.GetComponent<Image>().color = curTrain.GetComponent<SpriteRenderer>().color;
+        }
     }
 
     public void DeactSpeedPanel(GameObject train) // Нужна чтобы убирать панельку при исчезновении поезда со сцены (уничтожение/доехал до станции)
@@ -166,5 +176,10 @@ public class GameControler : MonoBehaviour
     {
         if (curTrain != null)   
             curTrain.GetComponent<TrainScript>().SpeedChange(speed);
+    }
+
+    public void AnimationEnded()
+    {
+        animEnd();
     }
 }

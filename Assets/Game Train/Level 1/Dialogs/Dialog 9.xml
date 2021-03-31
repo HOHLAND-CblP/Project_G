@@ -1,0 +1,13 @@
+<dialog>
+  <say>
+    <id>1</id>
+    <text>Угу, Сёма, а теперь скажи, как заставить поезда ехать с другой скоростью или вовсе задним ходом?</text>
+    <nextSay>0</nextSay>
+  </say>
+  <say>
+    <id>0</id>
+    <text>Всё просто, добавьте поезд, пожалуйста.</text>
+    <nextSay>0</nextSay>
+    <dialEnd>true</dialEnd>
+  </say>
+</dialog>

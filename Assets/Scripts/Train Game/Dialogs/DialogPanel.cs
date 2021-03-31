@@ -23,14 +23,18 @@ public class DialogPanel : MonoBehaviour
     [Header("Components")]
     public float outputDelay;   // Задержка для постепнного вывода текста
 
+    // Ссылка на метод, сообщающий об окнчании диалога, в контролере уроня
     [HideInInspector]
-    public NextSay nextSay;
+    public DialogEnded dialogEnded;
 
-    string remainingText = "";  // Остаток от деления текста на 2 части
+    // Остаток от деления текста на 2 части
+    string remainingText = "";
 
+    // Строка для дебага
     public string debugText;
 
-    bool skipDialog;    // Скипнули ли диалог 
+    // Закончился ли вывод диалога
+    bool skipDialog;     
 
 
     void Start()
@@ -49,7 +53,7 @@ public class DialogPanel : MonoBehaviour
         face.sprite = faces[idCharacter];
         gameObject.SetActive(true);
 
-        //StartCoroutine(OutputDialog(textDialog));
+        StartCoroutine(OutputDialog(textDialog));
     }
 
 
@@ -77,7 +81,7 @@ public class DialogPanel : MonoBehaviour
     }
 
 
-    public void NextSkipDialog()
+    void NextSkipDialog()
     {
         if (!skipDialog)
         { 
@@ -89,8 +93,8 @@ public class DialogPanel : MonoBehaviour
         }
         else  // Выключаем диалогове окно, если текст кончился
         {
-            nextSay();
             gameObject.SetActive(false);
+            dialogEnded();
         }
     }
 
@@ -99,6 +103,7 @@ public class DialogPanel : MonoBehaviour
     {
         remainingText = "";     // Чистим оставшийся текст и диалоговое поле
         dialog.text = "";
+
 
         skipDialog = false;
 
@@ -117,6 +122,7 @@ public class DialogPanel : MonoBehaviour
                 break;
             }       
         }
+        skipDialog = true;
 
         if (textDialog != "")
         {

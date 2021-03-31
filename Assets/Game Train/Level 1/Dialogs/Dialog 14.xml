@@ -1,0 +1,8 @@
+<dialog>
+ <say>
+  <id>1</id>
+  <text>А теперь доставь мне поезд зелёного цвета на эту зелёную станцию, используя стрелки и переключая скорости.</text>
+  <nextSay>0</nextSay>
+  <dialEnd>true</dialEnd>
+ </say>
+</dialog>

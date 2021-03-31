@@ -49,10 +49,6 @@ public class CameraControler : MonoBehaviour
     public float maxZoom;
     public float minZoom;
 
-    private bool mobileStartZoom;
-
-    private float startDistBetwTouch;
-
     [Header("Debug")]
     public Text debug;
 
@@ -62,7 +58,6 @@ public class CameraControler : MonoBehaviour
     {
         canClamp = true;
         mobileFirstTouch = false;
-        mobileStartZoom = false;
     }
 
 
@@ -217,8 +212,6 @@ public class CameraControler : MonoBehaviour
         if(Input.touchCount == 0)
         {
             debug.text = "";
-            startDistBetwTouch = 0;
-            mobileStartZoom = false;
         }
     }
 }
