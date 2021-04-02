@@ -62,31 +62,31 @@ public class Level1 : MonoBehaviour
 
 
     // Список bool переменых контролирующих уровень в порядке следования
-    bool firstDialog = true;
-    bool firstAnimation = true;
-    bool secondDialog = true;
-    bool secondAnimation = true;
-    bool thirdDialog = true;
-    bool thirdAnimation = true;
-    bool fourthDialog = true;
-    bool fifthDialog = true;
-    bool firstAction = true;
-    bool sixthDialog = true;
-    bool fourthAnimation = true;
-    bool seventhDialog = true;
-    bool secondAction = true;
-    bool eighthDialog = true;
-    bool fifthAnimation = true;
-    bool thirdAction = true;
-    bool ninthDialog = true;
-    bool sixthAnimation = true;
-    bool tenthDialog = true;
-    bool seventhAnimation = true;
-    bool eleventhDialog = true;
-    bool eighthAnimation = true;
-    bool fourthAction = true;
-    bool fifthAction = true;
-    bool twelfthDialog = true;
+    bool firstDialog = false;
+    bool firstAnimation = false;
+    bool secondDialog = false;
+    bool secondAnimation = false;
+    bool thirdDialog = false;
+    bool thirdAnimation = false;
+    bool fourthDialog = false;
+    bool fifthDialog = false;
+    bool firstAction = false;
+    bool sixthDialog = false;
+    bool fourthAnimation = false;
+    bool seventhDialog = false;
+    bool secondAction = false;
+    bool eighthDialog = false;
+    bool fifthAnimation = false;
+    bool thirdAction = false;
+    bool ninthDialog = false;
+    bool sixthAnimation = false;
+    bool tenthDialog = false;
+    bool seventhAnimation = false;
+    bool eleventhDialog = false;
+    bool eighthAnimation = false;
+    bool fourthAction = false;
+    bool fifthAction = false;
+    bool twelfthDialog = false;
 
 
 
