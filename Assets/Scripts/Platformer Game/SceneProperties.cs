@@ -28,4 +28,9 @@ public class SceneProperties : MonoBehaviour
     public float rightV;
     public float groundX;
     public float groundY;
+
+    private void Start()
+    {
+        countOfDialogs = GamePrefs.countsOfcountOfDialogs[sceneId];
+    }
 }

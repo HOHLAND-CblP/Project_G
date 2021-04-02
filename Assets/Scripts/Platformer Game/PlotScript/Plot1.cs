@@ -88,7 +88,7 @@ public class Plot1
 
     static void Moment9(GameObject[] obj)
     {
-        obj[12].GetComponent<SpriteRenderer>().sortingOrder = obj[8].GetComponent<SpriteRenderer>().sortingOrder;
+        obj[12].GetComponent<SpriteRenderer>().sortingOrder = 7;
         obj[12].GetComponent<Animator>().enabled = true;
     }
 
@@ -258,11 +258,24 @@ public class Plot1
 
     static void Moment31(GameObject[] obj)
     {
+        GamePrefs.isCallDialog = true;
+        obj[20].GetComponent<TheMainMainScript>().phone.GetComponent<Animator>().SetBool("phone", true);
+        obj[20].GetComponent<TheMainMainScript>().phone.GetComponent<Phone>().statMenu.SetActive(false);
+        obj[20].GetComponent<TheMainMainScript>().phone.GetComponent<Phone>().mainMenu.SetActive(false);
+        obj[20].GetComponent<TheMainMainScript>().phone.GetComponent<Phone>().bankMenu.SetActive(false);
+        obj[20].GetComponent<TheMainMainScript>().phone.GetComponent<Phone>().contactsMenu.SetActive(false);
+        obj[20].GetComponent<TheMainMainScript>().phone.GetComponent<Phone>().notesMenu.SetActive(false);
+        obj[20].GetComponent<TheMainMainScript>().phone.GetComponent<Phone>().callMenu.SetActive(true);
+        obj[20].GetComponent<TheMainMainScript>().phone.GetComponent<Phone>().callMenu.transform.GetChild(0).transform.GetChild(1).gameObject.SetActive(false);
+        obj[20].GetComponent<TheMainMainScript>().phone.GetComponent<Phone>().callMenu.transform.GetChild(0).transform.GetChild(2).gameObject.SetActive(false);
+        obj[20].GetComponent<TheMainMainScript>().phone.GetComponent<Phone>().callMenu.transform.GetChild(0).gameObject.SetActive(true);
+        obj[20].GetComponent<TheMainMainScript>().phone.GetComponent<Phone>().callMenu.transform.GetChild(1).gameObject.SetActive(false);
         obj[20].GetComponent<TheMainMainScript>().StartDialog();
     }
     
     static void Moment32(GameObject[] obj)
     {
+        GamePrefs.isCallDialog = false;
         obj[24].SetActive(true);
     }
 
@@ -308,6 +321,9 @@ public class Plot1
     static void Moment40(GameObject[] obj)
     {
         obj[20].GetComponent<TrackingTheHero>().faded.SetActive(true);
+        GamePrefs.isNeedMessage = true;
+        GamePrefs.countOfPlotMoment = 0;
+        GamePrefs.countOfPlots++;
         GamePrefs.inout = -1;
     }
 }

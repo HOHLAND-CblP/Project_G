@@ -15,6 +15,7 @@ public static class GamePrefs
     public static int countOfPlotMoment = 0;
     public static int countOfPlots = 1;
     public static int countOfHint = 0;
+    public static int[] countsOfcountOfDialogs = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
     public static GameObject currentLevel;
     public static GameObject currentRunnerLevel;
@@ -34,6 +35,8 @@ public static class GamePrefs
     public static string nameForAdd2Note = "";
     public static string textForAdd2Note = "";
 
+    public static bool isNeedMessage = false;
+    public static bool prologue = false;
     public static bool isCallDialog = false;
     public static bool diplomaDialog = false;
     public static bool prologCrutch1 = false;

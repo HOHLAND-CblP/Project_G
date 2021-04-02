@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class TheMainMainScript : MonoBehaviour
 {
     public GameObject fade, levelText, phoneButton, pauseButton, currentLevel, pausePanel, player, darkSide, left, 
-        right, currentLevelTemp, dialogWindow, colliderObject, canvas, table;
+        right, currentLevelTemp, dialogWindow, colliderObject, canvas, chair;
 
     [Header("Animator")]
     public Animator animMap;
@@ -44,10 +44,13 @@ public class TheMainMainScript : MonoBehaviour
     public GameObject tableButton;
     public GameObject backpackButton;
 
-    void Start()
+    private void Start()
     {
         if (GamePrefs.currentLevel != null)
+        {
             currentLevel = GamePrefs.currentLevel;
+            GamePrefs.currentLevel = null;
+        }
         GamePrefs.inDialog = false;
         if (GamePrefs.amountOfFood == 0)
         {
@@ -508,15 +511,15 @@ public class TheMainMainScript : MonoBehaviour
 
     public void SitTable()
     {
+        chair.GetComponent<SpriteRenderer>().sortingOrder = 4;
         StartCoroutine(GetComponent<PlotTracking>().Wait(10));
         tableButton.SetActive(false);
         left.SetActive(false);
         right.SetActive(false);
-        player.transform.localScale = new Vector3(-4, 4, 0);
+        player.transform.localScale = new Vector3(4, 4, 0);
         player.transform.localPosition = new Vector3(-9.41f, -45.91067f, 0);
-        player.GetComponent<BoxCollider2D>().size = new Vector2(player.GetComponent<BoxCollider2D>().size.x, 0.77f);
+        player.GetComponent<BoxCollider2D>().size = new Vector2(player.GetComponent<BoxCollider2D>().size.x, 0.914f);
         player.GetComponent<Animator>().SetBool("Table", true);
-        table.SetActive(false);
     }
 
     public void Pause()
@@ -533,6 +536,7 @@ public class TheMainMainScript : MonoBehaviour
 
     public void GoInOut()
     {
+        GamePrefs.countsOfcountOfDialogs[currentLevel.GetComponent<SceneProperties>().sceneId]= currentLevel.GetComponent<SceneProperties>().countOfDialogs;
         GamePrefs.currentLevel = currentLevel = currentLevelTemp;
         GamePrefs.inout = 1;
         GetComponent<TrackingTheHero>().faded.SetActive(true);
@@ -590,7 +594,7 @@ public class TheMainMainScript : MonoBehaviour
         right.SetActive(false);
         phone.GetComponent<Animator>().SetBool("phone", false);
         phoneButton.SetActive(false);
-        if (currentLevel.GetComponent<SceneProperties>().sceneId==31)
+        if (currentLevel.GetComponent<SceneProperties>().sceneId==17)
             animShop.SetBool("openShop", true);
         else 
             animApteka.SetBool("openShop", true);
@@ -604,7 +608,7 @@ public class TheMainMainScript : MonoBehaviour
         right.SetActive(true);
         phoneButton.SetActive(true);
         phoneButton.GetComponent<Animator>().SetBool("phoneButton", true);
-        if (currentLevel.GetComponent<SceneProperties>().sceneId == 31)
+        if (currentLevel.GetComponent<SceneProperties>().sceneId == 17)
             animShop.SetBool("openShop", false);
         else
             animApteka.SetBool("openShop", false);
@@ -662,7 +666,9 @@ public class TheMainMainScript : MonoBehaviour
     {
         player.GetComponent<HeroControler>().Stop();
         //GamePrefs.inDialog = true;
-        player.GetComponent<HeroControler>().cash += 1000;
+        player.GetComponent<HeroControler>().cash += 1000; 
+        GamePrefs.countsOfcountOfDialogs[currentLevel.GetComponent<SceneProperties>().sceneId] =
+                         currentLevel.GetComponent<SceneProperties>().countOfDialogs;
         GamePrefs.currentLevel = currentLevel;
         GamePrefs.inout = 5;
         SceneManager.LoadScene(3);

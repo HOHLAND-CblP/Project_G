@@ -12,19 +12,19 @@ public class PlotTracking : MonoBehaviour
     private void FixedUpdate()
     {
         if (!GamePrefs.inDialog && GamePrefs.countOfPlots == 1 && GamePrefs.countOfPlotMoment == 20 &&
-            GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().sceneId == 11 &&
+            GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().sceneId == 3 &&
             objects[18].transform.position.x > 48.44)
         {
             GetComponent<TheMainMainScript>().StartDialog();
         }
         if (!GamePrefs.inDialog && GamePrefs.countOfPlots == 1 && GamePrefs.countOfPlotMoment == 23 &&
-            GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().sceneId == 22 &&
+            GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().sceneId == 7 &&
             objects[18].transform.position.x > 62.5)
         {
             GetComponent<TheMainMainScript>().StartDialog();
         }
         if (!GamePrefs.inDialog && GamePrefs.countOfPlots == 1 && GamePrefs.countOfPlotMoment == 25 &&
-            GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().sceneId == 21 &&
+            GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().sceneId == 6 &&
             GetComponent<TrackingTheHero>().leftV == -8 &&
             objects[18].transform.position.x < -14.2)
         {
@@ -36,7 +36,7 @@ public class PlotTracking : MonoBehaviour
             StartCoroutine(GetComponent<TheMainMainScript>().Call());
         }
         if (!GetComponent<TheMainMainScript>().rejected && !GamePrefs.inDialog && GamePrefs.countOfPlots == 1 &&
-            GamePrefs.countOfPlotMoment == 21 && GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().sceneId==10
+            GamePrefs.countOfPlotMoment == 21 && GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().sceneId==2
             && objects[18].transform.position.x < -114)
         {
             GetComponent<TheMainMainScript>().phone.GetComponent<Phone>().callerName = "Мама";
@@ -51,6 +51,8 @@ public class PlotTracking : MonoBehaviour
             case 1:
                 if (GamePrefs.prologCrutch3)
                 {
+                    GamePrefs.countsOfcountOfDialogs[GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().sceneId] =
+                           GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().countOfDialogs;
                     cur = GetComponent<TheMainMainScript>().currentLevel = objects[16];
                     transform.position = new Vector3(cur.GetComponent<SceneProperties>().leftV
                         + (cur.GetComponent<SceneProperties>().rightV - cur.GetComponent<SceneProperties>().leftV) / 2,
@@ -60,23 +62,17 @@ public class PlotTracking : MonoBehaviour
                 }
                 else if (GamePrefs.prologCrutch4)
                 {
-                    GamePrefs.prologCrutch4 = false;
-                    //GetComponent<TheMainMainScript>().currentLevel = null;
-                    cur = GetComponent<TheMainMainScript>().currentLevel = objects[15];
+                    GamePrefs.prologue = false;
+                    //cur = GetComponent<TheMainMainScript>().currentLevel = objects[15];
+                    GamePrefs.countsOfcountOfDialogs[GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().sceneId] =
+                        GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().countOfDialogs;
+                    GamePrefs.currentLevel = objects[15];/*
                     transform.position = new Vector3(cur.GetComponent<SceneProperties>().leftV
                         + (cur.GetComponent<SceneProperties>().rightV - cur.GetComponent<SceneProperties>().leftV) / 2,
                         cur.GetComponent<SceneProperties>().groundY + 2, transform.position.z);
                     GetComponent<TrackingTheHero>().leftV = cur.GetComponent<SceneProperties>().leftV;
-                    GetComponent<TrackingTheHero>().rightV = cur.GetComponent<SceneProperties>().rightV;
-                    //GamePrefs.currentLevel = objects[15];
-                    //SceneManager.LoadScene(3);
-                    GetComponent<TrackingTheHero>().enabled = true;
-                    GetComponent<TrackingTheHero>().unfaded.SetActive(true);
-                    objects[0].SetActive(false);
-                    objects[1].SetActive(false);
-                    objects[2].SetActive(false);
-                    objects[3].SetActive(false);
-                    NextPlotMoment();
+                    GetComponent<TrackingTheHero>().rightV = cur.GetComponent<SceneProperties>().rightV;*/
+                    SceneManager.LoadScene(3);
                 }
                 else if (GamePrefs.prologCrutch6)
                 {
@@ -86,10 +82,14 @@ public class PlotTracking : MonoBehaviour
                 else if (GamePrefs.prologCrutch7)
                 {
                     GamePrefs.prologCrutch7 = false;
+                    cur = GetComponent<TheMainMainScript>().currentLevel = objects[23];
                     objects[18].GetComponent<Animator>().SetBool("Table", false);
                     objects[18].GetComponent<BoxCollider2D>().size = new Vector2(objects[18].GetComponent<BoxCollider2D>().size.x, 1.102759f);
-                    objects[18].transform.position = new Vector3(45.13f, cur.GetComponent<SceneProperties>().groundY, objects[18].transform.position.z);
-                    cur = GetComponent<TheMainMainScript>().currentLevel = objects[23];
+                    objects[18].transform.position = new Vector3(45.13f, cur.GetComponent<SceneProperties>().groundY, objects[18].transform.position.z); 
+                    objects[18].transform.localScale = new Vector3(-4, 4, 0);
+                    objects[18].GetComponent<HeroControler>().facingRight = true;
+                    GamePrefs.countsOfcountOfDialogs[GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().sceneId] = 
+                        GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().countOfDialogs;
                     transform.position = new Vector3(cur.GetComponent<SceneProperties>().leftV
                         + (cur.GetComponent<SceneProperties>().rightV - cur.GetComponent<SceneProperties>().leftV) / 2,
                         cur.GetComponent<SceneProperties>().groundY + 2, transform.position.z);
@@ -104,7 +104,9 @@ public class PlotTracking : MonoBehaviour
                 else if (GamePrefs.prologCrutch8)
                 {
                     GamePrefs.prologCrutch8 = false;
-                    objects[26].GetComponent<Animator>().SetBool("Open", true);
+                    objects[26].GetComponent<Animator>().SetBool("Open", true); 
+                    GamePrefs.countsOfcountOfDialogs[GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().sceneId] =
+                         GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().countOfDialogs;
                     cur = GetComponent<TheMainMainScript>().currentLevel = objects[25];
                     objects[24].transform.position = new Vector3(5.0f, -80.88f, 0);
                     objects[24].transform.localScale = new Vector3(4, 4, 0);
@@ -158,7 +160,8 @@ public class PlotTracking : MonoBehaviour
         else if (GamePrefs.prologCrutch5)
         {
             GamePrefs.prologCrutch5 = false;
-            objects[14].SetActive(true);
+            objects[14].SetActive(true); 
+            objects[14].GetComponent<Animator>().enabled = true;
             objects[14].GetComponent<Animator>().SetBool("goToTable", true);
             GamePrefs.prologCrutch6 = true;
         }

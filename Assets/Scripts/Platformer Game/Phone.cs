@@ -76,7 +76,7 @@ public class Phone : MonoBehaviour
 
     public void ClosePhone()
     {
-        if (!call)
+        if (!call && !GamePrefs.isCallDialog)
         {
             phoneButton.SetBool("phoneButton", true);
             phone.SetBool("phone", false);
@@ -111,7 +111,7 @@ public class Phone : MonoBehaviour
             callMenu.SetActive(false);
             contactsMenu.SetActive(false);
         }
-        else if (!call)
+        else if (!call && !GamePrefs.isCallDialog)
         {
             mainMenu.SetActive(true);
             statMenu.SetActive(false);

@@ -37,6 +37,9 @@ public class ObjectProperties : MonoBehaviour
             }
             else if (type == 3 || type == 4)
             {
+
+                GamePrefs.countsOfcountOfDialogs[cam.GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().sceneId] = 
+                    cam.GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().countOfDialogs;
                 cam.GetComponent<TheMainMainScript>().currentLevel = nextLevels[0];
                 cam.GetComponent<TrackingTheHero>().faded.SetActive(true);
                 GamePrefs.inout = type;
