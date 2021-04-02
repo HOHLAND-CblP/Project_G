@@ -202,13 +202,16 @@ public class Phone : MonoBehaviour
 
     public void Answer()
     {
-        //cam.GetComponent<TheMainMainScript>().StartDialog();
+        GamePrefs.isCallDialog = true;
+        callMenu.transform.GetChild(0).transform.GetChild(1).gameObject.SetActive(false);
+        callMenu.transform.GetChild(0).transform.GetChild(2).gameObject.SetActive(false);
+        cam.GetComponent<TheMainMainScript>().StartDialog();
         call = false;
     }
 
     public void Reject()
     {
-        //cam.GetComponent<TheMainMainScript>().rejected = true;
+        cam.GetComponent<TheMainMainScript>().rejected = true;
         call = false;
         ClosePhone();
     }
@@ -216,7 +219,7 @@ public class Phone : MonoBehaviour
     public void Call(string name)
     {
         callerNameText.text = name;
-        //cam.GetComponent<TheMainMainScript>().rejected = false;
+        cam.GetComponent<TheMainMainScript>().rejected = false;
         statMenu.SetActive(false);
         mainMenu.SetActive(false);
         bankMenu.SetActive(false);
@@ -225,6 +228,8 @@ public class Phone : MonoBehaviour
         notesMenu.transform.GetChild(0).gameObject.SetActive(true);
         notesMenu.transform.GetChild(1).gameObject.SetActive(false);
         callMenu.SetActive(true);
+        callMenu.transform.GetChild(0).transform.GetChild(1).gameObject.SetActive(true);
+        callMenu.transform.GetChild(0).transform.GetChild(2).gameObject.SetActive(true);
         callMenu.transform.GetChild(0).gameObject.SetActive(true);
         callMenu.transform.GetChild(1).gameObject.SetActive(false);
     }
@@ -291,7 +296,7 @@ public class Phone : MonoBehaviour
             ClosePhone();
             outputCall = false;
             call = false;
-            //cam.GetComponent<TheMainMainScript>().StartDialog();
+            cam.GetComponent<TheMainMainScript>().StartDialog();
             StopCoroutine(OutputCall());
         }
         else

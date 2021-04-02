@@ -1,8 +1,16 @@
 <dialogue>
 	<node>
 		<face>0</face>
-		<name>Семен</name>
-		<text>А теперь домой.</text>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Что за «странный» институт. Класс. Несколько лет обучения, энтузиазма и в итоге что? Ничего. Ноль без палочки.</text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Работы нет. Ничего нет. Вот и получил образование. Где там мой диплом на полке?</text>
 		<nextNode>0</nextNode>
 		<dialend>true</dialend>
 	</node>

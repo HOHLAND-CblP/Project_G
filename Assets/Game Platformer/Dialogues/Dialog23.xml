@@ -1,105 +1,122 @@
 <dialogue>
 	<node>
-		<face>8</face>
-		<name>Неизвестный</name>
-		<text>Здравствуйте, Вы Семен?</text>
+		<face>6</face>
+		<participant>24</participant>
+		<name>Иван</name>
+		<text>Здравия желаю! Семён?</text>
 		<nextNode>1</nextNode>
 	</node>
 	<node>
 		<face>0</face>
-		<name>Семен</name>
-		<text>Черт, да, Вы не видели тут человека в плаще?</text>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Да. А вы кто?</text>
 		<nextNode>2</nextNode>
 	</node>
 	<node>
-		<face>8</face>
-		<name>Неизвестный</name>
-		<text>Нет, не видел.</text>
+		<face>6</face>
+		<participant>24</participant>
+		<name>Иван</name>
+		<text>Иван Сергеевич. Военнослужащий. </text>
 		<nextNode>3</nextNode>
 	</node>
 	<node>
 		<face>0</face>
-		<name>Семен</name>
-		<text>Балин, весь проход загородили. Стоп, откуда знаете меня?</text>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Я понял. И что вам от меня надо? </text>
 		<nextNode>4</nextNode>
 	</node>
 	<node>
-		<face>8</face>
-		<name>Неизвестный</name>
-		<text>О, разрешите представиться, меня зовут Андрей, я местный журналист, веду свой блок в газете…</text>
+		<face>6</face>
+		<participant>24</participant>
+		<name>Иван</name>
+		<text>Ты. А если точнее твои профессиональные навыки. Птичка начирикала, что ты как раз работу ищешь. </text>
 		<nextNode>5</nextNode>
 	</node>
 	<node>
 		<face>0</face>
-		<name>Семен</name>
-		<text>Журналист значит?</text>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Это что за птичка такая?</text>
 		<nextNode>6</nextNode>
 	</node>
 	<node>
-		<face>9</face>
-		<name>Журналист</name>
-		<text>Да.</text>
+		<face>6</face>
+		<participant>24</participant>
+		<name>Иван</name>
+		<text>Какая разница? В наше время так непросто найти хорошего сотрудника, ты бы знал.</text>
 		<nextNode>7</nextNode>
 	</node>
 	<node>
 		<face>0</face>
-		<name>Семен</name>
-		<text>И что Вам от меня нужно?</text>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Хм.</text>
 		<nextNode>8</nextNode>
 	</node>
 	<node>
-		<face>9</face>
-		<name>Журналист</name>
-		<text>Давайте не Вам, а тебе, для удобства. И позволишь задать пару вопросов?</text>
+		<face>6</face>
+		<participant>24</participant>
+		<name>Иван</name>
+		<text>Так вот есть вакансия железнодорожного диспетчера. </text>
 		<nextNode>9</nextNode>
 	</node>
 	<node>
 		<face>0</face>
-		<name>Семен</name>
-		<text>Нет, спасибо.</text>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Где есть? </text>
 		<nextNode>10</nextNode>
 	</node>
 	<node>
-		<face>9</face>
-		<name>Журналист</name>
-		<text>Почему?</text>
+		<face>6</face>
+		<participant>24</participant>
+		<name>Иван</name>
+		<text>Сибирь. Далековато, зато тихо.</text>
 		<nextNode>11</nextNode>
 	</node>
 	<node>
 		<face>0</face>
-		<name>Семен</name>
-		<text>Я, знаете, устал после работы, поэтому как-то неохота.</text>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Сибирь большая.</text>
 		<nextNode>12</nextNode>
 	</node>
 	<node>
-		<face>9</face>
-		<name>Журналист</name>
-		<text>Тебя так утомляет новая работа диспетчера?</text>
+		<face>6</face>
+		<participant>24</participant>
+		<name>Иван</name>
+		<text>Так на то и расчёт. Мирная такая часть. Объект правда закрытый, да у нас таких вагон и маленькая тележка в стране. Зарплата достойная, служебную квартиру на время работы тебе выдадут. Только ехать надо сегодня и без проволочек. Что думаешь? </text>
 		<nextNode>13</nextNode>
 	</node>
 	<node>
 		<face>0</face>
-		<name>Семен</name>
-		<text>Экх. Что? Это вот это вся ваша хваленная секретность?</text>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>…</text>
 		<nextNode>14</nextNode>
 	</node>
 	<node>
-		<face>9</face>
-		<name>Журналист</name>
-		<text>Да ну тише ты, тише. Я просто журналист, понимаешь, это моя работа все вынюхивать. Иногда я чувствую себя настоящим разведчиком, знаешь ли. Ах да, советую почитать мою разоблачающую статью о местной просто мафиозной схеме жкх. Они нас просто грабят! Страница 19, газета…</text>
+		<face>6</face>
+		<participant>24</participant>
+		<name>Иван</name>
+		<text>Только думай не долго. Что-то подсказывает мне, что охотники и без тебя найдётся, а ты мне уже понравился.</text>
 		<nextNode>15</nextNode>
 	</node>
 	<node>
 		<face>0</face>
-		<name>Семен</name>
-		<text>Так, ты, мне это не интересно.</text>
-		<nextNode>16</nextNode>
-	</node>
-	<node>
-		<face>9</face>
-		<name>Журналист</name>
-		<text>А зря, у нас здесь много чего интересного происходит. Ты бы вот послушал, что Генерал да митингующие говорят.</text>
-		<nextNode>0</nextNode>
+		<participant>0</participant>
+		<name></name>
+		<text></text>
+		<answers>
+			<answer tonode="0">
+			<text>Хорошо</text>
+			</answer>
+			<answer tonode="0">
+			<text>Пожалуй, нет!</text>
+			</answer>
+		</answers>
 		<dialend>true</dialend>
 	</node>
 </dialogue>

@@ -1,20 +1,16 @@
 <dialogue>
 	<node>
 		<face>0</face>
-		<name>Семен</name>
-		<text>Спасибо тебе большое, Ли. </text>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>… </text>
 		<nextNode>1</nextNode>
 	</node>
 	<node>
-		<face>4</face>
-		<name>Азиат</name>
-		<text>Будешь должен. Хе-хе-хе, да я шучу. Ступай домой, но обещай, что заходить будешь, проведывать.</text>
-		<nextNode>2</nextNode>
-	</node>
-	<node>
 		<face>0</face>
-		<name>Семен</name>
-		<text>Обещаю. До свидания, всего хорошего.</text>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Я и не нашёл…</text>
 		<nextNode>0</nextNode>
 		<dialend>true</dialend>
 	</node>

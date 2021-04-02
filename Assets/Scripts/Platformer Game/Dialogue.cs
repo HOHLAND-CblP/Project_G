@@ -27,7 +27,9 @@ public class Dialogue
 public class Node
 {
     [XmlElement("face")]
-    public string face;
+    public int face;
+    [XmlElement("participant")]
+    public int participant;
     [XmlElement("name")]
     public string name;
     [XmlElement("text")]

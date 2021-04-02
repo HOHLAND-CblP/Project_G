@@ -1,9 +1,0 @@
-<dialogue>
-	<node>
-		<face>0</face>
-		<name>Семен</name>
-		<text>Так, где там этот чертов адрес. На-на-на, улица такая-то, а, гостиница “Салют”. Хорошо, делать нечего, ждем автобус.</text>
-		<nextNode>0</nextNode>
-		<dialend>true</dialend>
-	</node>
-</dialogue>

@@ -1,38 +1,37 @@
 <dialogue>
 	<node>
-		<face>2</face>
-		<name>Дневальный</name>
-		<text>Семен!</text>
+		<face>5</face>
+		<participant>26</participant>
+		<name>Мама</name>
+		<text>Сём, ты не занят?</text>
 		<nextNode>1</nextNode>
 	</node>
 	<node>
 		<face>0</face>
-		<name>Семен</name>
-		<text>А, что?</text>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Нет, что-то случилось?</text>
 		<nextNode>2</nextNode>
 	</node>
 	<node>
-		<face>2</face>
-		<name>Дневальный</name>
-		<text>Дверь видишь?</text>
+		<face>5</face>
+		<participant>26</participant>
+		<name>Мама</name>
+		<text>Не могу найти свою аптечку. Зайди, пожалуйста, в аптеку. Возьми там что-нибудь от головной боли. Да, и себе что-нибудь прикупи. Последнее время ты много нервничаешь.</text>
 		<nextNode>3</nextNode>
 	</node>
 	<node>
 		<face>0</face>
-		<name>Семен</name>
-		<text>Ну.</text>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Угу.</text>
 		<nextNode>4</nextNode>
 	</node>
 	<node>
-		<face>2</face>
-		<name>Дневальный</name>
-		<text>Загну, давай туда, товарищ Генерал уже заждался, а и постучи там у входа, для приличия.</text>
-		<nextNode>5</nextNode>
-	</node>
-	<node>
-		<face>0</face>
-		<name>Семен</name>
-		<text>Как скажешь.</text>
+		<face>5</face>
+		<participant>26</participant>
+		<name>Мама</name>
+		<text>Спасибо, береги себя.</text>
 		<nextNode>0</nextNode>
 		<dialend>true</dialend>
 	</node>

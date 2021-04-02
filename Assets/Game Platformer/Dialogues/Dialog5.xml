@@ -1,44 +1,9 @@
 <dialogue>
 	<node>
-		<face>1</face>
-		<name>Солдат</name>
-		<text>Стой, кто идет?</text>
-		<nextNode>1</nextNode>
-	</node>
-	<node>
-		<face>0</face>
-		<name>Семен</name>
-		<text>Я, простите, а что нельзя?</text>
-		<nextNode>2</nextNode>
-	</node>
-	<node>
-		<face>1</face>
-		<name>Солдат</name>
-		<text>Пока что можно.</text>
-		<nextNode>3</nextNode>
-	</node>
-	<node>
-		<face>0</face>
-		<name>Семен</name>
-		<text>Пока что?</text>
-		<nextNode>4</nextNode>
-	</node>
-	<node>
-		<face>1</face>
-		<name>Солдат</name>
-		<text>Так, не заговаривай мне зубы, кто таков, что нужно?</text>
-		<nextNode>5</nextNode>
-	</node>
-	<node>
-		<face>0</face>
-		<name>Семен</name>
-		<text>Я есть Семен, новый диспетчер, прибыл на испытательный срок.</text>
-		<nextNode>6</nextNode>
-	</node>
-	<node>
-		<face>1</face>
-		<name>Солдат</name>
-		<text>А, ну едрен батон, чего сразу то не сказал, вопросами бомбардируешь. Заходи - не бойся, выходи – не плачь, хе-хе. По залу, до конца, а там в коридор нырнешь.</text>
+		<face>21</face>
+		<participant>21</participant>
+		<name>Человек</name>
+		<text>Черт, куда они делись!?</text>
 		<nextNode>0</nextNode>
 		<dialend>true</dialend>
 	</node>

@@ -1,32 +1,51 @@
 <dialogue>
-<node>
-		<face>1</face>
-		<name>Солдат</name>
-		<text>Товарищ Генерал, разрешите обратиться?</text>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Добрый день, как-то у вас не многолюдно, не кажется?</text>
 		<nextNode>1</nextNode>
 	</node>
 	<node>
-		<face>7</face>
-		<name>Генерал</name>
-		<text>Какого хрена влез, что надо, говори?</text>
+		<face>25</face>
+		<participant>28</participant>
+		<name>Кассир</name>
+		<text>Здравствуйте. Да Вы наверное наш последний посетитель.</text>
 		<nextNode>2</nextNode>
 	</node>
 	<node>
-		<face>1</face>
-		<name>Солдат</name>
-		<text>Опять собрание горожан на плацу, больше их, чем в прошлый раз. Вас просят.</text>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Последний? В смысле?</text>
 		<nextNode>3</nextNode>
 	</node>
 	<node>
-		<face>7</face>
-		<name>Генерал</name>
-		<text>Фугас мне в глаз, какого им опять надо. Так, ты, Семен, быстро иди на поезда, работа не волк. Все вали, вали.</text>
+		<face>25</face>
+		<participant>28</participant>
+		<name>Кассир</name>
+		<text>К сожалению, мы закрываемся, кризис в мире, наше кафе как-то не вписалось в рыночек. Поэтому сегодня у нас последний рабочий день, как-то так.</text>
 		<nextNode>4</nextNode>
 	</node>
 	<node>
 		<face>0</face>
-		<name>Семен</name>
-		<text>Есть.</text>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Эх, жаль, у вас самый лучший борщ, что я пробовал в столице.</text>
+		<nextNode>5</nextNode>
+	</node>
+	<node>
+		<face>25</face>
+		<participant>28</participant>
+		<name>Кассир</name>
+		<text>Будете брать?</text>
+		<nextNode>6</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Да, пожалуй.</text>
 		<nextNode>0</nextNode>
 		<dialend>true</dialend>
 	</node>

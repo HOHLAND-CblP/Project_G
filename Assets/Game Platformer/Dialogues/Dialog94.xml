@@ -1,9 +1,0 @@
-<dialogue>
-	<node>
-		<face>21</face>
-		<name>Человек</name>
-		<text>Черт, куда они делись!?</text>
-		<nextNode>0</nextNode>
-		<dialend>true</dialend>
-	</node>
-</dialogue>

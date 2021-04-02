@@ -1,8 +1,9 @@
 <dialogue>
 	<node>
-		<face>0</face>
-		<name>Семен</name>
-		<text>Блин, я кажись видел уже где-то эту фигуру. Бежит в сторону остановки. Может догнать?</text>
+		<face>25</face>
+		<participant>28</participant>
+		<name>Кассир</name>
+		<text>Присаживайтесь, борщ скоро будет готов.</text>
 		<nextNode>0</nextNode>
 		<dialend>true</dialend>
 	</node>

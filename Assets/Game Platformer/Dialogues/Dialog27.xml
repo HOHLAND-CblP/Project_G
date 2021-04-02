@@ -1,28 +1,17 @@
 <dialogue>
 	<node>
 		<face>0</face>
-		<name>Семен</name>
-		<text>Это что, газета?</text>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Сейчас подождите, я рюкзак возьму с вещами</text>
 		<nextNode>1</nextNode>
 	</node>
 	<node>
-		<face>0</face>
-		<name>Семен</name>
-		<text>Ну да, газета. Странно. Я же не покупал ее, откуда она здесь?</text>
-		<nextNode>2</nextNode>
-	</node>
-	<node>
-		<face></face>
-		<name></name>
-		<text></text>
-		<answers>
-			<answer tonode="0">
-			<text>Прочесть газету</text>
-			</answer>
-			<answer tonode="0">
-			<text>Не читать газету</text>
-			</answer>
-		</answers>
+		<face>26</face>
+		<participant>29</participant>
+		<name>Солдат</name>
+		<text>Ага.</text>
+		<nextNode>0</nextNode>
 		<dialend>true</dialend>
 	</node>
 </dialogue>

@@ -1,9 +1,0 @@
-<dialogue>
-	<node>
-		<face>24</face>
-		<name>Генерал</name>
-		<text>В городе всё в пределах нормы. Без всяких «кажется». Выполняй свою работу.</text>
-		<nextNode>0</nextNode>
-		<dialend>true</dialend>
-	</node>
-</dialogue>

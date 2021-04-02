@@ -1,37 +1,117 @@
 <dialogue>
 	<node>
-		<face>0</face>
-		<name>Семен</name>
-		<text>Да, очень интересно. Но я все же пойду.</text>
+		<face>5</face>
+		<participant>26</participant>
+		<name>Мама</name>
+		<text>Сынок, как ты там?</text>
 		<nextNode>1</nextNode>
 	</node>
 	<node>
-		<face>9</face>
-		<name>Журналист</name>
-		<text>Ну как хочешь, но, если что, держи. Это мой номер. Если что пиши, звони или как его. Ну, сконтачимся в общем.</text>
-		<answers>
-			<answer tonode="2">
-			<text>Взять номер.</text>
-			</answer>
-		</answers>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Всё хорошо. Мне сегодня работу предложили.</text>
+		<nextNode>2</nextNode>
 	</node>
 	<node>
-		<face>0</face>
-		<name>Семен</name>
-		<text>Обязательно.</text>
+		<face>5</face>
+		<participant>26</participant>
+		<name>Мама</name>
+		<text>Да? Это где? Только не говори, что это какая-то забегаловка. Мы и так справимся. Ищи нормальную работу.</text>
 		<nextNode>3</nextNode>
 	</node>
 	<node>
-		<face>9</face>
-		<name>Журналист</name>
-		<text>До встречи, друг.</text>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Да нет, мам. Диспетчер. Диспетчер. Сегодня подо-</text>
 		<nextNode>4</nextNode>
 	</node>
 	<node>
+		<face>5</face>
+		<participant>26</participant>
+		<name>Мама</name>
+		<text>Диспетчер? Это где же? </text>
+		<nextNode>5</nextNode>
+	</node>
+	<node>
 		<face>0</face>
-		<name>Семен</name>
-		<text>Ага, и тебе не хворать.</text>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Красноярский край. Ко мне буквально подошли в столо-</text>
+		<nextNode>6</nextNode>
+	</node>
+	<node>
+		<face>5</face>
+		<participant>26</participant>
+		<name>Мама</name>
+		<text>Красноярский край? Далеко как.. И что ты поедешь?</text>
+		<nextNode>7</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Ну да. Обещают хорошую зарплату. Да и такая возможность поработать по специ-</text>
+		<nextNode>8</nextNode>
+	</node>
+	<node>
+		<face>5</face>
+		<participant>26</participant>
+		<name>Мама</name>
+		<text>А когда ты уезжаешь? Я успею вернуться? Тут всего два дня осталось.</text>
+		<nextNode>9</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Нет, мам. Я сегодня уезжаю. Вот вещи собрал. </text>
+		<nextNode>10</nextNode>
+	</node>
+	<node>
+		<face>5</face>
+		<participant>26</participant>
+		<name>Мама</name>
+		<text>Так ты уже на сумках? А к чему такая спешка? </text>
+		<nextNode>11</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Одно из условий работодателей. </text>
+		<nextNode>12</nextNode>
+	</node>
+	<node>
+		<face>5</face>
+		<participant>0</participant>
+		<participant>26</participant>
+		<name>Мама</name>
+		<text>Ох, это я тебя и проводить не смогу.</text>
+		<nextNode>13</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Ничего страшного. Я вам первую же зарплату отправлю. Передавай привет папе и Мише.</text>
+		<nextNode>14</nextNode>
+	</node>
+	<node>
+		<face>5</face>
+		<participant>26</participant>
+		<name>Мама</name>
+		<text>А как же День Рождения? Мы хотели собираться всё вместе. </text>
+		<nextNode>15</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Ну, не получается. Ты же знаешь, как долго я искал работу. Не упускать же такой шанс. Мой подарок Мише лежит на верхней полке в шкафу. Отдай ему двадцать третьего. </text>
 		<nextNode>0</nextNode>
 		<dialend>true</dialend>
 	</node>
 </dialogue>
+

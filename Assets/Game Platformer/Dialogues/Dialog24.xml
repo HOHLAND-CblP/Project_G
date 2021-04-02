@@ -1,44 +1,16 @@
 <dialogue>
 	<node>
-		<face>10</face>
-		<name>Гражданин</name>
-		<text>Да что ей делать там вечером одной, да еще и на железке?</text>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>…ладно, я согласен.</text>
 		<nextNode>1</nextNode>
 	</node>
 	<node>
-		<face>7</face>
-		<name>Генерал</name>
-		<text>А я знаю, тело же там нашли.</text>
-		<nextNode>2</nextNode>
-	</node>
-	<node>
-		<face>10</face>
-		<name>Гражданин</name>
-		<text>Да не гуляла Света там никогда, она вообще из города вот-вот уехать собиралась. А вы говорите ее поезд сбил.</text>
-		<nextNode>3</nextNode>
-	</node>
-	<node>
-		<face>7</face>
-		<name>Генерал</name>
-		<text>Ну да, это же явно несчастный случай. Шла, задумалась, вот и…</text>
-		<nextNode>4</nextNode>
-	</node>
-	<node>
-		<face>10</face>
-		<name>Гражданин</name>
-		<text>Да не будет таких ран от поезда. Да и тело вы сразу забрали, вот куда мне теперь идти, чтобы ее наверняка опознать?</text>
-		<nextNode>5</nextNode>
-	</node>
-	<node>
-		<face>7</face>
-		<name>Генерал</name>
-		<text>Слушайте, ёхана. Во-первых, тело забрал не я, а следственная комиссия. Вам ведь надо, чтоб это дело расследовалось. В во-вторых…</text>
-		<nextNode>6</nextNode>
-	</node>
-	<node>
-		<face>10</face>
-		<name>Гражданин</name>
-		<text>А во-вторых опять черти что и сбоку бантик. Вот что мне теперь…</text>
+		<face>6</face>
+		<participant>6</participant>
+		<name>Иван</name>
+		<text>Вот и славно. Как поешь – домой, собирать вещи, вечером за тобой заедут.</text>
 		<nextNode>0</nextNode>
 		<dialend>true</dialend>
 	</node>

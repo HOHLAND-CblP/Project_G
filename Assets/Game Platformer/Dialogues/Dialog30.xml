@@ -1,8 +1,44 @@
 <dialogue>
 	<node>
-		<face>7</face>
-		<name>Генерал</name>
-		<text>Ты, Семен, ко мне, на пару слов.</text>
+		<face>26</face>
+		<participant>29</participant>
+		<name>Солдат</name>
+		<text>Это лучшая квартира в этом городе. Считай пентхаус – третий этаж.</text>
+		<nextNode>1</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>…</text>
+		<nextNode>2</nextNode>
+	</node>
+	<node>
+		<face>26</face>
+		<participant>29</participant>
+		<name>Солдат</name>
+		<text>Красоты тихого, затерянного в лесах городка. Чистый воздух, вокруг только комары, медведи и тайга. Мечта городской крысы.</text>
+		<nextNode>3</nextNode>
+	</node>
+	<node>
+		<face>0</face>
+		<participant>0</participant>
+		<name>Семён</name>
+		<text>Слушай-</text>
+		<nextNode>4</nextNode>
+	</node>
+	<node>
+		<face>26</face>
+		<participant>29</participant>
+		<name>Солдат</name>
+		<text>Экологичность так и веет из-за окна. Живая природа бегает прямо под ногами.</text>
+		<nextNode>5</nextNode>
+	</node>
+	<node>
+		<face>26</face>
+		<participant>29</participant>
+		<name>Солдат</name>
+		<text>Радуйся.</text>
 		<nextNode>0</nextNode>
 		<dialend>true</dialend>
 	</node>

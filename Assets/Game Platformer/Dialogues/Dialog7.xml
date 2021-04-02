@@ -1,14 +1,16 @@
 <dialogue>
 	<node>
-		<face>0</face>
-		<name>Семен</name>
-		<text>Добрый день, извините, можно?</text>
+		<face>7</face>
+		<participant>24</participant>
+		<name>Генерал</name>
+		<text>Мне жаль.</text>
 		<nextNode>1</nextNode>
 	</node>
 	<node>
-		<face>3</face>
-		<name>Инспектор</name>
-		<text>А, Семен, добрый, добрый. Подходите к компьютеру, садитесь.</text>
+		<face>6</face>
+		<participant>25</participant>
+		<name>Иван</name>
+		<text>Мне… тоже.</text>
 		<nextNode>0</nextNode>
 		<dialend>true</dialend>
 	</node>
