@@ -46,6 +46,8 @@ public class TrackingTheHero : MonoBehaviour
     void FixedUpdate()
     {
         transform.position = new Vector3(Mathf.Clamp(player.transform.position.x, leftV, rightV), player.transform.position.y + 2, transform.position.z);
+        leftV = GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().leftV;
+        rightV = GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().rightV;
         if (player.GetComponent<HeroControler>().health <= 0)
             endGame.SetActive(true);
 

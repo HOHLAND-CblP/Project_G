@@ -85,7 +85,6 @@
 	</node>
 	<node>
 		<face>5</face>
-		<participant>0</participant>
 		<participant>26</participant>
 		<name>Мама</name>
 		<text>Ох, это я тебя и проводить не смогу.</text>

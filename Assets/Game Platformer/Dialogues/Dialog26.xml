@@ -8,7 +8,7 @@
 	</node>
 	<node>
 		<face>5</face>
-		<participant>6</participant>
+		<participant>26</participant>
 		<name>Мама</name>
 		<text>Хорошо, удачи. И возьми теплых вещей!</text>
 		<nextNode>0</nextNode>

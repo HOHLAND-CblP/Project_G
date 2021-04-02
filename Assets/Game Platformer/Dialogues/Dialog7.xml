@@ -1,14 +1,14 @@
 <dialogue>
 	<node>
 		<face>7</face>
-		<participant>24</participant>
+		<participant>25</participant>
 		<name>Генерал</name>
 		<text>Мне жаль.</text>
 		<nextNode>1</nextNode>
 	</node>
 	<node>
 		<face>6</face>
-		<participant>25</participant>
+		<participant>24</participant>
 		<name>Иван</name>
 		<text>Мне… тоже.</text>
 		<nextNode>0</nextNode>

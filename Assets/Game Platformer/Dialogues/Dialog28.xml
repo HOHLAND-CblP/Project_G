@@ -15,7 +15,7 @@
 	</node>
 	<node>
 		<face>26</face>
-		<participant>9</participant>
+		<participant>29</participant>
 		<name>Солдат</name>
 		<text>У него дела в столице. </text>
 		<nextNode>3</nextNode>
