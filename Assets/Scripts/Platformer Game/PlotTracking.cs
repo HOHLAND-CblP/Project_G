@@ -103,6 +103,8 @@ public class PlotTracking : MonoBehaviour
                 }
                 else if (GamePrefs.prologCrutch8)
                 {
+                    GetComponent<AudioSource>().clip = GetComponent<TheMainMainScript>().endOfDemo;
+                    GetComponent<AudioSource>().Play();
                     GamePrefs.prologCrutch8 = false;
                     objects[26].GetComponent<Animator>().SetBool("Open", true); 
                     GamePrefs.countsOfcountOfDialogs[GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().sceneId] =
@@ -113,9 +115,9 @@ public class PlotTracking : MonoBehaviour
                     objects[18].transform.position = new Vector3(-2.15f, cur.GetComponent<SceneProperties>().groundY, objects[18].transform.position.z);
                     objects[18].transform.localScale = new Vector3(-4, 4, 0);
                     objects[18].GetComponent<HeroControler>().facingRight = true;
-                    transform.position = new Vector3(cur.GetComponent<SceneProperties>().leftV
+                    /*transform.position = new Vector3(cur.GetComponent<SceneProperties>().leftV
                         + (cur.GetComponent<SceneProperties>().rightV - cur.GetComponent<SceneProperties>().leftV) / 2,
-                        cur.GetComponent<SceneProperties>().groundY + 2, transform.position.z);
+                        cur.GetComponent<SceneProperties>().groundY + 2, transform.position.z);*/
                     GetComponent<TrackingTheHero>().leftV = cur.GetComponent<SceneProperties>().leftV;
                     GetComponent<TrackingTheHero>().rightV = cur.GetComponent<SceneProperties>().rightV;
                     GetComponent<TrackingTheHero>().unfaded.SetActive(true);

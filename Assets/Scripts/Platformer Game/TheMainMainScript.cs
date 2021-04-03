@@ -28,6 +28,11 @@ public class TheMainMainScript : MonoBehaviour
     //public bool cameraTranslate=false;
     //public int modeTranslate = 0;
     //public bool playerGoRight = false;
+    
+    [Header("Audio")]
+    public AudioClip intro;
+    public AudioClip city;
+    public AudioClip endOfDemo;
 
     [Header("Buttons")]
     public GameObject fridgeButton;

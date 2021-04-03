@@ -13,7 +13,7 @@ public class TrackingTheHero : MonoBehaviour
 
     private void Start()
     {
-        if (!GamePrefs.prologCrutch4)
+        if (!GamePrefs.prologCrutch4 && GamePrefs.countOfPlotMoment==0 && GamePrefs.countOfPlots==1)
         {
             transform.position = new Vector3(0, GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().groundY, transform.position.z);
             GetComponent<TheMainMainScript>().phoneButton.SetActive(false);
@@ -24,9 +24,13 @@ public class TrackingTheHero : MonoBehaviour
             GetComponent<TrackingTheHero>().enabled = false;
             GetComponent<PlotTracking>().objects[4].GetComponent<Animator>().enabled = true;
             GetComponent<PlotTracking>().objects[5].GetComponent<Animator>().enabled = true;
+            GetComponent<AudioSource>().clip = GetComponent<TheMainMainScript>().intro;
+            GetComponent<AudioSource>().Play();
         }
         else if (GamePrefs.prologCrutch4)
         {
+            GetComponent<AudioSource>().clip = GetComponent<TheMainMainScript>().city;
+            GetComponent<AudioSource>().Play();
             GamePrefs.prologCrutch4 = false;
             GetComponent<TheMainMainScript>().currentLevel = GetComponent<PlotTracking>().objects[15];
             leftV = GetComponent<TheMainMainScript>().currentLevel.GetComponent<SceneProperties>().leftV;
@@ -58,7 +62,7 @@ public class TrackingTheHero : MonoBehaviour
         {
             if (GamePrefs.isNeedMessage) 
             { 
-                message.SetActive(true); 
+                message.SetActive(false); 
                 GamePrefs.isNeedMessage = false; 
             }
             unfaded.SetActive(false);
