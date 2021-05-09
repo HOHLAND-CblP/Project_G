@@ -1081,6 +1081,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 183197287}
   m_CullTransparentMesh: 0
+--- !u!1 &354216107
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 354216109}
+  - component: {fileID: 354216108}
+  m_Layer: 0
+  m_Name: MiniMission
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &354216108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354216107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e1378e787ac27b469d4329221e3d4b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  countMis: 10
+  stationPref: {fileID: 1207677574635130678, guid: 4c4b0d55ebefc2148b1e69673bdc84d3,
+    type: 3}
+--- !u!4 &354216109
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354216107}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.766134, y: 1.8023269, z: -16.226267}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &436924819
 GameObject:
   m_ObjectHideFlags: 0
@@ -1344,7 +1390,7 @@ Camera:
   field of view: 60
   orthographic: 1
   orthographic size: 8
-  m_Depth: -1
+  m_Depth: 0.02
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1419,16 +1465,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RespawnUI: {fileID: 6851186400741256031}
-  needLayerMask:
-    serializedVersion: 2
-    m_Bits: 2048
-  buildingMode: 0
   buildingUI: {fileID: 6851186398698563938}
   buildingModeButton: {fileID: 6851186400028041295}
-  respawnModeButton: {fileID: 6851186400741256031}
   speedPanel: {fileID: 1302958514}
-  zooming: 0
-  zoomSpeed: 0.5
+  blockSpeedPanel: 0
 --- !u!114 &589794249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1442,6 +1482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxTrain: 7
+  curTrain: 0
   colorsTrain:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0, g: 1, b: 0, a: 1}
@@ -1450,6 +1491,7 @@ MonoBehaviour:
   - {r: 0, g: 1, b: 1, a: 1}
   - {r: 1, g: 0, b: 1, a: 1}
   - {r: 1, g: 0.7339252, b: 0, a: 1}
+  miniMission: {fileID: 0}
   dirStationButPref: {fileID: 1024966920786103364, guid: 2e9e0523f2d590544a8fefddaba0e457,
     type: 3}
   canvas: {fileID: 6851186400541253174}
@@ -2496,17 +2538,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4741334244156567955, guid: 767ed675e18f63a49a1baf88a8659743,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741334244156567955, guid: 767ed675e18f63a49a1baf88a8659743,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.343
+      value: -9.59
       objectReference: {fileID: 0}
     - target: {fileID: 4741334244156567955, guid: 767ed675e18f63a49a1baf88a8659743,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.977
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4741334244156567955, guid: 767ed675e18f63a49a1baf88a8659743,
         type: 3}
       propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741334244156567955, guid: 767ed675e18f63a49a1baf88a8659743,
+        type: 3}
+      propertyPath: m_LocalRotation.w
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4741334244156567955, guid: 767ed675e18f63a49a1baf88a8659743,
@@ -2522,16 +2574,6 @@ PrefabInstance:
     - target: {fileID: 4741334244156567955, guid: 767ed675e18f63a49a1baf88a8659743,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4741334244156567955, guid: 767ed675e18f63a49a1baf88a8659743,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4741334244156567955, guid: 767ed675e18f63a49a1baf88a8659743,
-        type: 3}
-      propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4741334244156567955, guid: 767ed675e18f63a49a1baf88a8659743,
@@ -2556,11 +2598,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4741334244156567981, guid: 767ed675e18f63a49a1baf88a8659743,
         type: 3}
-      propertyPath: m_SleepingMode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4741334244156567981, guid: 767ed675e18f63a49a1baf88a8659743,
-        type: 3}
       propertyPath: m_BodyType
       value: 1
       objectReference: {fileID: 0}
@@ -2568,6 +2605,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_GravityScale
       value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4741334244156567981, guid: 767ed675e18f63a49a1baf88a8659743,
+        type: 3}
+      propertyPath: m_SleepingMode
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 767ed675e18f63a49a1baf88a8659743, type: 3}
@@ -3003,7 +3045,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6851186398698563939
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3025,7 +3067,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -7.3999634, y: 0.00061035156}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6851186398787004518
@@ -3605,7 +3647,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: -1
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -4144,7 +4186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2f1fe8adcb9c7468e542d6a1b33e6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Scene: 0
+  scene: 0
 --- !u!114 &6851186399727420789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4345,7 +4387,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: -1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

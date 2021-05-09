@@ -22,7 +22,7 @@ public class TrainScript : MonoBehaviour
 
     // Текущее положение в сетке
     Vector2Int curPos = Vector2Int.zero;    // Текущая позиция поезда в сетке
-    GameObject curCell;                     // Текущая клетка, в которой находится поезд
+    [SerializeField] GameObject curCell;                     // Текущая клетка, в которой находится поезд
 
     // Информация о станциях
     private GameObject departureStation;    // Станция отбытия
@@ -31,10 +31,9 @@ public class TrainScript : MonoBehaviour
     private bool trainOnStaion;             // Один вагон из состава попал на станцию
 
     // Точки движения
-    Vector2[] points;   // Точки, по которым движется поезд
+    [SerializeField] Vector2[] points;   // Точки, по которым движется поезд
     int curNumPoint;    // Номер точки, к которой движется поезд в данный момент  
 
-    [SerializeField]
     GameObject curArrow;
 
 

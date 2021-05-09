@@ -12,17 +12,20 @@ public class RespawnMode : MonoBehaviour
     [SerializeField]
     int curTrain;
 
+    [Header ("Colors")]
     public List<Color> colorsTrain;
+
+    public MiniMission miniMission; // Ссылка на объект с MiniMission
 
     public GameObject dirStationButPref;    // префаб стрелочек
     public GameObject canvas;               // канвас для задания родителя для стрелочек
     GameObject dirStationBut_1;             // первая стрелочка
     GameObject dirStationBut_2;             // вторая стрелочка
-    GameObject curRespawnStation;           //текущая выбраная станция 
+    GameObject curStation;           // текущая выбраная станция 
 
     [Space] [Space]
 
-    public GameObject TrainPref; //префаб поезда
+    public GameObject TrainPref; // префаб поезда
 
     List<GameObject> stations = new List<GameObject>();
 
@@ -33,33 +36,44 @@ public class RespawnMode : MonoBehaviour
 
         dirStationBut_1 = null;
         dirStationBut_2 = null;
-        curRespawnStation = null;
+        curStation = null;
     }
 
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // при нажатие на ЛКМ
+        if (Input.GetMouseButtonDown(0)) // При нажатие на ЛКМ
         {
-            Vector3 vec = Camera.main.ScreenToWorldPoint(Input.mousePosition);  //берем координаты курсора
-            GameObject cell = GetComponent<BuildingsGrid>().GetCellFromGrid(Mathf.RoundToInt(vec.x), Mathf.RoundToInt(vec.y));
- 
+            Vector3 vec = Camera.main.ScreenToWorldPoint(Input.mousePosition);  // Получаем координаты курсора
+
+            // Получаем клетку из сетки строительства по клетке, на которую нажали
+            GameObject cell = GetComponent<BuildingsGrid>().GetCellFromGrid(Mathf.RoundToInt(vec.x), Mathf.RoundToInt(vec.y)); 
+            
+            // Если на карте еще достаточно поездов для респавна и станций больше 1
             if (curTrain < maxTrain && stations.Count>1)
             {
+                // Если был получена клетка из сетки строительства, и на ней станция
                 if (cell && cell.GetComponent<Station>())
                 {
-                    if (cell != curRespawnStation)
-                        if (curRespawnStation != null) //если станция выбрана
+                    if (cell != curStation)
+                        if (curStation != null) //если станция выбрана
                         {
-                            curRespawnStation = cell;                   // Записываем в текущую станцию ссылку на станцию, в которую попал луч
-                            Destroy(dirStationBut_1.gameObject);        // Удаляем стрелочки для предыдущей станции
-                            if (dirStationBut_2.gameObject != null)     // Так как не все станции имеют два выезда, то не всегда стрелочек две штуки
-                                Destroy(dirStationBut_2.gameObject);    // Для того чтобы избежать ошибок удаляется одна стрелочка
+                            // Записываем в curStation ссылку на станцию, на которую нажали
+                            curStation = cell;                   
+
+                            // Удаление UI стрелочек ------------------
+                            if (dirStationBut_1)                        // Проверяем наличие первой UI стрелочки
+                                Destroy(dirStationBut_1.gameObject);   
+                            if (dirStationBut_2)                        // Провереям наличие второй UI стрелочки
+                                Destroy(dirStationBut_2.gameObject);   
+                            //-----------------------------------------
+
+                            // Создание новых UI стрелочек
                             DirButtonInstantiate();                     // Создаём стрелочеки
                         }
                         else    // если станция не выбрана
-                        {
-                            curRespawnStation = cell;       //записываем в текущую станцию ссылку на станцию, в которую попал луч
+                        {  
+                            curStation = cell;       //записываем в текущую станцию ссылку на станцию, в которую попал луч
                             DirButtonInstantiate();         //создаем стрелочеки
                         }
                 }
@@ -67,9 +81,9 @@ public class RespawnMode : MonoBehaviour
         }
 
         if (dirStationBut_1)
-            dirStationBut_1.transform.position = curRespawnStation.transform.position;
+            dirStationBut_1.transform.position = curStation.transform.position;
         if (dirStationBut_2)
-            dirStationBut_2.transform.position = curRespawnStation.transform.position;
+            dirStationBut_2.transform.position = curStation.transform.position;
     }
 
 
@@ -77,9 +91,9 @@ public class RespawnMode : MonoBehaviour
     {
         if (curTrain < maxTrain && stations.Count > 1)
         {
-            curRespawnStation = stations[Random.Range(0, stations.Count - 1)];
+            curStation = stations[Random.Range(0, stations.Count - 1)];
 
-            Quaternion ang = Quaternion.Euler(curRespawnStation.GetComponent<Station>().GetAngles());   //получаем угол ж/д на которой находиться станция
+            Quaternion ang = Quaternion.Euler(curStation.GetComponent<Station>().GetAngles());   //получаем угол ж/д на которой находиться станция
 
             int rand = Random.Range(0, 2);
 
@@ -143,35 +157,117 @@ public class RespawnMode : MonoBehaviour
     }
 
 
-    void DirButtonInstantiate()     //функция создания стрелочек для выбора направления движения
+    // Функция создания стрелочек для выбора направления движения
+    void DirButtonInstantiate()
     {
-        Quaternion ang = Quaternion.Euler(curRespawnStation.GetComponent<Station>().GetAngles());   //получаем угол ж/д на которой находиться станция
-
-        dirStationBut_1 = Instantiate(dirStationButPref, curRespawnStation.transform.position, ang, canvas.transform); // создаем стрелочки
-
-        dirStationBut_2 = Instantiate(dirStationButPref, curRespawnStation.transform.position, ang, canvas.transform);
-        dirStationBut_2.transform.localScale = new Vector3(-dirStationBut_2.transform.localScale.x, dirStationBut_2.transform.localScale.y, dirStationBut_2.transform.localScale.z);
-
-
-        if (ang == Quaternion.Euler(0, 0, 0)) //выставляем стрелочкам выполненение нужных функций
+        Quaternion ang;
+        if (curStation.GetComponent<Station>().endStation)
         {
-            dirStationBut_1.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(RightArrow);
-            dirStationBut_2.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(LeftArrow);
+            Vector2 dir = curStation.GetComponent<RailwayScript>().GetConect(0);
+
+
+            switch (dir.x)
+            {
+                case -1:
+                    ang = Quaternion.Euler(0, 0, 180 - 45 * dir.y);
+
+                    switch (dir.y)
+                    {
+                        case -1:
+                            dirStationBut_1 = Instantiate(dirStationButPref, curStation.transform.position, ang, canvas.transform); // Создаем стрелку
+                            dirStationBut_1.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(DownLeftArrow);
+                            break;
+                        case 0:
+                            dirStationBut_1 = Instantiate(dirStationButPref, curStation.transform.position, ang, canvas.transform); // Создаем стрелку
+                            dirStationBut_1.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(LeftArrow);
+                            break;
+                        case 1:
+                            dirStationBut_1 = Instantiate(dirStationButPref, curStation.transform.position, ang, canvas.transform); // Создаем стрелку
+                            dirStationBut_1.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(UpLeftArrow);
+                            break;
+                    }
+                    break;
+
+                case 0:
+                    ang = Quaternion.Euler(0, 0, 180 - 90 * dir.y);
+                    
+                    switch (dir.y)
+                    {
+                        case -1:
+                            dirStationBut_1 = Instantiate(dirStationButPref, curStation.transform.position, ang, canvas.transform); // Создаем стрелку
+                            dirStationBut_1.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(DownArrow);
+                            break;
+                        case 1:
+                            dirStationBut_1 = Instantiate(dirStationButPref, curStation.transform.position, ang, canvas.transform); // Создаем стрелку
+                            dirStationBut_1.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(UpArrow);
+                            break;
+                    }
+                    break;
+
+                case 1:
+                    ang = Quaternion.Euler(0, 0, 0 + 45 * dir.y);
+                    
+                    switch (dir.y)
+                    {
+                        case -1:
+                            dirStationBut_1 = Instantiate(dirStationButPref, curStation.transform.position, ang, canvas.transform); // Создаем стрелку
+                            dirStationBut_1.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(DownRightArrow);
+                            break;
+                        case 0:
+                            dirStationBut_1 = Instantiate(dirStationButPref, curStation.transform.position, ang, canvas.transform); // Создаем стрелку
+                            dirStationBut_1.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(RightArrow);
+                            break;
+                        case 1:
+                            dirStationBut_1 = Instantiate(dirStationButPref, curStation.transform.position, ang, canvas.transform); // Создаем стрелку
+                            dirStationBut_1.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(UpRightArrow);
+                            break;
+                    }
+                    break;
+            }
         }
-        else if (ang == Quaternion.Euler(0, 0, 45))
+        else
         {
-            dirStationBut_1.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(UpRightArrow);
-            dirStationBut_2.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(DownLeftArrow);
-        }
-        else if (ang == Quaternion.Euler(0, 0, 90))
-        {
-            dirStationBut_1.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(UpArrow);
-            dirStationBut_2.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(DownArrow);
-        }
-        else if (ang == Quaternion.Euler(0, 0, 135))
-        {
-            dirStationBut_1.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(UpLeftArrow);
-            dirStationBut_2.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(DownRightArrow);
+            ang = Quaternion.Euler(curStation.GetComponent<Station>().GetAngles());   //получаем угол ж/д на которой находиться станция
+
+            
+
+            if (ang == Quaternion.Euler(0, 0, 0)) //выставляем стрелочкам выполненение нужных функций
+            {
+                dirStationBut_1 = Instantiate(dirStationButPref, curStation.transform.position, ang, canvas.transform); // Создаем стрелочки
+                dirStationBut_2 = Instantiate(dirStationButPref, curStation.transform.position, ang, canvas.transform);
+                dirStationBut_2.transform.localScale = new Vector3(-dirStationBut_2.transform.localScale.x, dirStationBut_2.transform.localScale.y, dirStationBut_2.transform.localScale.z);
+
+                dirStationBut_1.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(RightArrow);
+                dirStationBut_2.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(LeftArrow);
+            }
+            else if (ang == Quaternion.Euler(0, 0, 45))
+            {
+                dirStationBut_1 = Instantiate(dirStationButPref, curStation.transform.position, ang, canvas.transform); // Создаем стрелочки
+                dirStationBut_2 = Instantiate(dirStationButPref, curStation.transform.position, ang, canvas.transform);
+                dirStationBut_2.transform.localScale = new Vector3(-dirStationBut_2.transform.localScale.x, dirStationBut_2.transform.localScale.y, dirStationBut_2.transform.localScale.z);
+
+
+                dirStationBut_1.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(UpRightArrow);
+                dirStationBut_2.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(DownLeftArrow);
+            }
+            else if (ang == Quaternion.Euler(0, 0, 90))
+            {
+                dirStationBut_1 = Instantiate(dirStationButPref, curStation.transform.position, ang, canvas.transform); // Создаем стрелочки
+                dirStationBut_2 = Instantiate(dirStationButPref, curStation.transform.position, ang, canvas.transform);
+                dirStationBut_2.transform.localScale = new Vector3(-dirStationBut_2.transform.localScale.x, dirStationBut_2.transform.localScale.y, dirStationBut_2.transform.localScale.z);
+
+                dirStationBut_1.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(UpArrow);
+                dirStationBut_2.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(DownArrow);
+            }
+            else if (ang == Quaternion.Euler(0, 0, 135))
+            {
+                dirStationBut_1 = Instantiate(dirStationButPref, curStation.transform.position, ang, canvas.transform); // Создаем стрелочки
+                dirStationBut_2 = Instantiate(dirStationButPref, curStation.transform.position, ang, canvas.transform);
+                dirStationBut_2.transform.localScale = new Vector3(-dirStationBut_2.transform.localScale.x, dirStationBut_2.transform.localScale.y, dirStationBut_2.transform.localScale.z);
+
+                dirStationBut_1.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(UpLeftArrow);
+                dirStationBut_2.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(DownRightArrow);
+            }
         }
     }
 
@@ -179,7 +275,7 @@ public class RespawnMode : MonoBehaviour
     void LeftArrow()
     {
         Vector2[] points = new Vector2[1];
-        points[0] = new Vector2(curRespawnStation.transform.position.x - 0.501f, curRespawnStation.transform.position.y);
+        points[0] = new Vector2(curStation.transform.position.x - 0.501f, curStation.transform.position.y);
 
         RespawnTrain(points);
 
@@ -188,7 +284,7 @@ public class RespawnMode : MonoBehaviour
     void RightArrow()
     {
         Vector2[] points = new Vector2[1];
-        points[0] = new Vector2(curRespawnStation.transform.position.x + 0.501f, curRespawnStation.transform.position.y);
+        points[0] = new Vector2(curStation.transform.position.x + 0.501f, curStation.transform.position.y);
 
         RespawnTrain(points);
 
@@ -197,7 +293,7 @@ public class RespawnMode : MonoBehaviour
     void UpArrow()
     {
         Vector2[] points = new Vector2[1];
-        points[0] = new Vector2(curRespawnStation.transform.position.x, curRespawnStation.transform.position.y + 0.501f);
+        points[0] = new Vector2(curStation.transform.position.x, curStation.transform.position.y + 0.501f);
 
 
         RespawnTrain(points);
@@ -207,7 +303,7 @@ public class RespawnMode : MonoBehaviour
     void DownArrow()
     {
         Vector2[] points = new Vector2[1];
-        points[0] = new Vector2(curRespawnStation.transform.position.x, curRespawnStation.transform.position.y - 0.501f);
+        points[0] = new Vector2(curStation.transform.position.x, curStation.transform.position.y - 0.501f);
 
         RespawnTrain(points);
 
@@ -217,7 +313,7 @@ public class RespawnMode : MonoBehaviour
     void UpRightArrow()
     {
         Vector2[] points = new Vector2[1];
-        points[0] = new Vector2(curRespawnStation.transform.position.x + 0.501f, curRespawnStation.transform.position.y + 0.501f);
+        points[0] = new Vector2(curStation.transform.position.x + 0.501f, curStation.transform.position.y + 0.501f);
 
         RespawnTrain(points);
 
@@ -226,7 +322,7 @@ public class RespawnMode : MonoBehaviour
     void DownLeftArrow()
     {
         Vector2[] points = new Vector2[1];
-        points[0] = new Vector2(curRespawnStation.transform.position.x - 0.501f, curRespawnStation.transform.position.y - 0.501f);
+        points[0] = new Vector2(curStation.transform.position.x - 0.501f, curStation.transform.position.y - 0.501f);
 
         RespawnTrain(points);
 
@@ -235,7 +331,7 @@ public class RespawnMode : MonoBehaviour
     void UpLeftArrow()
     {
         Vector2[] points = new Vector2[1];
-        points[0] = new Vector2(curRespawnStation.transform.position.x - 0.501f, curRespawnStation.transform.position.y + 0.501f);
+        points[0] = new Vector2(curStation.transform.position.x - 0.501f, curStation.transform.position.y + 0.501f);
 
         RespawnTrain(points);
 
@@ -244,17 +340,17 @@ public class RespawnMode : MonoBehaviour
     void DownRightArrow()
     {
         Vector2[] points = new Vector2[1];
-        points[0] = new Vector2(curRespawnStation.transform.position.x + 0.501f, curRespawnStation.transform.position.y - 0.501f);
+        points[0] = new Vector2(curStation.transform.position.x + 0.501f, curStation.transform.position.y - 0.501f);
 
         RespawnTrain(points);
 
         GetComponent<GameControler>().ActDeactRespawnTrainMode(); ;
     }
 
-
+    
     public void DiactivateRespMode()
     {
-        curRespawnStation = null;
+        curStation = null;
         if (dirStationBut_1 != null)
             Destroy(dirStationBut_1.gameObject);
         if (dirStationBut_2 != null)
@@ -266,15 +362,15 @@ public class RespawnMode : MonoBehaviour
     {
         curTrain++;
 
-        GameObject train = Instantiate(TrainPref, curRespawnStation.transform.position, Quaternion.identity);
+        GameObject train = Instantiate(TrainPref, curStation.transform.position, Quaternion.identity);
         train.SetActive(false);
 
-        stations.Remove(curRespawnStation);
+        stations.Remove(curStation);
 
         int rand = Random.Range(0, stations.Count-1);
         int rand_color = Random.Range(0, colorsTrain.Count);
 
-        stations.Add(curRespawnStation);
+        stations.Add(curStation);
 
         stations[rand].GetComponent<Station>().SetColor(colorsTrain[rand_color]);
 
@@ -312,6 +408,9 @@ public class RespawnMode : MonoBehaviour
         curTrain--;
         stations.Add(station);
         colorsTrain.Add(color);
+
+        if (miniMission)
+            miniMission.TrainOnStation();
     }
 
     public void DeleteStation(GameObject station)

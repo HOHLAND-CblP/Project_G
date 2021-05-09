@@ -5,6 +5,7 @@ using UnityEngine;
 public class RailwayControler : MonoBehaviour
 {
     readonly List<RailwayScript> railways = new List<RailwayScript>();
+    readonly List<RailwayScript> stations = new List<RailwayScript>();
 
 
     public void StartConect()
@@ -14,9 +15,10 @@ public class RailwayControler : MonoBehaviour
             r.GetComponent<RailwayScript>().SetConect();
         }
 
-        foreach (var r in railways)
+        foreach (var s in stations)
         {
-            UpdateCellsAround((int)r.transform.position.x, (int)r.transform.position.y);
+            s.GetComponent<RailwayScript>().SetConect();
+            s.GetComponent<RailwayScript>().UpdateCellsAround();
         }
     }
 
@@ -41,5 +43,10 @@ public class RailwayControler : MonoBehaviour
     public void AddRailway(RailwayScript railway)
     {
         railways.Add(railway);
+    }
+
+    public void AddStation(RailwayScript station)
+    {
+        stations.Add(station);
     }
 }

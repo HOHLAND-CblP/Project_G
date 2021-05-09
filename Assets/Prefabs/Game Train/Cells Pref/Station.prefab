@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Size: {x: 1, y: 1}
+  cellBackground: {fileID: 0}
 --- !u!114 &1763847533849697479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   conects: []
-  roads: 5
+  road: 5
 --- !u!114 &3066408354885822698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fe59e9ed5eff4f43be78a1358a96478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curType: 0
   horizontalScale: 1
   digonalScale: 1.42
 --- !u!58 &7547262853225436008

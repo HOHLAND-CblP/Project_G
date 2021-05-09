@@ -2,6 +2,10 @@
 
 public class ArrowRailway : MonoBehaviour
 {
+
+
+
+
     bool canGo;     // Может ли ехать поезд на стрелке в нужном ему направлении
 
     bool isTurnBlocked;     // Блокировка кнопки поворота
@@ -10,10 +14,16 @@ public class ArrowRailway : MonoBehaviour
 
 
     // Картинки для стрелки
+    [Header ("Sprits For Arrow")]
     public Sprite arrowForward;
     public Sprite arrowTurn;
 
-    
+    // Тупики
+    [Header ("DeadEnds")]
+    public GameObject deadEnd_1;
+    public GameObject deadEnd_2;
+    public GameObject deadEnd_3;
+
     GameObject pointer;
 
 
@@ -41,7 +51,6 @@ public class ArrowRailway : MonoBehaviour
     {
         pointer = transform.GetChild(0).gameObject;
 
-
         MakeNewPoints();
     }
 
@@ -64,6 +73,7 @@ public class ArrowRailway : MonoBehaviour
             }
         }
     }
+
 
     // Каждый состав имеет ранговую систему, движущий состав 1, среднии вагоны 0, конечный вагон -1 и наоборот, если поезд едит задним ходом
     public Vector2[] GetPoints(Vector2 dir, int rangRailwayCarriage, Vector2[] points) 
@@ -131,31 +141,90 @@ public class ArrowRailway : MonoBehaviour
         return vectorError;
     }            
 
-
-    public void MakeNewPoints()
+    
+    public void BuildRailway()
     {
-        GetComponent<RailwayScript>().DeleteConects();
+        MakeNewPoints();
+    }
 
-
+    void MakeNewPoints()
+    {
         switch (transform.rotation.eulerAngles.z)
         {
             case 0:
                 PointsFor0Grad();
+                ConectsFor0Grad();
                 break;
 
             case 90:
                 PointsFor90Grad();
+                ConectsFor90Grad();
                 break;
 
             case 180:
                 PointsFor180Grad();
+                ConectsFor180Grad();
                 break;
 
             case 270:
                 PointsFor270Grad();
+                ConectsFor270Grad();
                 break;
         }
     }
+
+    public void MakeNewConects()
+    {
+        switch (transform.rotation.eulerAngles.z)
+        {
+            case 0:
+                ConectsFor0Grad();
+                break;
+
+            case 90:
+                ConectsFor90Grad();
+                break;
+
+            case 180:
+                ConectsFor180Grad();
+                break;
+
+            case 270:
+                ConectsFor270Grad();
+                break;
+        }
+    }
+
+
+    public void SetDeadEnd()
+    {
+        //
+        GameObject temp = Camera.main.GetComponent<BuildingsGrid>().GetCellFromGrid(Mathf.RoundToInt(transform.position.x + dirToArrow.x), Mathf.RoundToInt(transform.position.y + dirToArrow.y));
+
+        if (temp == null || temp.GetComponent<RailwayScript>() == null || !temp.GetComponent<RailwayScript>().IsConect(dirToArrow))
+            deadEnd_1.SetActive(true);
+        else
+            deadEnd_1.SetActive(false);
+
+
+        //
+        temp = Camera.main.GetComponent<BuildingsGrid>().GetCellFromGrid(Mathf.RoundToInt(transform.position.x + dirAgainstArrowFromForward.x), Mathf.RoundToInt(transform.position.y + dirAgainstArrowFromForward.y));
+
+        if (temp == null || temp.GetComponent<RailwayScript>() == null || !temp.GetComponent<RailwayScript>().IsConect(dirAgainstArrowFromForward))
+            deadEnd_2.SetActive(true);
+        else
+            deadEnd_2.SetActive(false);
+
+
+        //
+        temp = Camera.main.GetComponent<BuildingsGrid>().GetCellFromGrid(Mathf.RoundToInt(transform.position.x + dirAgainstArrowFromTurn.x), Mathf.RoundToInt(transform.position.y + dirAgainstArrowFromTurn.y));
+
+        if (temp == null || temp.GetComponent<RailwayScript>() == null || !temp.GetComponent<RailwayScript>().IsConect(dirAgainstArrowFromTurn))
+            deadEnd_3.SetActive(true);
+        else
+            deadEnd_3.SetActive(false);
+    }
+
 
     void PointsFor0Grad()
     {
@@ -178,14 +247,6 @@ public class ArrowRailway : MonoBehaviour
         pointsForward_1[0] = new Vector2(transform.position.x - 0.1f, transform.position.y);
 
         pointsForward_2[0] = new Vector2(transform.position.x - 0.501f, transform.position.y);
-
-        dirToArrow = new Vector2(-1, 0);
-        dirAgainstArrowFromForward = new Vector2(1, 0);
-        dirAgainstArrowFromTurn = new Vector2(1, transform.localScale.y);
-
-        GetComponent<RailwayScript>().AddConect(dirToArrow);
-        GetComponent<RailwayScript>().AddConect(dirAgainstArrowFromForward);
-        GetComponent<RailwayScript>().AddConect(dirAgainstArrowFromTurn);
     }
     void PointsFor90Grad()
     {
@@ -208,14 +269,6 @@ public class ArrowRailway : MonoBehaviour
         pointsForward_1[0] = new Vector2(transform.position.x, transform.position.y - 0.1f);
 
         pointsForward_2[0] = new Vector2(transform.position.x, transform.position.y - 0.501f);
-
-        dirToArrow = new Vector2(0, -1);
-        dirAgainstArrowFromForward = new Vector2(0, 1);
-        dirAgainstArrowFromTurn = new Vector2(-transform.localScale.y, 1);
-
-        GetComponent<RailwayScript>().AddConect(dirToArrow);
-        GetComponent<RailwayScript>().AddConect(dirAgainstArrowFromForward);
-        GetComponent<RailwayScript>().AddConect(dirAgainstArrowFromTurn);
     }
     void PointsFor180Grad()
     {
@@ -238,14 +291,6 @@ public class ArrowRailway : MonoBehaviour
         pointsForward_1[0] = new Vector2(transform.position.x + 0.1f, transform.position.y);
 
         pointsForward_2[0] = new Vector2(transform.position.x + 0.501f, transform.position.y);
-
-        dirToArrow = new Vector2(1, 0);
-        dirAgainstArrowFromForward = new Vector2(-1, 0);
-        dirAgainstArrowFromTurn = new Vector2(-1, -transform.localScale.y);
-
-        GetComponent<RailwayScript>().AddConect(dirToArrow);
-        GetComponent<RailwayScript>().AddConect(dirAgainstArrowFromForward);
-        GetComponent<RailwayScript>().AddConect(dirAgainstArrowFromTurn);
     }
     void PointsFor270Grad()
     {
@@ -268,6 +313,47 @@ public class ArrowRailway : MonoBehaviour
         pointsForward_1[0] = new Vector2(transform.position.x, transform.position.y + 0.1f);
 
         pointsForward_2[0] = new Vector2(transform.position.x, transform.position.y + 0.501f);
+    }
+
+    void ConectsFor0Grad()
+    {
+        GetComponent<RailwayScript>().DeleteConects();
+
+        dirToArrow = new Vector2(-1, 0);
+        dirAgainstArrowFromForward = new Vector2(1, 0);
+        dirAgainstArrowFromTurn = new Vector2(1, transform.localScale.y);
+
+        GetComponent<RailwayScript>().AddConect(dirToArrow);
+        GetComponent<RailwayScript>().AddConect(dirAgainstArrowFromForward);
+        GetComponent<RailwayScript>().AddConect(dirAgainstArrowFromTurn);
+    }
+    void ConectsFor90Grad()
+    {
+        GetComponent<RailwayScript>().DeleteConects();
+
+        dirToArrow = new Vector2(0, -1);
+        dirAgainstArrowFromForward = new Vector2(0, 1);
+        dirAgainstArrowFromTurn = new Vector2(-transform.localScale.y, 1);
+
+        GetComponent<RailwayScript>().AddConect(dirToArrow);
+        GetComponent<RailwayScript>().AddConect(dirAgainstArrowFromForward);
+        GetComponent<RailwayScript>().AddConect(dirAgainstArrowFromTurn);
+    }
+    void ConectsFor180Grad()
+    {
+        GetComponent<RailwayScript>().DeleteConects();
+
+        dirToArrow = new Vector2(1, 0);
+        dirAgainstArrowFromForward = new Vector2(-1, 0);
+        dirAgainstArrowFromTurn = new Vector2(-1, -transform.localScale.y);
+
+        GetComponent<RailwayScript>().AddConect(dirToArrow);
+        GetComponent<RailwayScript>().AddConect(dirAgainstArrowFromForward);
+        GetComponent<RailwayScript>().AddConect(dirAgainstArrowFromTurn);
+    }
+    void ConectsFor270Grad()
+    {
+        GetComponent<RailwayScript>().DeleteConects();
 
         dirToArrow = new Vector2(0, 1);
         dirAgainstArrowFromForward = new Vector2(0, -1);
@@ -278,22 +364,20 @@ public class ArrowRailway : MonoBehaviour
         GetComponent<RailwayScript>().AddConect(dirAgainstArrowFromTurn);
     }
 
-
     // Поворот клетки при строительстве
     public void Turn(int k)
     {
         if (k == 1)
-            if (transform.localScale.y == 1)
+            if (transform.localScale.y == -1)
             {
-                transform.Rotate(0, 0, 90 * k);
+                transform.Rotate(0, 0, 90 * -k);
                 transform.localScale = new Vector3(transform.localScale.x, -transform.localScale.y, transform.localScale.z);
             }
             else
                 transform.localScale = new Vector3(transform.localScale.x, -transform.localScale.y, transform.localScale.z);
-        else
-        if (transform.localScale.y == -1)
+        else if (transform.localScale.y == 1)
         {
-            transform.Rotate(0, 0, 90 * k);
+            transform.Rotate(0, 0, 90 * -k);
             transform.localScale = new Vector3(transform.localScale.x, -transform.localScale.y, transform.localScale.z);
         }
         else

@@ -63,7 +63,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   conects: []
-  roads: 1
+  road: 1
 --- !u!114 &-6472687765961596211
 MonoBehaviour:
   m_ObjectHideFlags: 0

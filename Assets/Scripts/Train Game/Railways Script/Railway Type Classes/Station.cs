@@ -6,21 +6,25 @@ using UnityEngine.Assertions.Must;
 
 public class Station : MonoBehaviour
 {
-    bool endStation;
+    public bool endStation;
+
     bool horizontal = false;    //тип дороги для отрисовки
     bool vertical = false;
     bool diagonal_1 = false;    // Вертикаль от снизу слева до сверху справа
     bool diagonal_2 = false;    // Вертикаль от снизу справа до сверху слева
-    
+
     [SerializeField]
     int curType;
-
+    [SerializeField]
+    int whichSide;
     GameObject[,] aroundCell = new GameObject[3, 3];
 
     public float horizontalScale; //размеры дорог
     public float digonalScale;
 
+    [SerializeField]
     Vector2[] points_1 = new Vector2[1];    //точки для движения
+    [SerializeField]
     Vector2[] points_2 = new Vector2[1];
 
     Vector2 dir_1;  //сектора входа поезда
@@ -40,7 +44,6 @@ public class Station : MonoBehaviour
 
     void Start()
     {
-        endStation = false;
         Camera.main.GetComponent<RespawnMode>().AddStation(gameObject);
     }
 
@@ -65,18 +68,47 @@ public class Station : MonoBehaviour
 
     public Vector3 GetAngles()
     {
-        if (horizontal)
-            return new Vector3(0, 0, 0);
-        else if (vertical)
-            return new Vector3(0, 0, 90);
-        else if (diagonal_1)
-            return new Vector3(0, 0, 45);
-        else
-            return new Vector3(0, 0, 135);
+        switch (curType)
+        {
+            case 1:
+                return new Vector3(0, 0, 0);
+            case 2:
+                return new Vector3(0, 0, 90);
+            case 3:
+                return new Vector3(0, 0, 45);
+            case 4:
+                return new Vector3(0, 0, 135);
+            default:
+                return new Vector3(1, 2, 3);
+                
+        }
     }
 
 
-    public void SetType()       // определение возможных типов соединений
+
+    public void CompleteStationRenavation() // Функция полного обновления станции
+    {
+        PossibleTypes();
+        SelectCurType();
+        IsItEndStation();
+        DrawRailway();
+        MakeNewPoints();
+    }
+
+    public void PreBuildVizualize()
+    {
+        PossibleTypes();
+        SelectCurType();
+        IsItEndStation();
+        DrawRailway();
+    }
+
+    public void BuildRailway()
+    {
+        MakeNewPoints();
+    }
+
+    void PossibleTypes()       // Определение возможных типов соединений
     {
         horizontal = false;     // обнуляем все существующие соединенеия
         vertical = false;
@@ -120,14 +152,11 @@ public class Station : MonoBehaviour
             else if (aroundCell[2, 0] && aroundCell[2, 0].GetComponent<RailwayScript>() && aroundCell[2, 0].GetComponent<RailwayScript>().IsConect(new Vector2(1, -1)))
                 diagonal_2 = true;
         }
-
-        
-        SelectCurType();
     }
 
     void SelectCurType()        // Задаем текущий тип
     {
-        switch (curType)      // Если тип выбран, но он не соответствует одному из возможных в данный момент типов    
+        switch (curType)      // Если тип выбран, но он не соответствует одному из возможных в данный момент типов, то тип сбрасывается   
         {
             case 1:
                 if (!horizontal)
@@ -163,34 +192,29 @@ public class Station : MonoBehaviour
             else if (diagonal_2)
                 curType = 4;
         }
-
-        
-
-        SetConect();
     }
 
-    public void SetConect()     // создание конекта с соседними дорогами
+    void IsItEndStation()       // Определяется конечная ли станция
     {
         endStation = false;
-        GetComponent<RailwayScript>().DeleteConects();
 
         switch (curType)
         {
             case 1:
-                if (aroundCell[2, 1] && aroundCell[2, 1].GetComponent<RailwayScript>()) // Соединение справа
-                {
-                    if (aroundCell[2, 1].GetComponent<RailwayScript>().IsConect(new Vector2(1, 0)))
-                    {
-                        endStation = true;
-                        horizontal = true;
-                    }
-                }
                 if (aroundCell[0, 1] && aroundCell[0, 1].GetComponent<RailwayScript>()) // Соединение слева
                 {
                     if (aroundCell[0, 1].GetComponent<RailwayScript>().IsConect(new Vector2(-1, 0)))
                     {
+                        whichSide = -1;
+                        endStation = true;
+                    }
+                }
+                if (aroundCell[2, 1] && aroundCell[2, 1].GetComponent<RailwayScript>()) // Соединение справа
+                {
+                    if (aroundCell[2, 1].GetComponent<RailwayScript>().IsConect(new Vector2(1, 0)))
+                    {
+                        whichSide = 1;
                         endStation = !endStation;
-                        horizontal = true;
                     }
                 }
                 break;
@@ -200,16 +224,16 @@ public class Station : MonoBehaviour
                 {
                     if (aroundCell[1, 2].GetComponent<RailwayScript>().IsConect(new Vector2(0, 1)))
                     {
+                        whichSide = 1;
                         endStation = true;
-                        vertical = true;
                     }
                 }
                 if (aroundCell[1, 0] && aroundCell[1, 0].GetComponent<RailwayScript>())
                 {
                     if (aroundCell[1, 0].GetComponent<RailwayScript>().IsConect(new Vector2(0, -1)))
                     {
+                        whichSide = -1;
                         endStation = !endStation;
-                        vertical = true;
                     }
                 }
                 break;
@@ -219,16 +243,16 @@ public class Station : MonoBehaviour
                 {
                     if (aroundCell[2, 2].GetComponent<RailwayScript>().IsConect(new Vector2(1, 1)))
                     {
+                        whichSide = 1;
                         endStation = true;
-                        diagonal_1 = true;
                     }
                 }
                 if (aroundCell[0, 0] && aroundCell[0, 0].GetComponent<RailwayScript>())
                 {
                     if (aroundCell[0, 0].GetComponent<RailwayScript>().IsConect(new Vector2(-1, -1)))
                     {
+                        whichSide = -1;
                         endStation = !endStation;
-                        diagonal_1 = true;
                     }
                 }
                 break;
@@ -238,25 +262,26 @@ public class Station : MonoBehaviour
                 {
                     if (aroundCell[0, 2].GetComponent<RailwayScript>().IsConect(new Vector2(-1, 1)))
                     {
+                        whichSide = -1;
                         endStation = true;
-                        diagonal_2 = true;
                     }
                 }
                 if (aroundCell[2, 0] && aroundCell[2, 0].GetComponent<RailwayScript>())
                 {
                     if (aroundCell[2, 0].GetComponent<RailwayScript>().IsConect(new Vector2(1, -1)))
                     {
+                        whichSide = 1;
                         endStation = !endStation;
-                        diagonal_2 = true;
                     }
                 }
                 break;
         }
 
-        DrawRailway();
+        if (!endStation)
+            whichSide = 0;
     }
 
-    void DrawRailway()          // отрисовка дороги
+    public void DrawRailway()   // Отрисовка дороги
     {
         switch (curType)
         {
@@ -293,7 +318,6 @@ public class Station : MonoBehaviour
                     temp.transform.localPosition = new Vector3(0, 0, 0);
                 }
 
-                PointsHorizontal();
                 break;
 
             case 2:
@@ -324,7 +348,6 @@ public class Station : MonoBehaviour
                     temp.transform.localPosition = new Vector3(0, 0, 0);
                 }
 
-                PointsVertical();
                 break;
 
             case 3:
@@ -355,7 +378,6 @@ public class Station : MonoBehaviour
                     temp.transform.localPosition = new Vector3(0, 0, 0);
                 }
 
-                PointsDiagonal_1();
                 break;
 
             case 4:
@@ -387,58 +409,364 @@ public class Station : MonoBehaviour
                     temp.transform.localPosition = new Vector3(0, 0, 0);
                 }
 
-                PointsDiagonal_2();
                 break;
         }
     }
 
 
-    void PointsHorizontal()
+    // Создание точек и конектов
+    void MakeNewPoints()        
     {
-        points_1[0] = new Vector2(transform.position.x - 0.501f, transform.position.y);
-        points_2[0] = new Vector2(transform.position.x + 0.501f, transform.position.y);
+        switch (curType)
+        {
+            case 0:
+                GetComponent<RailwayScript>().DeleteConects();
+                points_1[0] = new Vector2();
+                points_2[0] = new Vector2();
+                break;
 
-        dir_1 = new Vector2(1, 0);
-        dir_2 = new Vector2(-1, 0);
+            case 1:
+                HorizontalPoints();
+                HorizontalConects();
+                break;
 
-        GetComponent<RailwayScript>().AddConect(dir_1);
-        GetComponent<RailwayScript>().AddConect(dir_2);
+            case 2:
+                VerticalPoints();
+                VerticalConects();
+                break;
+
+            case 3:
+                FirstDiagonalPoints();
+                FirstDiagonalConects();
+                break;
+
+            case 4:
+                SecondDiagonalPoints();
+                SecondDiagonalConects();
+                break;
+        }
+
     }
 
-    void PointsVertical()
+
+    // Создание конектов
+    public void MakeNewConects()
     {
-        points_1[0] = new Vector2(transform.position.x, transform.position.y - 0.501f);
-        points_2[0] = new Vector2(transform.position.x, transform.position.y + 0.501f);
+        switch (curType)
+        {
+            case 0:
+                GetComponent<RailwayScript>().DeleteConects();
+                break;
 
-        dir_1 = new Vector2(0, 1);
-        dir_2 = new Vector2(0, -1);
+            case 1:
+                HorizontalConects();
+                break;
 
-        GetComponent<RailwayScript>().AddConect(dir_1);
-        GetComponent<RailwayScript>().AddConect(dir_2);
+            case 2:
+                VerticalConects();
+                break;
+
+            case 3:
+                FirstDiagonalConects();
+                break;
+
+            case 4:
+                SecondDiagonalConects();
+                break;
+        }
     }
 
-    void PointsDiagonal_1()
+
+    void HorizontalPoints()
     {
-        points_1[0] = new Vector2(transform.position.x - 0.501f, transform.position.y - 0.501f);
-        points_2[0] = new Vector2(transform.position.x + 0.501f, transform.position.y + 0.501f);
+        switch (whichSide)
+        {
+            case -1:
+                points_1[0] = new Vector2(transform.position.x - 0.501f, transform.position.y);
+                points_2[0] = new Vector2(transform.position.x, transform.position.y);
+                break;
 
-        dir_1 = new Vector2(1, 1);
-        dir_2 = new Vector2(-1, -1);
+            case 0:
+                points_1[0] = new Vector2(transform.position.x - 0.501f, transform.position.y);
+                points_2[0] = new Vector2(transform.position.x + 0.501f, transform.position.y);
+                break;
 
-        GetComponent<RailwayScript>().AddConect(dir_1);
-        GetComponent<RailwayScript>().AddConect(dir_2);
+            case 1:
+                points_1[0] = new Vector2(transform.position.x, transform.position.y);
+                points_2[0] = new Vector2(transform.position.x + 0.501f, transform.position.y);
+                break;
+        }
+    }
+    void VerticalPoints()
+    {
+        switch (whichSide)
+        {
+            case -1:
+                points_1[0] = new Vector2(transform.position.x, transform.position.y - 0.501f);
+                points_2[0] = new Vector2(transform.position.x, transform.position.y);
+                break;
+
+            case 0:
+                points_1[0] = new Vector2(transform.position.x, transform.position.y - 0.501f);
+                points_2[0] = new Vector2(transform.position.x, transform.position.y + 0.501f);
+                break;
+
+            case 1:
+                points_1[0] = new Vector2(transform.position.x, transform.position.y);
+                points_2[0] = new Vector2(transform.position.x, transform.position.y + 0.501f);
+                break;
+        }
+    }
+    void FirstDiagonalPoints()
+    {
+        switch (whichSide)
+        {
+            case -1:
+                points_1[0] = new Vector2(transform.position.x - 0.501f, transform.position.y - 0.501f);
+                points_2[0] = new Vector2(transform.position.x, transform.position.y);
+                break;
+
+            case 0:
+                points_1[0] = new Vector2(transform.position.x - 0.501f, transform.position.y - 0.501f);
+                points_2[0] = new Vector2(transform.position.x + 0.501f, transform.position.y + 0.501f);
+                break;
+
+            case 1:
+                points_1[0] = new Vector2(transform.position.x, transform.position.y);
+                points_2[0] = new Vector2(transform.position.x + 0.501f, transform.position.y + 0.501f);
+                break;
+        }               
+    }
+    void SecondDiagonalPoints()
+    {
+        switch (whichSide)
+        {
+            case -1:
+                points_1[0] = new Vector2(transform.position.x - 0.501f, transform.position.y + 0.501f);
+                points_2[0] = new Vector2(transform.position.x, transform.position.y);
+                break;
+
+            case 0:
+                points_1[0] = new Vector2(transform.position.x + 0.501f, transform.position.y - 0.501f);
+                points_2[0] = new Vector2(transform.position.x - 0.501f, transform.position.y + 0.501f);
+                break;
+
+            case 1:
+                points_1[0] = new Vector2(transform.position.x, transform.position.y);
+                points_2[0] = new Vector2(transform.position.x + 0.501f, transform.position.y - 0.501f);
+                break;
+        }
     }
 
-    void PointsDiagonal_2()
+    void HorizontalConects()
     {
-        points_1[0] = new Vector2(transform.position.x + 0.501f, transform.position.y - 0.501f);
-        points_2[0] = new Vector2(transform.position.x - 0.501f, transform.position.y + 0.501f);
+        GetComponent<RailwayScript>().DeleteConects();
 
-        dir_1 = new Vector2(-1, 1);
-        dir_2 = new Vector2(1, -1);
+        switch (whichSide)
+        {
+            case -1:
+                dir_1 = new Vector2();
+                dir_2 = new Vector2(-1, 0);
 
-        GetComponent<RailwayScript>().AddConect(dir_1);
-        GetComponent<RailwayScript>().AddConect(dir_2);
+                GetComponent<RailwayScript>().AddConect(dir_2);
+                break;
+
+            case 0:
+                dir_1 = new Vector2(1, 0);
+                dir_2 = new Vector2(-1, 0);
+
+                GetComponent<RailwayScript>().AddConect(dir_1);
+                GetComponent<RailwayScript>().AddConect(dir_2);
+                break;
+
+            case 1:
+                dir_1 = new Vector2(1, 0);
+                dir_2 = new Vector2();
+
+                GetComponent<RailwayScript>().AddConect(dir_1);
+                break;
+        }
+    }
+    void VerticalConects()
+    {
+        GetComponent<RailwayScript>().DeleteConects();
+
+        switch (whichSide)
+        {
+            case -1:
+                dir_1 = new Vector2();
+                dir_2 = new Vector2(0, -1);
+
+                GetComponent<RailwayScript>().AddConect(dir_2);
+                break;
+
+            case 0:
+                dir_1 = new Vector2(0, 1);
+                dir_2 = new Vector2(0, -1);
+
+                GetComponent<RailwayScript>().AddConect(dir_1);
+                GetComponent<RailwayScript>().AddConect(dir_2);
+                break;
+
+            case 1:
+                dir_1 = new Vector2(0, 1);
+                dir_2 = new Vector2();
+
+                GetComponent<RailwayScript>().AddConect(dir_1);
+                break;
+        }
+    }
+    void FirstDiagonalConects()
+    {
+        GetComponent<RailwayScript>().DeleteConects();
+
+        switch (whichSide)
+        {
+            case -1:
+                dir_1 = new Vector2();
+                dir_2 = new Vector2(-1, -1);
+
+                GetComponent<RailwayScript>().AddConect(dir_2);
+                break;
+
+            case 0:
+                dir_1 = new Vector2(1, 1);
+                dir_2 = new Vector2(-1, -1);
+
+                GetComponent<RailwayScript>().AddConect(dir_1);
+                GetComponent<RailwayScript>().AddConect(dir_2);
+                break;
+
+            case 1:
+                dir_1 = new Vector2(1, 1);
+                dir_2 = new Vector2();
+
+                GetComponent<RailwayScript>().AddConect(dir_1);
+                break;
+        }
+
+
+    }
+    void SecondDiagonalConects()
+    {
+        GetComponent<RailwayScript>().DeleteConects();
+
+        switch (whichSide)
+        {
+            case -1:
+                dir_1 = new Vector2();
+                dir_2 = new Vector2(-1, 1);
+
+                GetComponent<RailwayScript>().AddConect(dir_2);
+                break;
+
+            case 0:
+                dir_1 = new Vector2(1, -1);
+                dir_2 = new Vector2(-1, 1);
+
+                GetComponent<RailwayScript>().AddConect(dir_1);
+                GetComponent<RailwayScript>().AddConect(dir_2);
+                break;
+
+            case 1:
+                dir_1 = new Vector2(1, -1);
+                dir_2 = new Vector2();
+
+                GetComponent<RailwayScript>().AddConect(dir_1);
+                break;
+        }
+    }
+
+
+    public void Turn(int k)
+    {
+        switch (curType)
+        {
+            case 1:
+                if (k == 1)
+                {
+                    if (diagonal_2)
+                        curType = 4;
+                    else if (diagonal_1)
+                        curType = 3;
+                    else if (vertical)
+                        curType = 2;
+                }
+                else
+                {
+                    if (vertical)
+                        curType = 2;
+                    else if (diagonal_1)
+                        curType = 3;
+                    else if (diagonal_2)
+                        curType = 4;
+                }
+                break;
+
+            case 2:
+                if (k == 1)
+                {
+                    if (horizontal)
+                        curType = 1;
+                    else if (diagonal_2)
+                        curType = 4;
+                    else if (diagonal_1)
+                        curType = 3;
+                }
+                else
+                {
+                    if (diagonal_1)
+                        curType = 3;
+                    else if (diagonal_2)
+                        curType = 4;
+                    else if (horizontal)
+                        curType = 1;
+                }
+                break;
+
+            case 3:
+                if (k == 1)
+                {
+                    if (vertical)
+                        curType = 2;
+                    else if (horizontal)
+                        curType = 1;
+                    else if (diagonal_2)
+                        curType = 4;
+                }
+                else
+                {
+                    if (diagonal_2)
+                        curType = 4;
+                    else if (horizontal)
+                        curType = 1;
+                    else if (vertical)
+                        curType = 2;
+                }
+                break;
+
+            case 4:
+                if (k == 1)
+                {
+                    if (diagonal_1)
+                        curType = 3;
+                    else if (vertical)
+                        curType = 2;
+                    else if (horizontal)
+                        curType = 1;
+                }
+                else
+                {
+                    if (horizontal)
+                        curType = 1;
+                    else if (vertical)
+                        curType = 2;
+                    else if (diagonal_1)
+                        curType = 3;
+                }
+                break;
+
+        }
     }
 
 

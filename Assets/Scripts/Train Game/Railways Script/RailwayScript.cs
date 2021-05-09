@@ -24,7 +24,7 @@ public class RailwayScript : MonoBehaviour
 
     */
 
-    public Roads roads; // выбранный тип железной дороги
+    public Roads road; // выбранный тип железной дороги
 
  
     public enum Roads   //типы ж/д путей
@@ -40,13 +40,16 @@ public class RailwayScript : MonoBehaviour
 
     private void Awake()
     {
-        Camera.main.GetComponent<RailwayControler>().AddRailway(this);
+        if (road == Roads.Station)
+            Camera.main.GetComponent<RailwayControler>().AddStation(this);
+        else
+            Camera.main.GetComponent<RailwayControler>().AddRailway(this);
     }
 
 
     public Vector2[] ActivateRailway(Vector2 dir, int rangRailwayCarriage, Vector2[] points) //Активируем клетку железной дороги
     {
-        switch (roads)  // Находим нужный тип дороги
+        switch (road)  // Находим нужный тип дороги
         {
             case Roads.Turn90: //поворот на 90 градусов
                 return GetComponent<Turn90Railway>().GetPoints(dir);
@@ -69,15 +72,15 @@ public class RailwayScript : MonoBehaviour
 
     public Vector2[] ChangeDirection(Vector2[] points, Vector2 trainPos)
     {
-        switch (roads)
+        switch (road)
         {
-            case Roads.Turn90: //поворот на 90 градусов
+            case Roads.Turn90:  //поворот на 90 градусов
                 return GetComponent<Turn90Railway>().ChangeDirection(points);
 
-            case Roads.Turn45: //поворот на 45 градусов
+            case Roads.Turn45:  //поворот на 45 градусов
                 return GetComponent<Turn45Railway>().ChangeDirection(points);
 
-          case Roads.Arrow: // стрелка
+            case Roads.Arrow:   // стрелка
                 return GetComponent<ArrowRailway>().ChangeDirection(points, trainPos);
 
             case Roads.Station: //станция
@@ -91,9 +94,9 @@ public class RailwayScript : MonoBehaviour
     }
 
 
-    public void SetConect() // Создаем визувльный конект
+    public void SetConect() // Создаем визуальный конект
     {
-        switch (roads)
+        switch (road)
         {
             case Roads.Straight:
                 GetComponent<StraightRailway>().SetDeadEnd();
@@ -110,8 +113,92 @@ public class RailwayScript : MonoBehaviour
                 break;
 
             case Roads.Station:
-                GetComponent<Station>().SetType();
+                GetComponent<Station>().CompleteStationRenavation();
                 break;
+        }
+    }
+
+
+    public void PreBuildVizualization()     // Предварительное отображение дороги
+    {
+        switch (road)
+        {
+            case Roads.Straight:
+                GetComponent<StraightRailway>().MakeNewConects();
+                break;
+
+            case Roads.Turn90:
+                GetComponent<Turn90Railway>().MakeNewConects();
+                break;
+
+            case Roads.Turn45:
+                GetComponent<Turn45Railway>().MakeNewConects();
+                break;
+
+            case Roads.Arrow:
+                GetComponent<ArrowRailway>().MakeNewConects();
+                break;
+
+            case Roads.Station:
+                GetComponent<Station>().PreBuildVizualize();
+                GetComponent<Station>().MakeNewConects();
+                break;
+        }
+
+        GameObject[,] aroundCell = new GameObject[3, 3];
+
+        for (int i = -1; i < 2; i++)
+            for (int k = -1; k < 2; k++)
+            {
+
+                aroundCell[i + 1, k + 1] = Camera.main.GetComponent<BuildingsGrid>().GetCellFromGrid((int)transform.position.x + i, (int)transform.position.y + k);
+                if (i != 0 || k != 0)
+                {
+                    if (aroundCell[i + 1, k + 1] && aroundCell[i + 1, k + 1].GetComponent<RailwayScript>())
+                        aroundCell[i + 1, k + 1].GetComponent<RailwayScript>().Draw();
+                }
+                else
+                    Draw();
+            }
+    }
+
+
+
+    public void BuildRailway()  // Строительство дороги
+    {
+        switch (road)
+        {
+            case Roads.Straight:
+                GetComponent<StraightRailway>().BuildRailway();
+                break;
+        }
+    }
+
+
+
+    void Draw() // Обработака визульного вида дороги
+    {
+        switch (road)
+        {
+            case Roads.Straight:
+                GetComponent<StraightRailway>().SetDeadEnd();
+                break;
+
+            case Roads.Turn90:
+                GetComponent<Turn90Railway>().SetDeadEnd();
+                break;
+
+            case Roads.Turn45:
+                GetComponent<Turn45Railway>().SetDeadEnd();
+                break;
+
+            case Roads.Arrow:
+                GetComponent<ArrowRailway>().SetDeadEnd();
+                break;
+
+            /*case Roads.Station:
+                GetComponent<Station>().PreBuildVizualize();
+                break;*/
         }
     }
 
@@ -137,22 +224,22 @@ public class RailwayScript : MonoBehaviour
 
     void MakeNewPoints()
     {
-        switch (roads)
+        switch (road)
         {
             case Roads.Straight:
-                GetComponent<StraightRailway>().MakeNewPoints();
+                GetComponent<StraightRailway>().BuildRailway();
                 break;
 
             case Roads.Turn90:
-                GetComponent<Turn90Railway>().MakeNewPoints();
+                GetComponent<Turn90Railway>().BuildRailway();
                 break;
 
             case Roads.Turn45:
-                GetComponent<Turn45Railway>().MakeNewPoints();
+                GetComponent<Turn45Railway>().BuildRailway();
                 break;
 
             case Roads.Arrow:
-                GetComponent<ArrowRailway>().MakeNewPoints();
+                GetComponent<ArrowRailway>().BuildRailway();
                 break;
         }
     }
@@ -161,7 +248,7 @@ public class RailwayScript : MonoBehaviour
 
     public void Turn(int k) // k - направление в котором надо поворачивать объект
     {
-        switch (roads)
+        switch (road)
         {
             case Roads.Straight:
                 GetComponent<StraightRailway>().Turn(k);
@@ -178,6 +265,10 @@ public class RailwayScript : MonoBehaviour
             case Roads.Arrow:
                 GetComponent<ArrowRailway>().Turn(k);
                 break;
+
+            case Roads.Station:
+                GetComponent<Station>().Turn(k);
+                break;
         }
     }
 
@@ -187,14 +278,14 @@ public class RailwayScript : MonoBehaviour
     {
         MakeNewPoints();
         SetConect();
-        Camera.main.GetComponent<RailwayControler>().UpdateCellsAround((int)transform.position.x, (int)transform.position.y);
+        UpdateCellsAround();
         SetConect();
     }
 
 
     public void DeleteRailway()
     {
-        switch (roads)
+        switch (road)
         {
             case Roads.Station:
                 Camera.main.GetComponent<RespawnMode>().DeleteStation(gameObject);

@@ -134,7 +134,7 @@ public class GameControler : MonoBehaviour
             respawnTrainMode = true;
             RespawnUI.transform.GetChild(0).GetComponent<Text>().color = Color.red;
             GetComponent<RespawnMode>().enabled = true;
-            //buildingModeButton.SetActive(false);
+            buildingModeButton.SetActive(false);
         }
         else
         {
@@ -142,7 +142,7 @@ public class GameControler : MonoBehaviour
             RespawnUI.transform.GetChild(0).GetComponent<Text>().color = Color.black;
             GetComponent<RespawnMode>().DiactivateRespMode();
             GetComponent<RespawnMode>().enabled = false;
-            //buildingModeButton.SetActive(true);
+            buildingModeButton.SetActive(true);
         }
     }
 

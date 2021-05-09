@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class Turn45Railway : MonoBehaviour
 {
+    // Массивы точек для движения по данному пути в разных направлениях
     private Vector2[] points_1 = new Vector2[6];
     private Vector2[] points_2 = new Vector2[6];
+
+    // Тупики
+    public GameObject deadEnd_1;
+    public GameObject deadEnd_2;
 
     Vector2 dir_1;
     Vector2 dir_2;
@@ -37,29 +42,77 @@ public class Turn45Railway : MonoBehaviour
     }
 
 
-    public void MakeNewPoints()
+
+    public void BuildRailway()
     {
-        GetComponent<RailwayScript>().DeleteConects();
+        MakeNewPoints();
+    }
 
 
+    void MakeNewPoints()
+    {
         switch (transform.rotation.eulerAngles.z)
         {
             case 0:
-                Turn0();
+                Turn0Points();
+                Turn0Conects();
                 break;
             case 90:
-                Turn90();
+                Turn90Points();
+                Turn90Conects();
                 break;
             case 180:
-                Turn180();
+                Turn180Points();
+                Turn180Conects();
                 break;
             case 270:
-                Turn270();
+                Turn270Points();
+                Turn270Conects();
                 break;
         }
     }
 
-    void Turn0()
+    public void MakeNewConects()
+    {
+        switch (transform.rotation.eulerAngles.z)
+        {
+            case 0:
+                Turn0Conects();
+                break;
+            case 90:
+                Turn90Conects();
+                break;
+            case 180:
+                Turn180Conects();
+                break;
+            case 270:
+                Turn270Conects();
+                break;
+        }
+    }
+
+
+    public void SetDeadEnd()
+    {
+        GameObject temp = Camera.main.GetComponent<BuildingsGrid>().GetCellFromGrid(Mathf.RoundToInt(transform.position.x + dir_1.x), Mathf.RoundToInt(transform.position.y + dir_1.y));
+
+        if (temp == null || temp.GetComponent<RailwayScript>() == null || !temp.GetComponent<RailwayScript>().IsConect(dir_1))
+            deadEnd_1.SetActive(true);
+        else
+            deadEnd_1.SetActive(false);
+
+
+
+        temp = Camera.main.GetComponent<BuildingsGrid>().GetCellFromGrid(Mathf.RoundToInt(transform.position.x + dir_2.x), Mathf.RoundToInt(transform.position.y + dir_2.y));
+
+        if (temp == null || temp.GetComponent<RailwayScript>() == null || !temp.GetComponent<RailwayScript>().IsConect(dir_2))
+            deadEnd_2.SetActive(true);
+        else
+            deadEnd_2.SetActive(false);
+    }
+
+
+    void Turn0Points()
     {
         points_1[0] = new Vector2(transform.position.x - 0.1f, transform.position.y);
         points_1[1] = new Vector2(transform.position.x - 0.05f, transform.position.y + transform.localScale.y * 0.005f);
@@ -74,15 +127,8 @@ public class Turn45Railway : MonoBehaviour
         points_2[3] = new Vector2(transform.position.x - 0.05f, transform.position.y + transform.localScale.y * 0.005f);
         points_2[4] = new Vector2(transform.position.x - 0.1f, transform.position.y);
         points_2[5] = new Vector2(transform.position.x - 0.501f, transform.position.y);
-
-        dir_1 = new Vector2(-1, 0);
-        dir_2 = new Vector2(1 , 1 * transform.localScale.y);
-
-        GetComponent<RailwayScript>().AddConect(dir_1);
-        GetComponent<RailwayScript>().AddConect(dir_2);
     }
-
-    void Turn90()
+    void Turn90Points()
     {
         points_1[0] = new Vector2(transform.position.x, transform.position.y - 0.1f);
         points_1[1] = new Vector2(transform.position.x - transform.localScale.y * 0.005f, transform.position.y - 0.05f);
@@ -97,15 +143,8 @@ public class Turn45Railway : MonoBehaviour
         points_2[3] = new Vector2(transform.position.x - transform.localScale.y * 0.005f, transform.position.y - 0.05f);
         points_2[4] = new Vector2(transform.position.x, transform.position.y - 0.1f);
         points_2[5] = new Vector2(transform.position.x, transform.position.y - 0.501f);
-
-        dir_1 = new Vector2(0, -1);
-        dir_2 = new Vector2(-1 * transform.localScale.y, 1 );
-
-        GetComponent<RailwayScript>().AddConect(dir_1);
-        GetComponent<RailwayScript>().AddConect(dir_2);
     }
-
-    void Turn180()
+    void Turn180Points()
     {
         points_1[0] = new Vector2(transform.position.x + 0.1f, transform.position.y);
         points_1[1] = new Vector2(transform.position.x + 0.05f, transform.position.y - transform.localScale.y * 0.005f);
@@ -120,15 +159,8 @@ public class Turn45Railway : MonoBehaviour
         points_2[3] = new Vector2(transform.position.x + 0.05f, transform.position.y - transform.localScale.y * 0.005f);
         points_2[4] = new Vector2(transform.position.x + 0.1f, transform.position.y);
         points_2[5] = new Vector2(transform.position.x + 0.501f, transform.position.y);
-
-        dir_1 = new Vector2(1, 0);
-        dir_2 = new Vector2(-1, -1 * transform.localScale.y);
-
-        GetComponent<RailwayScript>().AddConect(dir_1);
-        GetComponent<RailwayScript>().AddConect(dir_2);
     }
-
-    void Turn270()
+    void Turn270Points()
     {
         points_1[0] = new Vector2(transform.position.x, transform.position.y + 0.1f);
         points_1[1] = new Vector2(transform.position.x + transform.localScale.y * 0.005f, transform.position.y + 0.05f);
@@ -143,30 +175,64 @@ public class Turn45Railway : MonoBehaviour
         points_2[3] = new Vector2(transform.position.x + transform.localScale.y * 0.005f, transform.position.y + 0.05f);
         points_2[4] = new Vector2(transform.position.x, transform.position.y + 0.1f);
         points_2[5] = new Vector2(transform.position.x, transform.position.y + 0.501f);
+    }
+
+
+    void Turn0Conects()
+    {
+        GetComponent<RailwayScript>().DeleteConects();
+
+        dir_1 = new Vector2(-1, 0);
+        dir_2 = new Vector2(1, 1 * transform.localScale.y);
+
+        GetComponent<RailwayScript>().AddConect(dir_1);
+        GetComponent<RailwayScript>().AddConect(dir_2);
+    }
+    void Turn90Conects()
+    {
+        GetComponent<RailwayScript>().DeleteConects();
+
+        dir_1 = new Vector2(0, -1);
+        dir_2 = new Vector2(-1 * transform.localScale.y, 1);
+
+        GetComponent<RailwayScript>().AddConect(dir_1);
+        GetComponent<RailwayScript>().AddConect(dir_2);
+    }
+    void Turn180Conects()
+    {
+        GetComponent<RailwayScript>().DeleteConects();
+
+        dir_1 = new Vector2(1, 0);
+        dir_2 = new Vector2(-1, -1 * transform.localScale.y);
+
+        GetComponent<RailwayScript>().AddConect(dir_1);
+        GetComponent<RailwayScript>().AddConect(dir_2);
+    }
+    void Turn270Conects()
+    {
+        GetComponent<RailwayScript>().DeleteConects();
 
         dir_1 = new Vector2(0, 1);
-        dir_2 = new Vector2(1 * transform.localScale.y, -1 );
+        dir_2 = new Vector2(1 * transform.localScale.y, -1);
 
         GetComponent<RailwayScript>().AddConect(dir_1);
         GetComponent<RailwayScript>().AddConect(dir_2);
     }
 
-
-
     public void Turn(int k)
     {
         if (k == 1)
-            if (transform.localScale.y == 1)
+            if (transform.localScale.y == -1)
             {
-                transform.Rotate(0, 0, 90 * k);
+                transform.Rotate(0, 0, 90 * -k);
                 transform.localScale = new Vector3(transform.localScale.x, -transform.localScale.y, transform.localScale.z);
             }
             else
                 transform.localScale = new Vector3(transform.localScale.x, -transform.localScale.y, transform.localScale.z);
         else
-        if (transform.localScale.y == -1)
+        if (transform.localScale.y == 1)
         {
-            transform.Rotate(0, 0, 90 * k);
+            transform.Rotate(0, 0, 90 * -k);
             transform.localScale = new Vector3(transform.localScale.x, -transform.localScale.y, transform.localScale.z);
         }
         else
