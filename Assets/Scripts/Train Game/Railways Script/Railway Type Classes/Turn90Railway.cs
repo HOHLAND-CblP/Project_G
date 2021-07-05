@@ -5,24 +5,28 @@ using UnityEngine;
 public class Turn90Railway : MonoBehaviour
 {
     // Массивы точек для движения по данному пути в разных направлениях
+    [SerializeField]
     private Vector2[] points_1 = new Vector2[7];    // В первом направлении 
+    [SerializeField]
     private Vector2[] points_2 = new Vector2[7];    // Во втором направлении
 
+    // Направления
+    Vector2 dir_1;
+    Vector2 dir_2;
+
+    // Добавочная длина
+    float fDeadEnd_1;
+    float fDeadEnd_2;
+
+    [Header("Dead Ends")]
     public GameObject deadEnd_1;
     public GameObject deadEnd_2;
 
-    // Секторы (направления), с которых может приехать поезд
-    Vector2 dir_1;
-    Vector2 dir_2;
+
 
     // Вектор ошибки
     Vector2[] vectorError = { new Vector2(0.7654f, 0.321f) }; // Возвращается в случае непредвиденных обстоятельств, например, попал не в тот сектор жд дороги
 
-
-    void Awake()
-    {
-        MakeNewPoints();
-    }
 
 
     public Vector2[] GetPoints(Vector2 dir)
@@ -100,18 +104,29 @@ public class Turn90Railway : MonoBehaviour
         GameObject temp = Camera.main.GetComponent<BuildingsGrid>().GetCellFromGrid(Mathf.RoundToInt(transform.position.x + dir_1.x), Mathf.RoundToInt(transform.position.y + dir_1.y));
 
         if (temp == null || temp.GetComponent<RailwayScript>() == null || !temp.GetComponent<RailwayScript>().IsConect(dir_1))
+        {
             deadEnd_1.SetActive(true);
+            fDeadEnd_1 = 0;
+        }
         else
+        {
             deadEnd_1.SetActive(false);
-        
+            fDeadEnd_1 = 0.001f;
+        }
 
 
         temp = Camera.main.GetComponent<BuildingsGrid>().GetCellFromGrid(Mathf.RoundToInt(transform.position.x + dir_2.x), Mathf.RoundToInt(transform.position.y + dir_2.y));
 
         if (temp == null || temp.GetComponent<RailwayScript>() == null || !temp.GetComponent<RailwayScript>().IsConect(dir_2))
+        {
             deadEnd_2.SetActive(true);
+            fDeadEnd_2 = 0;
+        }
         else
+        {
             deadEnd_2.SetActive(false);
+            fDeadEnd_2 = 0.001f;
+        }
     }
 
 
@@ -123,13 +138,10 @@ public class Turn90Railway : MonoBehaviour
         {
             int alf =  84 - i * 14; //вычисляем текущий угол
             points_1[i] = new Vector2(0.5f * Mathf.Cos((alf) * Mathf.PI / 180) + transform.position.x - 0.5f, 0.5f * Mathf.Sin((alf) * Mathf.PI / 180) + transform.position.y - 0.5f);
-            if (i == 0)
-            {
-                points_1[i] = new Vector2(points_1[i].x + 0.001f, points_1[i].y);
-            }
+
             if (i == 6)
             {
-                points_1[i] = new Vector2(points_1[i].x , points_1[i].y - 0.001f);
+                points_1[i] = new Vector2(points_1[i].x , points_1[i].y - fDeadEnd_2);
             }
         }
 
@@ -137,13 +149,10 @@ public class Turn90Railway : MonoBehaviour
         {
             int alf = i*14 + 6; //вычисляем текущий угол
             points_2[i] = new Vector2( 0.5f * Mathf.Cos((alf) * Mathf.PI / 180) + transform.position.x -  0.5f, 0.5f * Mathf.Sin((alf) * Mathf.PI / 180) + transform.position.y - 0.5f);
-            if (i == 0)
-            {
-                points_2[i] = new Vector2(points_2[i].x , points_2[i].y + 0.001f);
-            }
+
             if (i == 6)
             {
-                points_2[i] = new Vector2(points_2[i].x - 0.001f, points_2[i].y);
+                points_2[i] = new Vector2(points_2[i].x - fDeadEnd_1, points_2[i].y);
             }
         }
     }
@@ -153,13 +162,10 @@ public class Turn90Railway : MonoBehaviour
         {
             int alf = i * 14 + 6; //вычисляем текущий угол
             points_1[i] = new Vector2(-0.5f * Mathf.Cos((alf) * Mathf.PI / 180) + transform.position.x + 0.5f, 0.5f * Mathf.Sin((alf) * Mathf.PI / 180) + transform.position.y - 0.5f);
-            if (i == 0)
-            {
-                points_1[i] = new Vector2(points_1[i].x, points_1[i].y + 0.001f);
-            }
+
             if (i == 6)
             {
-                points_1[i] = new Vector2(points_1[i].x + 0.001f, points_1[i].y);
+                points_1[i] = new Vector2(points_1[i].x + fDeadEnd_2, points_1[i].y);
             }
         }
 
@@ -167,13 +173,10 @@ public class Turn90Railway : MonoBehaviour
         {
             int alf = 84 - i * 14; //вычисляем текущий угол
             points_2[i] = new Vector2(-0.5f * Mathf.Cos((alf) * Mathf.PI / 180) + transform.position.x + 0.5f, 0.5f * Mathf.Sin((alf) * Mathf.PI / 180) + transform.position.y - 0.5f);
-            if (i == 0)
-            {
-                points_2[i] = new Vector2(points_2[i].x - 0.001f, points_2[i].y);
-            }
+
             if (i == 6)
             {
-                points_2[i] = new Vector2(points_2[i].x, points_2[i].y - 0.001f);
+                points_2[i] = new Vector2(points_2[i].x, points_2[i].y - fDeadEnd_1);
             }
         }        
     }
@@ -183,13 +186,10 @@ public class Turn90Railway : MonoBehaviour
         {
             int alf = 84 - i * 14; //вычисляем текущий угол
             points_1[i] = new Vector2(-0.5f * Mathf.Cos((alf) * Mathf.PI / 180) + transform.position.x + 0.5f, -0.5f * Mathf.Sin((alf) * Mathf.PI / 180) + transform.position.y + 0.5f);
-            if (i == 0)
-            {
-                points_1[i] = new Vector2(points_1[i].x - 0.001f, points_1[i].y);
-            }
+            
             if (i == 6)
             {
-                points_1[i] = new Vector2(points_1[i].x, points_1[i].y + 0.001f);
+                points_1[i] = new Vector2(points_1[i].x, points_1[i].y + fDeadEnd_2);
             }
         }
 
@@ -197,13 +197,10 @@ public class Turn90Railway : MonoBehaviour
         {
             int alf = i * 14 + 6; //вычисляем текущий угол
             points_2[i] = new Vector2(-0.5f * Mathf.Cos((alf) * Mathf.PI / 180) + transform.position.x + 0.5f, - 0.5f * Mathf.Sin((alf) * Mathf.PI / 180) + transform.position.y + 0.5f);
-            if (i == 0)
-            {
-                points_2[i] = new Vector2(points_2[i].x, points_2[i].y - 0.001f);
-            }
+
             if (i == 6)
             {
-                points_2[i] = new Vector2(points_2[i].x + 0.001f, points_2[i].y);
+                points_2[i] = new Vector2(points_2[i].x + fDeadEnd_1, points_2[i].y);
             }
         }
     }
@@ -213,13 +210,10 @@ public class Turn90Railway : MonoBehaviour
         {
             int alf = i * 14 + 6; //вычисляем текущий угол
             points_1[i] = new Vector2(0.5f * Mathf.Cos((alf) * Mathf.PI / 180) + transform.position.x - 0.5f, -0.5f * Mathf.Sin((alf) * Mathf.PI / 180) + transform.position.y + 0.5f);
-            if (i == 0)
-            {
-                points_1[i] = new Vector2(points_1[i].x, points_1[i].y - 0.001f);
-            }
+
             if (i == 6)
             {
-                points_1[i] = new Vector2(points_1[i].x - 0.001f, points_1[i].y);
+                points_1[i] = new Vector2(points_1[i].x - fDeadEnd_2, points_1[i].y);
             }
         }
 
@@ -227,13 +221,10 @@ public class Turn90Railway : MonoBehaviour
         {
             int alf = 84 - i * 14; //вычисляем текущий угол
             points_2[i] = new Vector2(0.5f * Mathf.Cos((alf) * Mathf.PI / 180) + transform.position.x - 0.5f, -0.5f * Mathf.Sin((alf) * Mathf.PI / 180) + transform.position.y + 0.5f);
-            if (i == 0)
-            {
-                points_2[i] = new Vector2(points_2[i].x + 0.001f, points_2[i].y);
-            }
+
             if (i == 6)
             {
-                points_2[i] = new Vector2(points_2[i].x, points_2[i].y + 0.001f);
+                points_2[i] = new Vector2(points_2[i].x, points_2[i].y + fDeadEnd_1);
             }
         }
     }

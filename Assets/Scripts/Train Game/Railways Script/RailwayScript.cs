@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class RailwayScript : MonoBehaviour
 {
     [SerializeField]
@@ -40,10 +41,7 @@ public class RailwayScript : MonoBehaviour
 
     private void Awake()
     {
-        if (road == Roads.Station)
-            Camera.main.GetComponent<RailwayControler>().AddStation(this);
-        else
-            Camera.main.GetComponent<RailwayControler>().AddRailway(this);
+        Camera.main.GetComponent<RailwayControler>().AddRailway(this);
     }
 
 
@@ -69,7 +67,6 @@ public class RailwayScript : MonoBehaviour
         return vectorError;
     }
 
-
     public Vector2[] ChangeDirection(Vector2[] points, Vector2 trainPos)
     {
         switch (road)
@@ -94,32 +91,57 @@ public class RailwayScript : MonoBehaviour
     }
 
 
-    public void SetConect() // Создаем визуальный конект
+
+    public void BuildRailway()  // Строительство дороги
+    {
+        _BuildRailway();
+
+        BuildRailwaysAround();
+    }
+
+    private void _BuildRailway()
     {
         switch (road)
         {
             case Roads.Straight:
-                GetComponent<StraightRailway>().SetDeadEnd();
+                GetComponent<StraightRailway>().BuildRailway();
                 break;
 
             case Roads.Turn90:
-                GetComponent<Turn90Railway>().SetDeadEnd();
+                GetComponent<Turn90Railway>().BuildRailway();
                 break;
 
-            case Roads.Turn45: 
+            case Roads.Turn45:
+                GetComponent<Turn45Railway>().BuildRailway();
                 break;
 
-            case Roads.Arrow: 
+            case Roads.Arrow:
+                GetComponent<ArrowRailway>().BuildRailway();
                 break;
 
             case Roads.Station:
-                GetComponent<Station>().CompleteStationRenavation();
+                GetComponent<Station>().BuildRailway();
                 break;
         }
     }
 
 
     public void PreBuildVizualization()     // Предварительное отображение дороги
+    {
+        MakeNewConects();
+        DrawCellsAround();
+        Draw();
+    }
+
+    public void CancelPreBuildVizual()  // Отмена превизуализации
+    {
+        DeleteConects();
+        DrawCellsAround();
+        DrawDefault();
+    }
+
+
+    public void MakeNewConects()
     {
         switch (road)
         {
@@ -140,43 +162,13 @@ public class RailwayScript : MonoBehaviour
                 break;
 
             case Roads.Station:
-                GetComponent<Station>().PreBuildVizualize();
-                GetComponent<Station>().MakeNewConects();
-                break;
-        }
-
-        GameObject[,] aroundCell = new GameObject[3, 3];
-
-        for (int i = -1; i < 2; i++)
-            for (int k = -1; k < 2; k++)
-            {
-
-                aroundCell[i + 1, k + 1] = Camera.main.GetComponent<BuildingsGrid>().GetCellFromGrid((int)transform.position.x + i, (int)transform.position.y + k);
-                if (i != 0 || k != 0)
-                {
-                    if (aroundCell[i + 1, k + 1] && aroundCell[i + 1, k + 1].GetComponent<RailwayScript>())
-                        aroundCell[i + 1, k + 1].GetComponent<RailwayScript>().Draw();
-                }
-                else
-                    Draw();
-            }
-    }
-
-
-
-    public void BuildRailway()  // Строительство дороги
-    {
-        switch (road)
-        {
-            case Roads.Straight:
-                GetComponent<StraightRailway>().BuildRailway();
+                GetComponent<Station>().MakeVisualConects();
                 break;
         }
     }
 
 
-
-    void Draw() // Обработака визульного вида дороги
+    public void Draw() // Обработака визульного вида дороги
     {
         switch (road)
         {
@@ -196,14 +188,39 @@ public class RailwayScript : MonoBehaviour
                 GetComponent<ArrowRailway>().SetDeadEnd();
                 break;
 
-            /*case Roads.Station:
-                GetComponent<Station>().PreBuildVizualize();
-                break;*/
+            case Roads.Station:
+                GetComponent<Station>().MakeVisualConects();
+                GetComponent<Station>().DrawStation();
+                break;
         }
     }
 
+    void DrawDefault()
+    {
+        switch (road)
+        {
+            case Roads.Straight:
+                
+                break;
 
-    public void UpdateCellsAround()
+            case Roads.Turn90:
+                
+                break;
+
+            case Roads.Turn45:
+
+                break;
+
+            case Roads.Arrow:
+                break;
+
+            case Roads.Station:
+                GetComponent<Station>().DrawDefault();
+                break;
+        }
+    }
+
+    void DrawCellsAround()
     {
         GameObject[,] aroundCell = new GameObject[3, 3];
 
@@ -215,35 +232,50 @@ public class RailwayScript : MonoBehaviour
                 if (i != 0 || k != 0)
                 {
                     if (aroundCell[i + 1, k + 1] && aroundCell[i + 1, k + 1].GetComponent<RailwayScript>())
-                        aroundCell[i + 1, k + 1].GetComponent<RailwayScript>().SetConect();
-                } 
+                        aroundCell[i + 1, k + 1].GetComponent<RailwayScript>().Draw();
+                }
             }
     }
 
 
 
-    void MakeNewPoints()
+    void BuildRailwaysAround()
     {
-        switch (road)
-        {
-            case Roads.Straight:
-                GetComponent<StraightRailway>().BuildRailway();
-                break;
+        GameObject[,] aroundCell = new GameObject[3, 3];
 
-            case Roads.Turn90:
-                GetComponent<Turn90Railway>().BuildRailway();
-                break;
+        for (int i = -1; i < 2; i++)
+            for (int k = -1; k < 2; k++)
+            {
 
-            case Roads.Turn45:
-                GetComponent<Turn45Railway>().BuildRailway();
-                break;
-
-            case Roads.Arrow:
-                GetComponent<ArrowRailway>().BuildRailway();
-                break;
-        }
+                aroundCell[i + 1, k + 1] = Camera.main.GetComponent<BuildingsGrid>().GetCellFromGrid((int)transform.position.x + i, (int)transform.position.y + k);
+                if (i != 0 || k != 0)
+                {
+                    if (aroundCell[i + 1, k + 1] && aroundCell[i + 1, k + 1].GetComponent<RailwayScript>())
+                        aroundCell[i + 1, k + 1].GetComponent<RailwayScript>()._BuildRailway();
+                }
+            }
     }
 
+    void UpdateRailwaysAround()
+    {
+        GameObject[,] aroundCell = new GameObject[3, 3];
+
+        for (int i = -1; i < 2; i++)
+            for (int k = -1; k < 2; k++)
+            {
+
+                aroundCell[i + 1, k + 1] = Camera.main.GetComponent<BuildingsGrid>().GetCellFromGrid((int)transform.position.x + i, (int)transform.position.y + k);
+                if (i != 0 || k != 0)
+                {
+                    if (aroundCell[i + 1, k + 1] && aroundCell[i + 1, k + 1].GetComponent<RailwayScript>())
+                    {
+                        aroundCell[i + 1, k + 1].GetComponent<RailwayScript>().MakeNewConects();
+                        aroundCell[i + 1, k + 1].GetComponent<RailwayScript>().Draw();
+                        aroundCell[i + 1, k + 1].GetComponent<RailwayScript>()._BuildRailway();
+                    }
+                }
+            }
+    }
 
 
     public void Turn(int k) // k - направление в котором надо поворачивать объект
@@ -272,19 +304,15 @@ public class RailwayScript : MonoBehaviour
         }
     }
 
+   
 
 
-    public void RailwayIsBuid()
+
+    public void DestroyRailway()
     {
-        MakeNewPoints();
-        SetConect();
-        UpdateCellsAround();
-        SetConect();
-    }
-
-
-    public void DeleteRailway()
-    {
+        DrawCellsAround();
+        BuildRailwaysAround();
+        
         switch (road)
         {
             case Roads.Station:

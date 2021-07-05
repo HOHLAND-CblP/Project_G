@@ -50,7 +50,6 @@ public class RailwayCarriage : MonoBehaviour
     {
         GetComponent<SpriteRenderer>().color = color;
         this.curCell = curCell;
-        this.points = points;
         this.arrivalStation = arrivalStation;
         this.mainTrain = mainTrain;
         this.numberOfRailwayCarriage = numberOfRailwayCarriage;

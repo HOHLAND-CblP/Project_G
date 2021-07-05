@@ -18,8 +18,8 @@ public class TrainScript : MonoBehaviour
     [Header("Prefabs")]
     public GameObject railwayCarriagePref;  // Префаб вагонетки
     public GameObject crashInfoPref;        // Префаб уведомления о столкновении
-
-
+    
+    
     // Текущее положение в сетке
     Vector2Int curPos = Vector2Int.zero;    // Текущая позиция поезда в сетке
     [SerializeField] GameObject curCell;                     // Текущая клетка, в которой находится поезд
@@ -88,7 +88,7 @@ public class TrainScript : MonoBehaviour
         if (curCell == null)
         {
             curCell = mainCam.GetComponent<BuildingsGrid>().GetCellFromGrid(curPos.x, curPos.y);
-            TakeNewPoints(); 
+            TakeNewPoints();
         }
 
 
@@ -110,22 +110,22 @@ public class TrainScript : MonoBehaviour
             }
         }
 
+        if (transform.position.x == points[curNumPoint].x && transform.position.y == points[curNumPoint].y && curNumPoint != points.Length - 1)
+            curNumPoint++;
 
-        if (transform.position.x == points[curNumPoint].x && transform.position.y == points[curNumPoint].y)
-            curNumPoint++;        
-       
+
         if (Mathf.Abs(transform.position.x - curPos.x) > 0.5f)
         {
-                curPos = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
-                curCell = mainCam.GetComponent<BuildingsGrid>().GetCellFromGrid(curPos.x, curPos.y);
+            curPos = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
+            curCell = mainCam.GetComponent<BuildingsGrid>().GetCellFromGrid(curPos.x, curPos.y);
         }
         if (Mathf.Abs(transform.position.y - curPos.y) > 0.5f)
         {
-                curPos = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
-                curCell = mainCam.GetComponent<BuildingsGrid>().GetCellFromGrid(curPos.x, curPos.y);
+            curPos = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
+            curCell = mainCam.GetComponent<BuildingsGrid>().GetCellFromGrid(curPos.x, curPos.y);
         }
 
-        if (curNumPoint == points.Length)
+        if (curNumPoint == points.Length - 1 && transform.position.x == points[curNumPoint].x && transform.position.y == points[curNumPoint].y)
         {
             if (carriageOnStation)
             {
@@ -135,8 +135,14 @@ public class TrainScript : MonoBehaviour
                     DestroyTrain();
                 }
             }
-            else
+            else if (Mathf.Abs(points[curNumPoint].x % 1) != 0.5f && Mathf.Abs(points[curNumPoint].y % 1) != 0.5f)
+            {
                 TakeNewPoints();
+            }
+            else
+            {
+                speed = 0;
+            }
         }
     }
 
@@ -197,11 +203,13 @@ public class TrainScript : MonoBehaviour
             else
                 points = curCell.GetComponent<RailwayScript>().ActivateRailway(dir, -1, points);
         }
+
         if (points[0] == vectorError)
         {
             enabled = false;
-            Debug.LogError("ERROR");
+            Debug.LogError("Vector Error");
         }
+
 
         curNumPoint = 0;
     }   

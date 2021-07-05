@@ -223,7 +223,7 @@ public class BuildingsGrid : MonoBehaviour
     {
         if (flyingBuilding.GetComponent<RailwayScript>())
         {
-            flyingBuilding.GetComponent<RailwayScript>().PreBuildVizualization();
+            flyingBuilding.GetComponent<RailwayScript>().CancelPreBuildVizual();
         }
     }
 
@@ -290,13 +290,14 @@ public class BuildingsGrid : MonoBehaviour
 
         if (flyingBuilding.GetComponent<RailwayScript>())
         { 
-            flyingBuilding.GetComponent<RailwayScript>().RailwayIsBuid();
+            flyingBuilding.GetComponent<RailwayScript>().BuildRailway();
         }
 
         flyingBuilding = null;
         BuildingControlButtons.SetActive(false);
         Destroy(TurnInfo.gameObject);
     }
+
 
 
     // Добавление объекта на сетку строительства
@@ -345,7 +346,10 @@ public class BuildingsGrid : MonoBehaviour
 
             if (flyingBuilding.GetComponent<RailwayScript>() != null)
             {
-                PreBuildVizualization((int)flyBuildPos.x, (int)flyBuildPos.y);
+                if (IsCellAvailable(Mathf.RoundToInt(flyingBuilding.transform.position.x), Mathf.RoundToInt(flyingBuilding.transform.position.y)))
+                    PreBuildVizualization(Mathf.RoundToInt(flyingBuilding.transform.position.x), Mathf.RoundToInt(flyingBuilding.transform.position.y));
+                else
+                    CancelPreVizualize();
             }
         }
     }
@@ -373,21 +377,20 @@ public class BuildingsGrid : MonoBehaviour
         x -= originPosition.x;
         y -= originPosition.y;
 
-        if (grid[x, y] != null)
-        {
-            if (grid[x, y].GetComponent<RailwayScript>())
-            {
-                grid[x, y].GetComponent<RailwayScript>().DeleteRailway();
-            }
+        Building destroyingBuilding = grid[x,y];
+        
+        grid[x, y] = null;
 
-            Destroy(grid[x, y].gameObject);
-            grid[x, y] = null;
+        if (destroyingBuilding)
+        {
+            if (destroyingBuilding.GetComponent<RailwayScript>())
+                destroyingBuilding.GetComponent<RailwayScript>().DestroyRailway();
+
+            Destroy(destroyingBuilding.gameObject);
         }
 
-        GetComponent<RailwayControler>().UpdateCellsAround(x + originPosition.x, y + originPosition.y);
-
-        inDestroyProcess = false;
         Destroy(cellDestroy);
+        inDestroyProcess = false;
     }
 
 
@@ -470,14 +473,14 @@ public class BuildingsGrid : MonoBehaviour
     {
         if(flyingBuilding != null)
         {
-            int x = Mathf.RoundToInt(flyingBuilding.transform.position.x) - originPosition.x;
-            int y = Mathf.RoundToInt(flyingBuilding.transform.position.y) - originPosition.y;
+            int x = Mathf.RoundToInt(flyingBuilding.transform.position.x);
+            int y = Mathf.RoundToInt(flyingBuilding.transform.position.y);
 
             if (flyingBuilding.GetComponent<RailwayScript>())
             {
                 flyingBuilding.GetComponent<RailwayScript>().Turn(rotate);
-                if (IsCellAvailable(Mathf.RoundToInt(flyingBuilding.transform.position.x), Mathf.RoundToInt(flyingBuilding.transform.position.y)))
-                    PreBuildVizualization(Mathf.RoundToInt(flyingBuilding.transform.position.x), Mathf.RoundToInt(flyingBuilding.transform.position.y));
+                if (IsCellAvailable(x, y))
+                    PreBuildVizualization(x, y);
                 else
                     CancelPreVizualize();
             }
@@ -509,12 +512,5 @@ public class BuildingsGrid : MonoBehaviour
             return grid[x, y].gameObject;
         else
             return null;
-    }
-
-
-
-    public void BuildBuilding()
-    {
-
     }
 }

@@ -76,6 +76,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32f8548c64a8b7444bbbaefef732c371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points_1:
+  - {x: 0, y: 0}
+  points_2:
+  - {x: 0, y: 0}
   horizontalScale: 1
   diagonalScale: 1.42
   deadEnd_1: {fileID: 6216798147252112507}

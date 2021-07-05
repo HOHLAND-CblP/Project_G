@@ -1,8 +1,5 @@
-﻿using JetBrains.Annotations;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Assertions.Must;
+﻿using UnityEngine;
+
 
 public class Station : MonoBehaviour
 {
@@ -30,12 +27,13 @@ public class Station : MonoBehaviour
     Vector2 dir_1;  //сектора входа поезда
     Vector2 dir_2;
 
-    Vector2[] vectorError = { new Vector2(0.7654f, 0.321f) };
+    readonly Vector2[] vectorError = { new Vector2(0.7654f, 0.321f) };
+    private RailwayScript railwayScript;
 
 
     //    Порядок создания станций:
     //      -> определение возможных типов соединения
-    //      -> проверка не выбран ли тип - не выбран, ставим горизонтальный по умолчанию
+    //      -> проверка не выбран ли тип - не выбран, ставим пустой по умолчанию
     //      -> создаем конекты по выбраному типу
     //      -> проверяем на конечность/проточность станции
     //      -> отрисовываем станцию по выбраному типу
@@ -44,6 +42,7 @@ public class Station : MonoBehaviour
 
     void Start()
     {
+        railwayScript = GetComponent<RailwayScript>();
         Camera.main.GetComponent<RespawnMode>().AddStation(gameObject);
     }
 
@@ -80,27 +79,18 @@ public class Station : MonoBehaviour
                 return new Vector3(0, 0, 135);
             default:
                 return new Vector3(1, 2, 3);
-                
         }
     }
 
 
 
-    public void CompleteStationRenavation() // Функция полного обновления станции
+    public void FullReset() // Функция полного обновления станции
     {
-        PossibleTypes();
-        SelectCurType();
-        IsItEndStation();
-        DrawRailway();
-        MakeNewPoints();
-    }
-
-    public void PreBuildVizualize()
-    {
-        PossibleTypes();
-        SelectCurType();
-        IsItEndStation();
-        DrawRailway();
+        PossibleTypes();    // Определяем возможный тип
+        SelectCurType();    // Выбираем текущий тип
+        IsItEndStation();   // Определяем конечная ли станция
+        DrawStation();      // Обработака визульного вида станции
+        MakeNewPoints();    // Создаем точки движения
     }
 
     public void BuildRailway()
@@ -108,7 +98,110 @@ public class Station : MonoBehaviour
         MakeNewPoints();
     }
 
-    void PossibleTypes()       // Определение возможных типов соединений
+
+
+    // Создание точек и конектов
+    void MakeNewPoints()
+    {
+        switch (curType)
+        {
+            case 0:
+                GetComponent<RailwayScript>().DeleteConects();
+                points_1[0] = new Vector2();
+                points_2[0] = new Vector2();
+                dir_1 = new Vector2();
+                dir_2 = new Vector2();
+                break;
+
+            case 1:
+                HorizontalPoints();
+                HorizontalConects();
+                break;
+
+            case 2:
+                VerticalPoints();
+                VerticalConects();
+                break;
+
+            case 3:
+                FirstDiagonalPoints();
+                FirstDiagonalConects();
+                break;
+
+            case 4:
+                SecondDiagonalPoints();
+                SecondDiagonalConects();
+                break;
+        }
+
+    }
+
+
+
+    // Создание конектов
+    public void MakeNewConects()
+    {
+        PossibleTypes();
+        SelectCurType();
+        IsItEndStation();
+
+
+        switch (curType)
+        {
+            case 0:
+                GetComponent<RailwayScript>().DeleteConects();
+                break;
+
+            case 1:
+                HorizontalConects();
+                break;
+
+            case 2:
+                VerticalConects();
+                break;
+
+            case 3:
+                FirstDiagonalConects();
+                break;
+
+            case 4:
+                SecondDiagonalConects();
+                break;
+        }
+    }
+
+    public void MakeVisualConects()
+    {
+        PossibleTypes();
+        SelectCurType();
+        IsItEndStation();
+
+        switch (curType)
+        {
+            case 0:
+                GetComponent<RailwayScript>().DeleteConects();
+                break;
+
+            case 1:
+                HorizontalVisualConects();
+                break;
+
+            case 2:
+                VerticalVisualConects();
+                break;
+
+            case 3:
+                FirstDiagonalVisualConects();
+                break;
+
+            case 4:
+                SecondDiagonalVisualConects();
+                break;
+        }
+    }
+
+
+    void PossibleTypes()        // Определение возможных типов соединений
     {
         horizontal = false;     // обнуляем все существующие соединенеия
         vertical = false;
@@ -153,7 +246,6 @@ public class Station : MonoBehaviour
                 diagonal_2 = true;
         }
     }
-
     void SelectCurType()        // Задаем текущий тип
     {
         switch (curType)      // Если тип выбран, но он не соответствует одному из возможных в данный момент типов, то тип сбрасывается   
@@ -193,7 +285,6 @@ public class Station : MonoBehaviour
                 curType = 4;
         }
     }
-
     void IsItEndStation()       // Определяется конечная ли станция
     {
         endStation = false;
@@ -280,8 +371,7 @@ public class Station : MonoBehaviour
         if (!endStation)
             whichSide = 0;
     }
-
-    public void DrawRailway()   // Отрисовка дороги
+    public void DrawStation()   // Отрисовка дороги
     {
         switch (curType)
         {
@@ -306,7 +396,9 @@ public class Station : MonoBehaviour
                     {
                         GameObject temp = transform.GetChild(0).gameObject;
                         temp.transform.rotation = Quaternion.Euler(0, 0, 0);
-                        temp.transform.localScale = new Vector3(horizontalScale / 2, temp.transform.localScale.y, temp.transform.localScale.z);
+                        var localScale = temp.transform.localScale;
+                        localScale = new Vector3(horizontalScale / 2, localScale.y, localScale.z);
+                        temp.transform.localScale = localScale;
                         temp.transform.localPosition = new Vector3(horizontalScale / 4, 0, 0);
                     }
                 }
@@ -413,68 +505,12 @@ public class Station : MonoBehaviour
         }
     }
 
-
-    // Создание точек и конектов
-    void MakeNewPoints()        
+    public void DrawDefault()
     {
-        switch (curType)
-        {
-            case 0:
-                GetComponent<RailwayScript>().DeleteConects();
-                points_1[0] = new Vector2();
-                points_2[0] = new Vector2();
-                break;
-
-            case 1:
-                HorizontalPoints();
-                HorizontalConects();
-                break;
-
-            case 2:
-                VerticalPoints();
-                VerticalConects();
-                break;
-
-            case 3:
-                FirstDiagonalPoints();
-                FirstDiagonalConects();
-                break;
-
-            case 4:
-                SecondDiagonalPoints();
-                SecondDiagonalConects();
-                break;
-        }
-
+        GameObject temp_ = transform.GetChild(0).gameObject;
+        temp_.transform.localScale = new Vector3(0, temp_.transform.localScale.y, temp_.transform.localScale.z);
     }
 
-
-    // Создание конектов
-    public void MakeNewConects()
-    {
-        switch (curType)
-        {
-            case 0:
-                GetComponent<RailwayScript>().DeleteConects();
-                break;
-
-            case 1:
-                HorizontalConects();
-                break;
-
-            case 2:
-                VerticalConects();
-                break;
-
-            case 3:
-                FirstDiagonalConects();
-                break;
-
-            case 4:
-                SecondDiagonalConects();
-                break;
-        }
-    }
 
 
     void HorizontalPoints()
@@ -547,8 +583,8 @@ public class Station : MonoBehaviour
                 break;
 
             case 0:
-                points_1[0] = new Vector2(transform.position.x + 0.501f, transform.position.y - 0.501f);
-                points_2[0] = new Vector2(transform.position.x - 0.501f, transform.position.y + 0.501f);
+                points_1[0] = new Vector2(transform.position.x - 0.501f, transform.position.y + 0.501f);
+                points_2[0] = new Vector2(transform.position.x + 0.501f, transform.position.y - 0.501f);
                 break;
 
             case 1:
@@ -560,7 +596,7 @@ public class Station : MonoBehaviour
 
     void HorizontalConects()
     {
-        GetComponent<RailwayScript>().DeleteConects();
+        railwayScript.DeleteConects();
 
         switch (whichSide)
         {
@@ -615,7 +651,7 @@ public class Station : MonoBehaviour
                 GetComponent<RailwayScript>().AddConect(dir_1);
                 break;
         }
-    }
+    }    
     void FirstDiagonalConects()
     {
         GetComponent<RailwayScript>().DeleteConects();
@@ -677,6 +713,89 @@ public class Station : MonoBehaviour
         }
     }
 
+
+    void HorizontalVisualConects()
+    {
+        railwayScript.DeleteConects();
+
+        switch (whichSide)
+        {
+            case -1:
+                GetComponent<RailwayScript>().AddConect(new Vector2(-1, 0));
+                break;
+
+            case 0:
+                GetComponent<RailwayScript>().AddConect(new Vector2(1, 0));
+                GetComponent<RailwayScript>().AddConect(new Vector2(-1, 0));
+                break;
+
+            case 1:
+                GetComponent<RailwayScript>().AddConect(new Vector2(1, 0));
+                break;
+        }
+    }
+    void VerticalVisualConects()
+    {
+        GetComponent<RailwayScript>().DeleteConects();
+
+        switch (whichSide)
+        {
+            case -1:
+                GetComponent<RailwayScript>().AddConect(new Vector2(0, -1));
+                break;
+
+            case 0:
+                GetComponent<RailwayScript>().AddConect(new Vector2(0, 1));
+                GetComponent<RailwayScript>().AddConect(new Vector2(0, -1));
+                break;
+
+            case 1:
+                GetComponent<RailwayScript>().AddConect(new Vector2(0, 1));
+                break;
+        }
+    }
+    void FirstDiagonalVisualConects()
+    {
+        GetComponent<RailwayScript>().DeleteConects();
+
+        switch (whichSide)
+        {
+            case -1:
+                GetComponent<RailwayScript>().AddConect(new Vector2(-1, -1));
+                break;
+
+            case 0:
+                GetComponent<RailwayScript>().AddConect(new Vector2(1, 1));
+                GetComponent<RailwayScript>().AddConect(new Vector2(-1, -1));
+                break;
+
+            case 1:
+                GetComponent<RailwayScript>().AddConect(new Vector2(1, 1));
+                break;
+        }
+
+
+    }
+    void SecondDiagonalVisualConects()
+    {
+        GetComponent<RailwayScript>().DeleteConects();
+
+        switch (whichSide)
+        {
+            case -1:
+                GetComponent<RailwayScript>().AddConect(new Vector2(-1, 1));
+                break;
+
+            case 0:
+                GetComponent<RailwayScript>().AddConect(new Vector2(1, -1));
+                GetComponent<RailwayScript>().AddConect(new Vector2(-1, 1));
+                break;
+
+            case 1:
+                GetComponent<RailwayScript>().AddConect(new Vector2(1, -1));
+                break;
+        }
+    }
 
     public void Turn(int k)
     {
