@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Xml.Serialization;
 using System.IO;
-using System;
 
 [XmlRoot("dialog")]
 public class DialogTrains

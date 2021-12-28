@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,14 +7,21 @@ public class TrainScript : MonoBehaviour
 {  
     [Header("Components")]
     GameObject mainCam;     // Главная камера
+    
 
     // Параметры движения
     public float speed;
     bool reverse;           // Задний ход
+    public GameObject loadingCicle;
 
     // Поезд находиться в процессе уничтожения
-    bool destroing = false; 
-    
+    bool destroing = false;
+
+
+    // Factory
+    int countResOnBoard;
+    string res = "";
+    bool onFactory;
 
     [Header("Prefabs")]
     public GameObject railwayCarriagePref;  // Префаб вагонетки
@@ -71,6 +79,14 @@ public class TrainScript : MonoBehaviour
         }
     }
 
+    public void CreateTrain(GameObject curCell, Vector2[] points)
+    {
+        this.curCell = curCell;
+        this.points = points;
+
+        LookAtPointOnStart(points[0]);
+    }
+
 
     void Start()
     {
@@ -82,6 +98,8 @@ public class TrainScript : MonoBehaviour
         curNumPoint = 0;
     }
 
+
+    //----------------------------------Start Update
 
     void Update()
     {
@@ -143,8 +161,15 @@ public class TrainScript : MonoBehaviour
             {
                 speed = 0;
             }
+
+            if (onFactory)
+            {
+                StartCoroutine(OnFactory());
+            }
         }
     }
+
+    //-----------------------------------End Update
 
     void LookAtPointOnStart(Vector2 point)  // Поворот вагона при появлении в нужную сторону
     {
@@ -322,7 +347,8 @@ public class TrainScript : MonoBehaviour
             Camera.main.GetComponent<GameControler>().DeactSpeedPanel(gameObject);
 
             Camera.main.GetComponent<RespawnMode>().ArrivedAtStation(arrivalStation, GetComponent<SpriteRenderer>().color);
-            arrivalStation.GetComponent<Station>().RemoveColor();
+            if(arrivalStation)
+                arrivalStation.GetComponent<Station>().RemoveColor();
 
             foreach (var r in railwayCarriages) // Уничтожаем вагоны
             {
@@ -379,15 +405,33 @@ public class TrainScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.tag == "Station" && departureStation == null)
+        if (col.tag == "Station")
         {
-            departureStation = col.gameObject;
+            if (departureStation == null)
+                departureStation = col.gameObject;
+
+            if (col.GetComponent<Station>().defaultStation && res != "")
+            {
+                mainCam.GetComponent<GameControler>().AddResources(res, 10);
+                DestroyTrain();
+            }
         }
 
         if (col.gameObject == arrivalStation)   // Прибытие на станцию назначения 
         {
             CarriageOnStation();
             TrainOnStation();
+        }
+
+        if (col.tag == "Factory")
+        {
+            if (res == "")
+            {
+                onFactory = true;
+                countResOnBoard = col.GetComponent<Factory>().TakeRespurce(10);
+                res = col.GetComponent<Factory>().TypeOfRes();
+                //StartCoroutine(OnFactory());
+            }
         }
 
         if (col.tag == "Arrow")
@@ -408,5 +452,34 @@ public class TrainScript : MonoBehaviour
     private void OnMouseDown()
     {
         Camera.main.GetComponent<GameControler>().ActivateSpeedPanel(gameObject);
+    }
+
+    IEnumerator OnFactory()
+    {
+        enabled = false;
+        GameObject lc = Instantiate(loadingCicle, transform.position, Quaternion.identity, mainCam.GetComponent<GameControler>().GetCanvas().transform);
+        lc.transform.SetAsFirstSibling();
+        lc.GetComponent<LoadingCircle>().NewLoad(5, transform);
+        
+
+        yield return new WaitForSeconds(5f);
+
+        switch (res)
+        {
+            case "Wood":
+                transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color32(215, 151, 101, 255);
+                break;
+
+            case "Stone":
+                transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color32(137, 164, 166, 255);
+                break;
+
+            case "Iron":
+                transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color32(199, 195, 195, 255);
+                break;
+        }
+
+        onFactory = false;
+        enabled = true;
     }
 }

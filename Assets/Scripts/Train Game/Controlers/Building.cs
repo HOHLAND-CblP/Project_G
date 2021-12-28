@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Building : MonoBehaviour
 {
-    public Vector2Int Size;
+    [HideInInspector]
     public GameObject cellBackground;
+
+    [Header("Can You Destroy This Building")]
+    [SerializeField]
+    bool canDestroy;
 
     private void Awake()
     {
@@ -19,11 +24,21 @@ public class Building : MonoBehaviour
         if (GetComponent<ArrowRailway>())
         {
             GetComponent<ArrowRailway>().ChangeOfDirectionArrow();
+            return;
+        }
+        if (GetComponent<Factory>())
+        {
+            GetComponent<Factory>().ClickOnCell();
         }
     }
 
     private void Start()
     {
         transform.position = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), 0);
+    }
+
+    public bool CanDestroy()
+    {
+        return canDestroy;
     }
 }

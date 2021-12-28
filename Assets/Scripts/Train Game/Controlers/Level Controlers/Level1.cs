@@ -269,7 +269,6 @@ public class Level1 : MonoBehaviour
             redPointer_2.SetActive(false);
             SecondAction();
             secondAction = true;
-
         }
         else if (!eighthDialog)
         {

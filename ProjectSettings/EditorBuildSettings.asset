@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Menu/Scenes/MainMenu.unity
     guid: bf439e81036c9f0419fcd2a2c5a64ca7
   - enabled: 1
+    path: Assets/Game New Platformer/Scenes/Platformer.unity
+    guid: 530de4af739041340aa14b9e47078b6e
+  - enabled: 1
     path: Assets/Game Platformer/Scenes/Platformer_2.0.unity
     guid: efab513adc7f809468a172a264bfca6d
   - enabled: 1
@@ -20,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Game Train/Scenes/Testing2_Clear.unity
     guid: 572499244c62bc34f8e986077f90cb9e
+  - enabled: 1
+    path: Assets/Game Train/Scenes/Testing.unity
+    guid: ffd38065bae22314eb18ff3afa20a503
   m_configObjects: {}

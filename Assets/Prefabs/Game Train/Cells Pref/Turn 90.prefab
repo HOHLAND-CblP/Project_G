@@ -98,8 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95dbbf14f2803bc4aadbfa1edb1206da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Size: {x: 1, y: 1}
   cellBackground: {fileID: 0}
+  canDestroy: 1
 --- !u!114 &-682151601220934342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,6 +126,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05fc8e6c7e30bf4f9aaec8873268b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points_1:
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  points_2:
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
   deadEnd_1: {fileID: 2732861286668416856}
   deadEnd_2: {fileID: 5693743938094681821}
 --- !u!1 &2732861286668416856

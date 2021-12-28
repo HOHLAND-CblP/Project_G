@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -17,8 +16,18 @@ public class BuildingsGrid : MonoBehaviour
     public Vector2Int originPosition;   // начальная позиция поля (нижний левый угол поля)
     private Building[,] grid;            // массив со всеми зданиями построиными на полу
 
+    [Header("Resource")]
+    public GameObject resourceCell;
+    private Resource[,] res;
+    public Color32 woodColor;
+    public Color32 stoneColor;
+    public Sprite woodSprite;
+    public Sprite stoneSprite;
+
+    
 
     private Building flyingBuilding;    // объект который строится в текущий момент
+    
 
  
     private bool destroyMode;       //режим сноса
@@ -63,9 +72,13 @@ public class BuildingsGrid : MonoBehaviour
     public GameObject modifModeButton;
 
 
+
+
+
     private void Awake()
     {
         grid = new Building[gridSize.x, gridSize.y];
+        res = new Resource[gridSize.x, gridSize.y];
     }
 
     void Start()
@@ -78,14 +91,163 @@ public class BuildingsGrid : MonoBehaviour
 
         modificationMode = false;
 
-        for (int x = 0; x < gridSize.x; x++)
+
+        GridVisible();
+        /*Vector2Int[] sector = new Vector2Int[25];
+        int cellSectorCount = 0;*/
+
+/*        for (int x = 0; x < gridSize.x; x++)
             for (int y = 0; y < gridSize.y; y++)
             {
                 Instantiate(CellsPref, new Vector3Int(x + originPosition.x, y + originPosition.y, 0), Quaternion.identity, Cells.transform);
+
+                *//*int r = Random.Range(0, 100);
+                if (r < 5)
+                {
+                    res[x, y] = Resource.Wood;
+                    GameObject w = Instantiate(resourceCell, new Vector3Int(x + originPosition.x, y + originPosition.y, 0), Quaternion.identity, Cells.transform);
+                    w.GetComponent<SpriteRenderer>().sprite = woodSprite;
+                }
+                if (r >= 5 && r < 10)
+                {
+                    res[x, y] = Resource.Stone;
+                    GameObject s = Instantiate(resourceCell, new Vector3Int(x + originPosition.x, y + originPosition.y, 0), Quaternion.identity, Cells.transform);
+                    s.GetComponent<SpriteRenderer>().sprite = stoneSprite;
+                }*/
+
+
+                /*sector[cellSectorCount] = new Vector2Int(x, y);
+                cellSectorCount++;*/
+
+                /*if(cellSectorCount==25)
+                {
+                    bool res_1 = false, res_2 = false;
+                    for(int k = 0;k<25;k++)
+                    {
+                        int r = Random.Range(0, 25-k);
+
+                        if (r<3)
+                        {
+                            int rr = Random.Range(0, 3);
+                            Debug.Log(rr);
+
+                            switch (rr)
+                            {
+                                case 0:
+                                    if (!res_1)
+                                    {
+                                        res[sector[k].x, sector[k].y] = Resource.Wood;
+                                        GameObject w = Instantiate(resourceCell, new Vector3Int(sector[k].x + originPosition.x, sector[k].y + originPosition.y, 0), Quaternion.identity, Cells.transform);
+                                        w.GetComponent<SpriteRenderer>().sprite = woodSprite;
+                                        res_1 = true;
+                                    }
+                                    break;
+
+                                case 1:
+                                    if (!res_2)
+                                    {
+                                        res[sector[k].x, sector[k].y] = Resource.Stone;
+                                        GameObject s = Instantiate(resourceCell, new Vector3Int(sector[k].x + originPosition.x, sector[k].y + originPosition.y, 0), Quaternion.identity, Cells.transform);
+                                        s.GetComponent<SpriteRenderer>().sprite = stoneSprite;
+                                        res_2 = true; 
+                                    }
+                                    break;
+
+                                case 2:
+
+                                    break;
+                            }
+                        }
+                    }
+
+                    cellSectorCount = 0;
+                }*//*
+            }*/
+
+        /*float cells = gridSize.x * gridSize.y;
+        float sectorsOnCells = cells / 25;
+        int sectors = Mathf.CeilToInt(sectorsOnCells);
+        int _x = 0, _y = 0;
+
+        for (int i = 0; i < sectors; i++)
+        {
+            Vector2Int[,] o = new Vector2Int[5, 5];
+            if (_y * 5 +5 <= gridSize.y)
+                if (gridSize.x >= 5 * _x + 5)
+                {
+                    for (int x = 0; x < 5; x++)
+                        for (int y = 0; y < 5; y++)
+                        {
+                            o[x, y] = new Vector2Int(x + 5 * _x, y + 5 * _y);
+                            if (y == 0 || x == 0 || y == 4 || x == 4)
+                            {
+                                GameObject w = Instantiate(resourceCell, new Vector3Int(o[x, y].x + originPosition.x, o[x, y].y + originPosition.y, 0), Quaternion.identity, Cells.transform);
+                                w.GetComponent<SpriteRenderer>().color = Color.red;
+                            }
+                        }
+
+                    
+                }
+                else
+                {
+                    for (int y = 0; y < 5; y++)
+                        for (int x = 0; x < 5 - (5 * _x + 5 - gridSize.x); x++)
+                        {
+                            o[x, y] = new Vector2Int(x + 5 * _x, y + 5 * _y);
+                            if (y == 0 || x == 0 || y == 4)
+                            {
+                                GameObject w = Instantiate(resourceCell, new Vector3Int(o[x, y].x + originPosition.x, o[x, y].y + originPosition.y, 0), Quaternion.identity, Cells.transform);
+                                w.GetComponent<SpriteRenderer>().color = Color.red;
+                            }
+                        }
+
+                }
+            else
+            {
+
+                if (5 - (_y * 5 + 5 - gridSize.y) == 1)
+                {
+                    for (int c = 0; c < Mathf.CeilToInt(gridSize.x / 25f); c++)
+                    {
+                        int cellss = gridSize.x - c * 25;
+                        if (cellss > 25)
+                            cellss = 25;
+                        for (int x = 0; x < cellss; x++)
+                        {
+                            o[x % 5, x / 5] = new Vector2Int(x + c * 25, 5 * _y);
+                            GameObject w = Instantiate(resourceCell, new Vector3Int(o[x % 5, x / 5].x + originPosition.x, o[x % 5, x / 5].y + originPosition.y, 0), Quaternion.identity, Cells.transform);
+                            w.GetComponent<SpriteRenderer>().color = Color.red;
+                        }
+                    }
+                }
+                else
+                {
+                    for (int c = 0; c < Mathf.CeilToInt(gridSize.x * (5 - (_y * 5 + 5 - gridSize.y)) / 24f); c++)
+                    {
+                        Debug.Log(1);
+                    }
+                }
             }
+
+            if (gridSize.x > 5 * _x + 5)
+                _x++;
+            else
+            {
+                _x = 0;
+                _y++;
+            }
+        }*/
+
+
+        
+
+
+        enabled = false;
     }
 
 
+    //-------------------------------------------------------
+    //-------------------------------------------Start Update
     void Update()
     {
         if (flyingBuilding != null)
@@ -139,22 +301,25 @@ public class BuildingsGrid : MonoBehaviour
                 int x = Mathf.RoundToInt(position.x);
                 int y = Mathf.RoundToInt(position.y);
 
-                if (inDestroyProcess && x == cellDestroy.transform.position.x && y == cellDestroy.transform.position.y) // если выбрана клетка для уничтожения и она нажата повторно. Объект с сетки уничтожается по двойному клику
+                if (IsCellInsideGrid(x, y))
                 {
-                    DestroyBuilding(x, y); // уничтожаем объект на выбранной клетке
-                }
-                else // если выбирается другая клетка 
-                {
-                    inDestroyProcess = true; // объект для уничтожения выбран
-                    if (cellDestroy != null) // если клетка с объектом для уничтожения уже выбраны
-                        Destroy(cellDestroy);  // уничтожаем подсветку заднего фона
-                    cellDestroy = Instantiate(CellsDestroyPref, new Vector3Int(x, y, 0), Quaternion.identity, Cells.transform);     //  создаем фон на выбранной клетке
+                    if (inDestroyProcess && x == cellDestroy.transform.position.x && y == cellDestroy.transform.position.y) // если выбрана клетка для уничтожения и она нажата повторно. Объект с сетки уничтожается по двойному клику
+                    {
+                        DestroyBuilding(x, y); // уничтожаем объект на выбранной клетке
+                    }
+                    else // если выбирается другая клетка 
+                    {
+                        inDestroyProcess = true; // объект для уничтожения выбран
+                        if (cellDestroy != null) // если клетка с объектом для уничтожения уже выбраны
+                            Destroy(cellDestroy);  // уничтожаем подсветку заднего фона
+                        cellDestroy = Instantiate(CellsDestroyPref, new Vector3Int(x, y, 0), Quaternion.identity, Cells.transform);     //  создаем фон на выбранной клетке
+                    }
                 }
             }
         } 
 
 
-        if (modificationMode)
+        /*if (modificationMode)
         {
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
@@ -191,7 +356,7 @@ public class BuildingsGrid : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.E))
                     Turn(-1);
             }
-        }
+        }*/
 
 
         if (Input.GetKeyDown(KeyCode.D))    // активация/деактивация режима сноса по нажтию кнопки клавиатуры
@@ -200,7 +365,7 @@ public class BuildingsGrid : MonoBehaviour
         }
     }
     //--------------------------------------------End Update
-
+    //------------------------------------------------------
 
 
 
@@ -263,6 +428,12 @@ public class BuildingsGrid : MonoBehaviour
                         break;
                     }
                 }
+        else if (available && flyingBuilding.GetComponent<Factory>())
+            if (res[x, y] != null)
+                available = true;
+            else
+                available = false;
+        
 
         return available;
     }
@@ -292,6 +463,10 @@ public class BuildingsGrid : MonoBehaviour
         { 
             flyingBuilding.GetComponent<RailwayScript>().BuildRailway();
         }
+        else if (flyingBuilding.GetComponent<Factory>())
+        {
+            flyingBuilding.GetComponent<Factory>().BuildFactory(res[x, y].name);
+        }
 
         flyingBuilding = null;
         BuildingControlButtons.SetActive(false);
@@ -304,6 +479,11 @@ public class BuildingsGrid : MonoBehaviour
     public void FillGrid(float x, float y, GameObject build)
     {
         grid[(int)x - originPosition.x, (int)y - originPosition.y] = build.GetComponent<Building>();
+    }
+
+    public void FiilRes(int x, int y, Resource res)
+    {
+        this.res[x - originPosition.x, y - originPosition.y] = res;
     }
 
     
@@ -370,27 +550,30 @@ public class BuildingsGrid : MonoBehaviour
             BuildingControlButtons.SetActive(false);
         }
     }
-    
+
 
     void DestroyBuilding(int x, int y) // уничтожение объекта строительства на сетке
     {
         x -= originPosition.x;
         y -= originPosition.y;
 
-        Building destroyingBuilding = grid[x,y];
-        
-        grid[x, y] = null;
-
-        if (destroyingBuilding)
+        if (grid[x,y] && grid[x, y].CanDestroy())
         {
-            if (destroyingBuilding.GetComponent<RailwayScript>())
-                destroyingBuilding.GetComponent<RailwayScript>().DestroyRailway();
+            Building destroyingBuilding = grid[x, y];
 
-            Destroy(destroyingBuilding.gameObject);
+            grid[x, y] = null;
+
+            if (destroyingBuilding)
+            {
+                if (destroyingBuilding.GetComponent<RailwayScript>())
+                    destroyingBuilding.GetComponent<RailwayScript>().DestroyRailway();
+
+                Destroy(destroyingBuilding.gameObject);
+            }
+
+            Destroy(cellDestroy);
+            inDestroyProcess = false;
         }
-
-        Destroy(cellDestroy);
-        inDestroyProcess = false;
     }
 
 
@@ -512,5 +695,44 @@ public class BuildingsGrid : MonoBehaviour
             return grid[x, y].gameObject;
         else
             return null;
+    }
+
+    public Resource GetResourceFromRes(int x, int y)
+    {
+        x -= originPosition.x;
+        y -= originPosition.y;
+
+        if (x < 0 || y < 0 || x > gridSize.x - 1 || y > gridSize.y - 1)
+        {
+            return null;
+        }
+
+        if (res[x, y] != null)
+            return res[x, y];
+        else
+            return null;
+    }
+
+
+    [ContextMenu("Grid Visible")]
+    void GridVisible()
+    {
+        if(Application.isPlaying)
+            LolilopGamesLibrary.UsefulFunctions.DestroyAllChild(Cells.transform);
+        else
+            LolilopGamesLibrary.UsefulFunctions.DestroyAllChildEditor(Cells.transform);
+
+        for (int x = 0; x < gridSize.x; x++)
+            for (int y = 0; y < gridSize.y; y++)
+            {
+                Instantiate(CellsPref, new Vector3Int(x + originPosition.x, y + originPosition.y, 0), Quaternion.identity, Cells.transform);
+
+            }
+    }
+
+    [ContextMenu("Grid Unvisble")]
+    void GridUnvisble()
+    {
+        LolilopGamesLibrary.UsefulFunctions.DestroyAllChildEditor(Cells.transform);
     }
 }

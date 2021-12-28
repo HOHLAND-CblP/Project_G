@@ -145,11 +145,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  loadingCicle: {fileID: 8010493674584239742, guid: 45e621460480e8e40bbab9b7d5806e92,
+    type: 3}
   railwayCarriagePref: {fileID: 4432525756868261136, guid: 60d2a6c320eb5bc478617e83efba2fe8,
     type: 3}
   crashInfoPref: {fileID: 938292256652084197, guid: 30c84d5174245a5458925b1db6b1a164,
     type: 3}
-  curArrow: {fileID: 0}
+  curCell: {fileID: 0}
+  points: []
 --- !u!1 &7058626024576322839
 GameObject:
   m_ObjectHideFlags: 0

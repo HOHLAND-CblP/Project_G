@@ -1,0 +1,65 @@
+<dialog>
+  <idCharacters>
+    <idCharacter>1</idCharacter>
+    <idCharacter>0</idCharacter>
+  </idCharacters>
+  <say>
+    <nubersay>0</nubersay>
+    <id_character>1</id_character>
+    <text>Даров.</text>
+    <nextSay>1</nextSay>	
+  </say>
+  
+  <say>
+    <nubersay>1</nubersay>
+    <id_character>0</id_character>
+    <answers>
+      <answer tosay ="2">
+        <text>Дарова. Как дела?</text>
+      </answer>
+      <answer tosay ="0">
+        <text>Ладно, давай.</text>
+        <dialEnd>true</dialEnd>
+      </answer>
+    </answers>
+    <nextSay>1</nextSay>
+  </say>
+  
+  <say>
+    <nubersay>2</nubersay>
+    <id_character>1</id_character>
+    <text>Все норм. Сегодня будем разгружать вагоны.</text>
+    <nextSay>3</nextSay>
+  </say>
+  
+  <say>
+    <nubersay>3</nubersay>
+    <id_character>0</id_character>
+    <answers>
+      <answer tosay ="4">
+        <text>Че там, много то этих вагонов?</text>
+      </answer>
+      <answer tosay ="5">
+        <text>А че разгружать то будете?</text>
+      </answer>
+      <answer tosay ="1">
+        <text>Назад.</text>
+      </answer>
+    </answers>
+    <nextSay>1</nextSay>
+  </say>
+
+  <say>
+    <nubersay>4</nubersay>
+    <id_character>1</id_character>
+    <text>Дохрена их. Штук тридцать сорок</text>
+    <nextSay>3</nextSay>
+  </say>
+
+  <say>
+    <nubersay>5</nubersay>
+    <id_character>1</id_character>
+    <text>Доски там, гвозди, ну и другое строительное говно.</text>
+    <nextSay>3</nextSay>
+  </say>
+</dialog>

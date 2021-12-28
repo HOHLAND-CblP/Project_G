@@ -4,6 +4,7 @@
 public class Station : MonoBehaviour
 {
     public bool endStation;
+    public bool defaultStation;
 
     bool horizontal = false;    //тип дороги для отрисовки
     bool vertical = false;

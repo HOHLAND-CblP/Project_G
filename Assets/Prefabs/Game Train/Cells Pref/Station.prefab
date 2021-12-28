@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95dbbf14f2803bc4aadbfa1edb1206da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Size: {x: 1, y: 1}
   cellBackground: {fileID: 0}
+  canDestroy: 1
 --- !u!114 &1763847533849697479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,9 +127,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fe59e9ed5eff4f43be78a1358a96478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  endStation: 0
   curType: 0
+  whichSide: 0
   horizontalScale: 1
   digonalScale: 1.42
+  points_1:
+  - {x: 0, y: 0}
+  points_2:
+  - {x: 0, y: 0}
 --- !u!58 &7547262853225436008
 CircleCollider2D:
   m_ObjectHideFlags: 0

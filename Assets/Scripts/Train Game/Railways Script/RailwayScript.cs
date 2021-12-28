@@ -27,7 +27,7 @@ public class RailwayScript : MonoBehaviour
 
     public Roads road; // выбранный тип железной дороги
 
- 
+
     public enum Roads   //типы ж/д путей
     {
         Unselected = 0,
@@ -35,7 +35,8 @@ public class RailwayScript : MonoBehaviour
         Turn90 = 2,
         Turn45 = 3,
         Arrow = 4,
-        Station = 5
+        Station = 5,
+        Factory = 6
     }
 
 
@@ -63,6 +64,9 @@ public class RailwayScript : MonoBehaviour
 
             case Roads.Straight:
                 return GetComponent<StraightRailway>().GetPoints(dir);
+
+            case Roads.Factory:
+                return GetComponent<FactoryRailway>().GetPoints(dir);
         }
         return vectorError;
     }
@@ -85,6 +89,9 @@ public class RailwayScript : MonoBehaviour
 
             case Roads.Straight:
                  return GetComponent<StraightRailway>().ChangeDirection(points);
+
+            case Roads.Factory:
+                return GetComponent<FactoryRailway>().ChangeDirection(points);
         }
 
         return vectorError;
@@ -121,6 +128,11 @@ public class RailwayScript : MonoBehaviour
 
             case Roads.Station:
                 GetComponent<Station>().BuildRailway();
+                break;
+
+            case Roads.Factory:
+                GetComponent<FactoryRailway>().Build();
+                GetComponent<Factory>().BuildFactory();
                 break;
         }
     }
@@ -164,6 +176,10 @@ public class RailwayScript : MonoBehaviour
             case Roads.Station:
                 GetComponent<Station>().MakeVisualConects();
                 break;
+
+            case Roads.Factory:
+                GetComponent<FactoryRailway>().MakeVisualConects();
+                break;
         }
     }
 
@@ -191,6 +207,11 @@ public class RailwayScript : MonoBehaviour
             case Roads.Station:
                 GetComponent<Station>().MakeVisualConects();
                 GetComponent<Station>().DrawStation();
+                break;
+
+            case Roads.Factory:
+                GetComponent<FactoryRailway>().MakeVisualConects();
+                GetComponent<FactoryRailway>().Draw();
                 break;
         }
     }

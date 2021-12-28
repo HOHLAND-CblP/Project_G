@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dialog xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <idCharacters>
+    <idCharacter>1</idCharacter>
+    <idCharacter>0</idCharacter>
+  </idCharacters>
+  <say>
+    <numbersay>0</numbersay>
+    <id_character>1</id_character>
+    <text>Даров.</text>
+    <nextSay>1</nextSay>
+    <dialEnd>false</dialEnd>
+  </say>
+  <say>
+    <numbersay>0</numbersay>
+    <id_character>0</id_character>
+    <answers>
+      <answer tosay="2">
+        <text>Дарова. Как дела?</text>
+        <dialEnd>false</dialEnd>
+        <wasChosen>true</wasChosen>
+      </answer>
+      <answer tosay="6">
+        <text>Ладно, давай.</text>
+        <dialEnd>false</dialEnd>
+        <wasChosen>true</wasChosen>
+      </answer>
+    </answers>
+    <nextSay>1</nextSay>
+    <dialEnd>false</dialEnd>
+  </say>
+  <say>
+    <numbersay>0</numbersay>
+    <id_character>1</id_character>
+    <text>Все норм. Сегодня будем разгружать вагоны.</text>
+    <nextSay>3</nextSay>
+    <dialEnd>false</dialEnd>
+  </say>
+  <say>
+    <numbersay>0</numbersay>
+    <id_character>0</id_character>
+    <answers>
+      <answer tosay="4">
+        <text>Че там, много то этих вагонов?</text>
+        <dialEnd>false</dialEnd>
+        <wasChosen>true</wasChosen>
+      </answer>
+      <answer tosay="5">
+        <text>А че разгружать то будете?</text>
+        <dialEnd>false</dialEnd>
+        <wasChosen>true</wasChosen>
+      </answer>
+      <answer tosay="1">
+        <text>Назад.</text>
+        <dialEnd>false</dialEnd>
+        <wasChosen>true</wasChosen>
+      </answer>
+    </answers>
+    <nextSay>1</nextSay>
+    <dialEnd>false</dialEnd>
+  </say>
+  <say>
+    <numbersay>0</numbersay>
+    <id_character>1</id_character>
+    <text>Дохрена их. Штук тридцать сорок</text>
+    <nextSay>3</nextSay>
+    <dialEnd>false</dialEnd>
+  </say>
+  <say>
+    <numbersay>0</numbersay>
+    <id_character>1</id_character>
+    <text>Доски там, гвозди, ну и другое строительное говно.</text>
+    <nextSay>3</nextSay>
+    <dialEnd>false</dialEnd>
+  </say>
+  <say>
+    <numbersay>0</numbersay>
+    <id_character>1</id_character>
+    <text>Ты постой. Для тебя тут работка имеется.</text>
+    <nextSay>7</nextSay>
+    <dialEnd>false</dialEnd>
+  </say>
+  <say>
+    <numbersay>0</numbersay>
+    <id_character>0</id_character>
+    <answers>
+      <answer tosay="8">
+        <text>А че делать?</text>
+        <dialEnd>false</dialEnd>
+        <wasChosen>true</wasChosen>
+      </answer>
+      <answer tosay="9">
+        <text>Как я понимаю работа с подвохом?</text>
+        <dialEnd>false</dialEnd>
+        <wasChosen>true</wasChosen>
+      </answer>
+      <answer tosay="0">
+        <text>Хмм... Интересно. Так уж и быть я согласен.</text>
+        <dialEnd>true</dialEnd>
+        <wasChosen>true</wasChosen>
+      </answer>
+    </answers>
+    <nextSay>1</nextSay>
+    <dialEnd>false</dialEnd>
+  </say>
+  <say>
+    <numbersay>0</numbersay>
+    <id_character>1</id_character>
+    <text>Работа как раз по твоей специальности. Будешь диспетчером жд путей.</text>
+    <nextSay>7</nextSay>
+    <dialEnd>false</dialEnd>
+  </say>
+  <say>
+    <numbersay>0</numbersay>
+    <id_character>1</id_character>
+    <text>Нууу... Как сказать. Ехать надо в самую глушь. Там связь плохая и никаких этих ваших тырнетов.</text>
+    <nextSay>7</nextSay>
+    <dialEnd>false</dialEnd>
+  </say>
+</dialog>

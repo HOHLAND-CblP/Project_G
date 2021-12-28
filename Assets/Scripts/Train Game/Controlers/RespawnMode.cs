@@ -50,7 +50,7 @@ public class RespawnMode : MonoBehaviour
             GameObject cell = GetComponent<BuildingsGrid>().GetCellFromGrid(Mathf.RoundToInt(vec.x), Mathf.RoundToInt(vec.y)); 
             
             // Если на карте еще достаточно поездов для респавна и станций больше 1
-            if (curTrain < maxTrain && stations.Count>1)
+            if (curTrain < maxTrain /*&& stations.Count>1*/)
             {
                 // Если был получена клетка из сетки строительства, и на ней станция
                 if (cell && cell.GetComponent<Station>())
@@ -277,7 +277,7 @@ public class RespawnMode : MonoBehaviour
         Vector2[] points = new Vector2[1];
         points[0] = new Vector2(curStation.transform.position.x - 0.501f, curStation.transform.position.y);
 
-        RespawnTrain(points);
+        RespawnTrain_(points);
 
         GetComponent<GameControler>().ActDeactRespawnTrainMode();
     }
@@ -286,7 +286,7 @@ public class RespawnMode : MonoBehaviour
         Vector2[] points = new Vector2[1];
         points[0] = new Vector2(curStation.transform.position.x + 0.501f, curStation.transform.position.y);
 
-        RespawnTrain(points);
+        RespawnTrain_(points);
 
         GetComponent<GameControler>().ActDeactRespawnTrainMode();
     }
@@ -296,7 +296,7 @@ public class RespawnMode : MonoBehaviour
         points[0] = new Vector2(curStation.transform.position.x, curStation.transform.position.y + 0.501f);
 
 
-        RespawnTrain(points);
+        RespawnTrain_(points);
 
         GetComponent<GameControler>().ActDeactRespawnTrainMode();
     }
@@ -305,7 +305,7 @@ public class RespawnMode : MonoBehaviour
         Vector2[] points = new Vector2[1];
         points[0] = new Vector2(curStation.transform.position.x, curStation.transform.position.y - 0.501f);
 
-        RespawnTrain(points);
+        RespawnTrain_(points);
 
         GetComponent<GameControler>().ActDeactRespawnTrainMode();
     }
@@ -315,7 +315,7 @@ public class RespawnMode : MonoBehaviour
         Vector2[] points = new Vector2[1];
         points[0] = new Vector2(curStation.transform.position.x + 0.501f, curStation.transform.position.y + 0.501f);
 
-        RespawnTrain(points);
+        RespawnTrain_(points);
 
         GetComponent<GameControler>().ActDeactRespawnTrainMode();
     }
@@ -324,7 +324,7 @@ public class RespawnMode : MonoBehaviour
         Vector2[] points = new Vector2[1];
         points[0] = new Vector2(curStation.transform.position.x - 0.501f, curStation.transform.position.y - 0.501f);
 
-        RespawnTrain(points);
+        RespawnTrain_(points);
 
         GetComponent<GameControler>().ActDeactRespawnTrainMode();
     }
@@ -333,7 +333,7 @@ public class RespawnMode : MonoBehaviour
         Vector2[] points = new Vector2[1];
         points[0] = new Vector2(curStation.transform.position.x - 0.501f, curStation.transform.position.y + 0.501f);
 
-        RespawnTrain(points);
+        RespawnTrain_(points);
 
         GetComponent<GameControler>().ActDeactRespawnTrainMode();
     }
@@ -342,7 +342,7 @@ public class RespawnMode : MonoBehaviour
         Vector2[] points = new Vector2[1];
         points[0] = new Vector2(curStation.transform.position.x + 0.501f, curStation.transform.position.y - 0.501f);
 
-        RespawnTrain(points);
+        RespawnTrain_(points);
 
         GetComponent<GameControler>().ActDeactRespawnTrainMode(); ;
     }
@@ -397,11 +397,23 @@ public class RespawnMode : MonoBehaviour
     }
 
 
+    public void RespawnTrain_(Vector2[] points)
+    {
+        GameObject train = Instantiate(TrainPref, curStation.transform.position, Quaternion.identity);
+
+        train.GetComponent<TrainScript>().CreateTrain(curStation, points);
+    }
+
+
     public void AddStation (GameObject station)
     {
         stations.Add(station);
     }
 
+    public int CountStation()
+    {
+        return stations.Count;
+    }
 
     public void ArrivedAtStation(GameObject station, Color color)
     {

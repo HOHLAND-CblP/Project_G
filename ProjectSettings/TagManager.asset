@@ -8,6 +8,23 @@ TagManager:
   - Station
   - Arrow
   - Carriage
+  - TeleportIn
+  - DoorIn
+  - Bag
+  - DoorOut
+  - Stop
+  - Doctor
+  - TeleportOut
+  - Fridge
+  - Cashier
+  - Bed
+  - NPC
+  - Safe
+  - Computer
+  - Door
+  - Hero
+  - Location
+  - Factory
   layers:
   - Default
   - TransparentFX

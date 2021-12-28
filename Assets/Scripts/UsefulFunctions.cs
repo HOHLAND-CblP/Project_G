@@ -38,5 +38,22 @@ namespace LolilopGamesLibrary
 
             return textGenerator.characterCountVisible;
         }
+
+        // Удаляет всех детей у переданного Transform'а
+        public static void DestroyAllChild(Transform trans)
+        {
+            for (int i = trans.childCount - 1; i >= 0; i--)
+            {
+                Destroy(trans.GetChild(i).gameObject);
+            }
+        }
+
+        public static void DestroyAllChildEditor(Transform trans)
+        {
+            for (int i = trans.childCount - 1; i >= 0; i--)
+            {
+                DestroyImmediate(trans.GetChild(i).gameObject);
+            }
+        }
     }
 }

@@ -10,6 +10,11 @@ using UnityEngine.EventSystems;
 
 public class GameControler : MonoBehaviour
 {
+    [Header("Components")]
+    [SerializeField]
+    GameObject canvas;
+    public GameObject notificationPanel;
+
     // Режимы
     bool respawnTrainMode;  // Режим респавна поездов
     bool buildingMode;      // Режим строительства    
@@ -17,6 +22,11 @@ public class GameControler : MonoBehaviour
     // UI элементы респавна
     public GameObject RespawnUI;    // Кнопка респавна
 
+
+    // UI элемнты ресурсов
+    public Text woodScore;
+    public Text stoneScore;
+    public Text ironScore;
 
     // UI элементы строительства
     [Space(20)]
@@ -36,24 +46,28 @@ public class GameControler : MonoBehaviour
     // Блокировка панели скоростей из вне
     public bool blockSpeedPanel;
 
+
     // Список зданий находяшихся в начале сцены
     List<GameObject> buildings = new List<GameObject>();    // Был создан из-за незнания возможности настройки порядкового запуска скриптов
                                                             // Каждый Building на сцене в Awake отправляет информаию в этот список, 
                                                             // а затем добавляется в сетку (массив Grid)
    
 
+    public GameObject GetCanvas()
+    {
+        return canvas;
+    }
+
 
     private void Awake()
     {
-        Application.targetFrameRate = 300;
+        //Application.targetFrameRate = Application.;
     }
 
 
     void Start()
     {
-        GetComponent<BuildingsGrid>().enabled = false;      // Выключаем управляющий скрипт режимом строительства
         GetComponent<RespawnMode>().enabled = false;        // Выключаем управляющий скрипт режимом респавна
-        GetComponent<RailwayControler>().enabled = false;   // Выключаем управляющий скрипт жд дорогой
 
         buildingUI.SetActive(false);    // Ставим в инвиз UI-элементы строителства
 
@@ -67,7 +81,12 @@ public class GameControler : MonoBehaviour
         buildings = null;
 
         GetComponent<RailwayControler>().StartConect(); // Запускаем функцию соединения станций (визуально)
+
+        PlayerPrefs.SetInt("WoodCount", 15);
+        PlayerPrefs.SetInt("StoneCount", 15);
+        PlayerPrefs.SetInt("IronCount", 0);
     }
+
 
     void Update()
     {
@@ -76,7 +95,7 @@ public class GameControler : MonoBehaviour
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             GameObject build = GetComponent<BuildingsGrid>().GetCellFromGrid(Mathf.RoundToInt(mousePos.x), Mathf.RoundToInt(mousePos.y));
-            if (build!=null)
+            if (build!=null && !EventSystem.current.IsPointerOverGameObject())
             {
                 build.GetComponent<Building>().ClickOnTheCell();
             }
@@ -86,10 +105,20 @@ public class GameControler : MonoBehaviour
             ActDeactBuildingMode();
 
         
-        if (Input.GetKeyDown(KeyCode.Escape))   // Выход в меню
+        if (Input.GetKeyDown(KeyCode.Escape) && !buildingMode)   // Выход в меню
         {
             SceneManager.LoadScene(0);
         }
+    }
+
+    private void FixedUpdate()
+    {
+        if (woodScore)
+            woodScore.text = PlayerPrefs.GetInt("WoodCount").ToString();
+        if (stoneScore)
+            stoneScore.text = PlayerPrefs.GetInt("StoneCount").ToString();
+        if (ironScore)
+            ironScore.text = PlayerPrefs.GetInt("IronCount").ToString();
     }
 
 
@@ -147,11 +176,29 @@ public class GameControler : MonoBehaviour
     }
 
 
-
     public void AddBuildings(GameObject build)
     {
         if (buildings != null)
             buildings.Add(build);
+    }
+
+
+    public void AddResources(string res, int countRes)
+    {
+        switch (res)
+        {
+            case "Wood":
+                PlayerPrefs.SetInt("WoodCount", PlayerPrefs.GetInt("WoodCount") + countRes);
+                break;
+
+            case "Stone":
+                PlayerPrefs.SetInt("StoneCount", PlayerPrefs.GetInt("StoneCount") + countRes);
+                break;
+
+            case "Iron":
+                PlayerPrefs.SetInt("IronCount", PlayerPrefs.GetInt("IronCount") + countRes);
+                break;
+        }
     }
 
 
